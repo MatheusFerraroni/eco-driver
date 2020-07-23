@@ -18,3 +18,17 @@ netgenerate.exe -g --grid.x-number 20 --perturb-x 23 --grid.y-number 2 --perturb
 netgenerate.exe -g --grid.x-number 20 --perturb-x 23 --grid.y-number 2 --perturb-z 100 -o 8.net.xml --seed 1243412
 
 netgenerate.exe -g --grid.x-number 20 --perturb-x 23 --grid.y-number 2 --perturb-z 100 -o 9.net.xml --seed 5982279
+
+
+
+for i in 0 1 2 3 4 5 6 7 8 9
+do
+  rm "$i.sumo.cfg"
+  touch "$i.sumo.cfg"
+  echo "<configuration>\
+	<input>\
+		<net-file value=\"$i.net.xml\"/>\
+		<route-files value=\"rota.rou.xml\"/>\
+	</input>\
+</configuration>" >> $i.sumo.cfg
+done

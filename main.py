@@ -67,11 +67,10 @@ def terminate_sumo(sumo):
 
 
 def custom_mutate(index, genome):
-    if genome[index]==0:
-        genome[index] = 1
-    else:
-        genome[index] = 0
-    return genome
+    v = genome[i]
+
+    # if np.random.random()>0.5:
+    #     v 
 
 def run():
 
@@ -88,25 +87,32 @@ def run():
 
     total_fuel = 0
 
-    while step == 1 or traci.simulation.getMinExpectedNumber() > 0:        
-        traci.simulationStep()                          
-        vehicles = traci.simulation.getEndingTeleportIDList()        
-        for vehicle in vehicles:
-            traci.vehicle.remove(vehicle, reason=4)    
+    try:
+        while step == 1 or traci.simulation.getMinExpectedNumber() > 0:        
+            traci.simulationStep()                          
+            vehicles = traci.simulation.getEndingTeleportIDList()        
+            for vehicle in vehicles:
+                traci.vehicle.remove(vehicle, reason=4)
 
-        # print("getAccel",traci.vehicle.getAccel("caminhao"))
-        # print("getVehicleClass",traci.vehicle.getVehicleClass("caminhao"))
-        # print("getEmissionClass",traci.vehicle.getEmissionClass("caminhao"))
-        # print("getFuelConsumption",traci.vehicle.getFuelConsumption("caminhao"))
+            # print("getAccel",traci.vehicle.getAccel("caminhao"))
+            # print("getVehicleClass",traci.vehicle.getVehicleClass("caminhao"))
+            # print("getEmissionClass",traci.vehicle.getEmissionClass("caminhao"))
+            # print("getFuelConsumption",traci.vehicle.getFuelConsumption("caminhao"))
 
-        try:
-            total_fuel += traci.vehicle.getFuelConsumption("caminhao")
-        except:
-            pass
+            try:
+                total_fuel += traci.vehicle.getFuelConsumption("caminhao")
+            except:
+                pass
 
-        step += 1
+            step += 1
+    except Exception as e:
+        print("######################")
+        print(e)
+        print("######################")
+
     
 
+    time.sleep(1)
     print("Simulation finished")
     traci.close()
     sys.stdout.flush()
@@ -128,8 +134,8 @@ def start_simulation(sumo, scenario, network, output):
         return run()
     except Exception as e:
         print(e)
-        terminate_sumo(sumo)
-        unused_port_lock.__exit__()
+        # terminate_sumo(sumo)
+        # unused_port_lock.__exit__()
         raise
     finally:
         print("Terminating SUMO")  
@@ -142,12 +148,14 @@ def custom_fitness():
     mapas = ["0.net.xml","1.net.xml","2.net.xml","3.net.xml","4.net.xml","5.net.xml","6.net.xml","7.net.xml","8.net.xml","9.net.xml"]
     folder = "./mapas/"
 
+    consumo_total = 0
     for m in mapas:
 
         consumo = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "./output/"+m)
 
-        print(m)
-        print ("CONSUMO", consumo)
+        consumo_total += consumo
+
+    return 1-(consumo/50000)
 
 
 def main():
