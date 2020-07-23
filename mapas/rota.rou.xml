@@ -2,6 +2,5 @@
     <vType id="type1" accel="0.8" decel="4.5" sigma="0.5" length="5" maxSpeed="70"/>
 
 
-      <trip id="t" type="type1" depart="0" from="A0B0" to="I0J0"/>
 
 </routes>
