@@ -10,8 +10,8 @@ import threading
 import socket
 import subprocess
 import time
-# from ia.model import Model
-# import pandas as pd
+from keras.models import Sequential
+from keras.layers import Dense
 
 
 if 'SUMO_HOME' in os.environ:
@@ -22,6 +22,14 @@ else:
 import traci
 
 
+def get_model():
+    model = Sequential()
+    model.add(Dense(10, activation='relu', input_shape=(10,)))
+    model.add(Dense(5, activation='relu'))
+    model.add(Dense(1, activation='sigmoid'))
+    model.compile(optimizer='adam', loss='categorical_crossentropy')
+
+    return model
 
 
 
@@ -74,7 +82,7 @@ def custom_mutate(genome):
     return genome
 
 
-def run():
+def run(model):
 
     step = 1
     
@@ -122,7 +130,7 @@ def run():
 
     return total_fuel
 
-def start_simulation(sumo, scenario, network, output):
+def start_simulation(sumo, scenario, network, output, model):
     unused_port_lock = UnusedPortLock()
     unused_port_lock.__enter__()
     remote_port = find_unused_port()
@@ -133,11 +141,9 @@ def start_simulation(sumo, scenario, network, output):
 
     try:
         traci.init(remote_port)            
-        return run()
+        return run(model)
     except Exception as e:
         print(e)
-        # terminate_sumo(sumo)
-        # unused_port_lock.__exit__()
         raise
     finally:
         print("Terminating SUMO")  
@@ -145,7 +151,9 @@ def start_simulation(sumo, scenario, network, output):
         unused_port_lock.__exit__()
 
 
-def custom_fitness():
+def custom_fitness(genome):
+    model = get_model()
+    model.set_weights(genome)
 
     mapas = ["0.net.xml","1.net.xml","2.net.xml","3.net.xml","4.net.xml","5.net.xml","6.net.xml","7.net.xml","8.net.xml","9.net.xml"]
     folder = "./mapas/"
@@ -153,17 +161,14 @@ def custom_fitness():
     consumo_total = 0
     for m in mapas:
 
-        consumo = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "./output/"+m)
+        consumo = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "./output/"+m, model)
 
         consumo_total += consumo
 
     return 1-(consumo/50000)
 
 def custom_random_genome():
-    model = Sequential()
-    model.add(Dense(12, input_dim=8, activation='relu'))
-    model.add(Dense(8, activation='relu'))
-    model.add(Dense(1, activation='sigmoid'))
+    model = get_model()
     return np.array(model.get_weights())
 
 def main():
