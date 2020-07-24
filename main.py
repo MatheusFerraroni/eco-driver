@@ -27,7 +27,7 @@ import traci
 
 
 mapas_todos = ["0.net.xml","1.net.xml","2.net.xml","3.net.xml","4.net.xml","5.net.xml","6.net.xml","7.net.xml","8.net.xml","9.net.xml"]
-mapas_todos = ["0.net.xml"]
+mapas_todos = ["0.net.xml","1.net.xml","2.net.xml"]
 
 
 max_speed_caminhao = 30 # ~ 108km/h
@@ -40,6 +40,15 @@ max_dif_altura = 60+10 # +10 margem de segurança
 
 caminho_veiculo = ['A0B0', 'B0C0', 'C0D0', 'D0E0', 'E0F0', 'F0G0', 'G0H0', 'H0I0', 'I0J0', 'J0K0', 'K0L0', 'L0M0', 'M0N0', 'N0O0', 'O0P0', 'P0Q0', 'Q0R0', 'R0S0', 'S0T0']
 extras_mapas = None
+
+def get_model():
+    model = Sequential()
+    model.add(Dense(6, activation='sigmoid', input_shape=(6,)))
+    model.add(Dense(6, activation='sigmoid'))
+    model.add(Dense(1, activation='sigmoid'))
+    model.compile(optimizer='adam', loss='categorical_crossentropy')
+
+    return model
 
 def getClosest(arr, n, target):
 
@@ -81,7 +90,8 @@ def getClosest(arr, n, target):
           
     # Only single element left after search 
     return arr[mid] 
-  
+
+
 def get_info_pos(mapa, x):
     global extras_mapas
     if extras_mapas==None:
@@ -94,16 +104,6 @@ def get_info_pos(mapa, x):
     d = extras_mapas[mapa]
     return getClosest(d,len(d),x)
 
-
-def get_model():
-    model = Sequential()
-    model.add(Dense(12, activation='sigmoid', input_shape=(6,)))
-    model.add(Dense(12, activation='sigmoid'))
-    model.add(Dense(12, activation='sigmoid'))
-    model.add(Dense(1, activation='sigmoid'))
-    model.compile(optimizer='adam', loss='categorical_crossentropy')
-
-    return model
 
 
 
@@ -147,15 +147,15 @@ def terminate_sumo(sumo):
 
 
 
-def custom_mutate(genome):
-    # print(len(genome))
-    # sys.exit()
-    # for i in range(len(genome)):
-        # for j in range(len(genome[i])):
-            # pass
-    #     genome[i][j] = (genome[i][j]*np.random.uniform(low=0.9, high=1.1)) + np.random.uniform(low=-0.01, high=0.01)
-
-    return genome
+def custom_mutate(wei):
+    if type(wei)==np.ndarray:
+        ret = []
+        for w in wei:
+            ret.append(custom_mutate(w))
+        return np.array(ret, dtype=object)
+    
+    return (wei*np.random.uniform(low=0.9, high=1.1)) + np.random.uniform(low=-0.01, high=0.01)
+    
 
 
 def run(model, mapa):
@@ -174,9 +174,9 @@ def run(model, mapa):
     total_fuel = 0
 
     try:
-        while step == 1 or traci.simulation.getMinExpectedNumber() > 0:        
-            traci.simulationStep()                          
-            vehicles = traci.simulation.getEndingTeleportIDList()        
+        while step == 1 or traci.simulation.getMinExpectedNumber() > 0:
+            traci.simulationStep()
+            vehicles = traci.simulation.getEndingTeleportIDList()
             for vehicle in vehicles:
                 traci.vehicle.remove(vehicle, reason=4)
 
@@ -238,7 +238,7 @@ def run_pre():
     traci.vehicle.add("path_mapper", "trip")
     traci.vehicle.setParameter("path_mapper","carFollowModel","KraussPS")
     traci.vehicle.setVehicleClass("path_mapper","passenger")
-    traci.vehicle.setMaxSpeed("path_mapper",1) # ~ 108km/h
+    traci.vehicle.setMaxSpeed("path_mapper",1) # 3.6
 
 
 
@@ -323,7 +323,6 @@ def start_simulation(sumo, scenario, network, output, model, mapa):
 def custom_fitness(genome, outputfile):
     model = get_model()
 
-    print("_________",type(genome[0]))
     model.set_weights(genome)
 
     mapas = mapas_todos
@@ -332,15 +331,17 @@ def custom_fitness(genome, outputfile):
     consumo_total = 0
     for m in mapas:
 
-        # consumo = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "./output/"+m+outputfile, model, m)
+        consumo = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "./output/"+m+outputfile, model, m)
 
-        # consumo_total += consumo
-        pass
+        consumo_total += consumo
     return 1-(consumo_total/50000)
 
 def custom_random_genome():
     model = get_model()
-    return model.get_weights()
+
+    w = model.get_weights()
+
+    return custom_mutate(np.array(w, dtype=object))
 
 
 
@@ -357,11 +358,11 @@ def pre_simulation():
         f.write(json.dumps(dados))
         f.close()
 
+
+
 def main():
 
-    print(type(custom_random_genome()))
-    sys.exit()
-    # pre_simulation()
+
 
     folder = './output/'
     for filename in os.listdir(folder):
@@ -375,8 +376,9 @@ def main():
             print('Failed to delete %s. Reason: %s' % (file_path, e))
 
 
-    population_size   = 2
-    iteration_limit   = 2
+    pre_simulation()
+    population_size   = 10
+    iteration_limit   = 10
     cut_half_pop      = True
     replicate_best    = 0.1
 

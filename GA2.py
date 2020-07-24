@@ -2,17 +2,8 @@ import numpy as np
 import threading
 import time
 import sys
-
-
-"""
-
-Links que podem ser uteis:
-
-https://www.geeksforgeeks.org/crossover-in-genetic-algorithm/
-
-
-"""
-
+import codecs
+import json
 
 
 
@@ -109,10 +100,6 @@ class GeneticAlgorithm:
         if len(self.population)==0:
             self.create_initial_population()
 
-        for i in range(len(self.population)):
-            print(type(self.population[i].genome))
-
-        sys.exit()
         while self.check_stop():
             self.calculate_score() # PRIMEIRO: Definir score
             self.population.sort(key=lambda x: x.score, reverse=True) # SEGUNDO: Ordenar pelo score
@@ -219,6 +206,15 @@ class GeneticAlgorithm:
     Salva os logs da geracao na variavel self.historic
 
     """
+
+    def gen_to_array(self, gen):
+        if type(gen)==np.ndarray:
+            ret = []
+            for i in range(len(gen)):
+                ret.append(self.gen_to_array(gen[i]))
+            return ret
+        return gen
+
     def do_log(self):
 
             score_geracao_medio = 0
@@ -232,7 +228,7 @@ class GeneticAlgorithm:
 
             todos_genomes = []
             for i in range(len(self.population)):
-                todos_genomes.append(self.population[i].genome.tolist())
+                todos_genomes.append(self.gen_to_array(self.population[i].genome))
 
 
             self.historic.append({"geracao":self.iteration_counter,
@@ -240,8 +236,9 @@ class GeneticAlgorithm:
                 "min":score_geracao_min,
                 "avg":score_geracao_medio,
                 "best":self.best_element_total.score,
-                "best_genome":self.best_element_total.genome.tolist(),
-                "todos_genomes":todos_genomes})
+                "best_genome":self.gen_to_array(self.best_element_total.genome),
+                # "todos_genomes":todos_genomes
+                })
                
 
 
@@ -358,71 +355,25 @@ class GeneticAlgorithm:
     # chama o metodo de crossover que esta sendo utilizado
     def crossover(self, genA, genB):
         return self.crossover_uniform(genA, genB)
-        # if self.crossover_type==0:
-        # elif self.crossover_type==1:
-        #     return self.crossover_single_point(genA, genB)
-        # elif self.crossover_type==2:
-        #     return self.crossover_two_point(genA, genB)
-        # elif self.crossover_type==3:
-        #     return self.crossover_rate_selection(genA, genB)
 
-    # def crossover_rate_selection(self, genA, genB):
-    #     new = np.array([],dtype=int)
-    #     for i in range(len(genA)):
-    #         if np.random.random()<self.crossover_rate:
-    #             new = np.append(new, genA[i])
-    #         else:
-    #             new = np.append(new, genB[i])
-    #     return new
 
     # CROSSOVER (Uniform Crossover)
     def crossover_uniform(self, genA, genB):
-        new = np.array([])
-        for i in range(len(genA)):
-            n = np.array([])
-            for j in range(len(genA[i])):
-                if np.random.random()<0.5:
-                    n = np.append(n, genA[i][j])
-                else:
-                    n = np.append(n, genB[i][j])
+        if type(genA)==np.ndarray:
+            ret = []
+            for i in range(len(genA)):
+                ret.append(self.crossover_uniform(genA[i], genB[i]))
+            return np.array(ret, dtype=object)
+        if np.random.random()<0.5:
+            return genA
+        else:
+            return genB
 
-            new = np.append(new, n)
-        return new
-
-    # # CROSSOVER (Single Point Crossover)
-    # def crossover_single_point(self, genA, genB):
-    #     p = np.random.randint(low=1,high=len(genA)-1) # comeca em 1 e termina em len-1 para não poder simplesmente copiar o elemento
-    #     return np.append(genA[0:p],genB[p:])
-
-    # # CROSSOVER (Two-Point Crossover)
-    # def crossover_two_point(self, genA, genB):
-    #     c1 = c2 = np.random.randint(low=0,high=len(genA)) # gera um valor inteiro aleatorio de 0 a len(genoma)
-    #     while c2==c1: # enquanto c1 e c2 forem iguais, gera valores novos para c2. isso garante que o corte tenha posicoes diferentes
-    #         c2 = np.random.randint(low=0,high=len(genA))
-
-    #     if c1>c2: # cooloca o menor na posicao c1
-    #         c1, c2 = c2,c1
-
-    #     new = np.append(np.append(genA[0:c1],genB[c1:c2]),genA[c2:]) # concatena o genomaA+genomaB+genomaA utilizando os cortes para definir onde cortar e contatenar
-
-    #     return new
 
 
 
     #chama a funcao que calcula o score para cada elemento da populacao
     def calculate_score(self):
-        # if self.use_threads: # se as threads estão ativas elas são chamadas aqui
-
-        #     threads_running = []
-        #     for e in self.population:
-        #         x = threading.Thread(target=self.thread_evaluate, args=(e,))
-        #         x.start()
-        #         threads_running.append(x)
-
-        #     for i in range(len(threads_running)):
-        #         threads_running[i].join()
-
-        # else: # se não tiver threads os elementos são avaliados sequencialmente
         for e in self.population:
             e.score = self.evaluate(e.genome, "_"+str(e.geracao)+"_"+str(e.idd)+".out.xml")
 
