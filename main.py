@@ -1,9 +1,10 @@
 import GA2
 import numpy as np
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
 import matplotlib.pyplot as plt
 import argparse
 import json
-import os
 import sys
 from datetime import datetime
 import threading
@@ -12,6 +13,8 @@ import subprocess
 import time
 from keras.models import Sequential
 from keras.layers import Dense
+import shutil
+
 
 
 if 'SUMO_HOME' in os.environ:
@@ -24,6 +27,7 @@ import traci
 
 
 mapas_todos = ["0.net.xml","1.net.xml","2.net.xml","3.net.xml","4.net.xml","5.net.xml","6.net.xml","7.net.xml","8.net.xml","9.net.xml"]
+mapas_todos = ["0.net.xml"]
 
 
 max_speed_caminhao = 30 # ~ 108km/h
@@ -136,18 +140,20 @@ def find_unused_port():
 
 def terminate_sumo(sumo):
 
-    for _ in range(3):
-        if sumo.returncode == None:
-            os.system("taskkill.exe /F /im sumo.exe")
-            time.sleep(1)
+    if sumo.returncode == None:
+        os.system("taskkill.exe /F /im sumo.exe")
+        time.sleep(1)
 
 
 
 
 def custom_mutate(genome):
-    for i in range(len(genome)):
-      for j in range(len(genome[i])):
-        genome[i][j] = genome[i][j]*np.random.uniform(low=0.9, high=1.1)
+    # print(len(genome))
+    # sys.exit()
+    # for i in range(len(genome)):
+        # for j in range(len(genome[i])):
+            # pass
+    #     genome[i][j] = (genome[i][j]*np.random.uniform(low=0.9, high=1.1)) + np.random.uniform(low=-0.01, high=0.01)
 
     return genome
 
@@ -216,7 +222,6 @@ def run(model, mapa):
 
     
 
-    time.sleep(1)
     print("Simulation finished")
     traci.close()
     sys.stdout.flush()
@@ -315,8 +320,10 @@ def start_simulation(sumo, scenario, network, output, model, mapa):
         unused_port_lock.__exit__()
 
 
-def custom_fitness(genome):
+def custom_fitness(genome, outputfile):
     model = get_model()
+
+    print("_________",type(genome[0]))
     model.set_weights(genome)
 
     mapas = mapas_todos
@@ -325,15 +332,15 @@ def custom_fitness(genome):
     consumo_total = 0
     for m in mapas:
 
-        consumo = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "./output/"+m, model, m)
+        # consumo = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "./output/"+m+outputfile, model, m)
 
-        consumo_total += consumo
-
-    return 1-(consumo/50000)
+        # consumo_total += consumo
+        pass
+    return 1-(consumo_total/50000)
 
 def custom_random_genome():
     model = get_model()
-    return np.array(model.get_weights())
+    return model.get_weights()
 
 
 
@@ -352,10 +359,24 @@ def pre_simulation():
 
 def main():
 
-    pre_simulation()
-    return
-    population_size   = 10
-    iteration_limit   = 10
+    print(type(custom_random_genome()))
+    sys.exit()
+    # pre_simulation()
+
+    folder = './output/'
+    for filename in os.listdir(folder):
+        file_path = os.path.join(folder, filename)
+        try:
+            if os.path.isfile(file_path) or os.path.islink(file_path):
+                os.unlink(file_path)
+            elif os.path.isdir(file_path):
+                shutil.rmtree(file_path)
+        except Exception as e:
+            print('Failed to delete %s. Reason: %s' % (file_path, e))
+
+
+    population_size   = 2
+    iteration_limit   = 2
     cut_half_pop      = True
     replicate_best    = 0.1
 
@@ -365,13 +386,8 @@ def main():
             str(replicate_best)
 
 
-
-
-
-
     g = GA2.GeneticAlgorithm(custom_random_genome)
     g.set_evaluate(custom_fitness)
-
 
     g.set_population_size(population_size)
     g.set_iteration_limit(iteration_limit)

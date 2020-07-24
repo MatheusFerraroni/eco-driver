@@ -1,0 +1,17 @@
+{
+  "ga_config": {
+    "mutation_rate": 0,
+    "population_size": 2,
+    "iteration_limit": 2,
+    "elements_created": 2,
+    "crossover_type": 0,
+    "max_possible_score": Infinity,
+    "iteration_counter": 0,
+    "stop_criteria_type": 0,
+    "probs_type": 0,
+    "crossover_rate": 0.5,
+    "cut_half_population": true,
+    "replicate_best": 0.1
+  },
+  "historic": []
+}

@@ -1,6 +1,7 @@
 import numpy as np
 import threading
 import time
+import sys
 
 
 """
@@ -72,7 +73,6 @@ class GeneticAlgorithm:
 
         self.replicate_best = 0 # amount of best elements to replicate between generations
         self.set_random_genome(random_genome_func)
-        self.create_initial_population()
 
 
     def get_config(self):
@@ -103,8 +103,16 @@ class GeneticAlgorithm:
 
         print("[GA] Evolução iniciada")
 
+
         self.time_start = time.time()
 
+        if len(self.population)==0:
+            self.create_initial_population()
+
+        for i in range(len(self.population)):
+            print(type(self.population[i].genome))
+
+        sys.exit()
         while self.check_stop():
             self.calculate_score() # PRIMEIRO: Definir score
             self.population.sort(key=lambda x: x.score, reverse=True) # SEGUNDO: Ordenar pelo score
@@ -332,6 +340,7 @@ class GeneticAlgorithm:
     # gera uma populacao nova
     # o metodo random_genome precisa ter sido override
     def create_initial_population(self):
+        self.population = []
         for _ in range(self.population_size):
             self.population.append(element(self.elements_created, 0, self.random_genome()))
             self.elements_created += 1
@@ -368,15 +377,17 @@ class GeneticAlgorithm:
 
     # CROSSOVER (Uniform Crossover)
     def crossover_uniform(self, genA, genB):
-        new = []
+        new = np.array([])
         for i in range(len(genA)):
-          new.append([])
-          for j in range(len(genA[i])):
-              if np.random.random()<0.5:
-                  new[i].append(genA[i][j])
-              else:
-                  new[i].append(genB[i][j])
-        return np.asarray(new)
+            n = np.array([])
+            for j in range(len(genA[i])):
+                if np.random.random()<0.5:
+                    n = np.append(n, genA[i][j])
+                else:
+                    n = np.append(n, genB[i][j])
+
+            new = np.append(new, n)
+        return new
 
     # # CROSSOVER (Single Point Crossover)
     # def crossover_single_point(self, genA, genB):
@@ -400,20 +411,20 @@ class GeneticAlgorithm:
 
     #chama a funcao que calcula o score para cada elemento da populacao
     def calculate_score(self):
-        if self.use_threads: # se as threads estão ativas elas são chamadas aqui
+        # if self.use_threads: # se as threads estão ativas elas são chamadas aqui
 
-            threads_running = []
-            for e in self.population:
-                x = threading.Thread(target=self.thread_evaluate, args=(e,))
-                x.start()
-                threads_running.append(x)
+        #     threads_running = []
+        #     for e in self.population:
+        #         x = threading.Thread(target=self.thread_evaluate, args=(e,))
+        #         x.start()
+        #         threads_running.append(x)
 
-            for i in range(len(threads_running)):
-                threads_running[i].join()
+        #     for i in range(len(threads_running)):
+        #         threads_running[i].join()
 
-        else: # se não tiver threads os elementos são avaliados sequencialmente
-            for e in self.population:
-                e.score = self.evaluate(e.genome)
+        # else: # se não tiver threads os elementos são avaliados sequencialmente
+        for e in self.population:
+            e.score = self.evaluate(e.genome, "_"+str(e.geracao)+"_"+str(e.idd)+".out.xml")
 
 
     #funcao que as threads chamam para avaliar o elemento
