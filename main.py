@@ -1,4 +1,4 @@
-import GA
+import GA2
 import numpy as np
 import matplotlib.pyplot as plt
 import argparse
@@ -66,11 +66,13 @@ def terminate_sumo(sumo):
 
 
 
-def custom_mutate(index, genome):
-    v = genome[i]
+def custom_mutate(genome):
+    for i in range(len(genome)):
+      for j in range(len(genome[i])):
+        genome[i][j] = genome[i][j]*np.random.uniform(low=0.9, high=1.1)
 
-    # if np.random.random()>0.5:
-    #     v 
+    return genome
+
 
 def run():
 
@@ -157,11 +159,15 @@ def custom_fitness():
 
     return 1-(consumo/50000)
 
+def custom_random_genome():
+    model = Sequential()
+    model.add(Dense(12, input_dim=8, activation='relu'))
+    model.add(Dense(8, activation='relu'))
+    model.add(Dense(1, activation='sigmoid'))
+    return np.array(model.get_weights())
 
 def main():
 
-    custom_fitness()
-    return
     population_size   = 10
     iteration_limit   = 10
     crossover_type    = 3
@@ -181,19 +187,9 @@ def main():
 
 
 
-    # df = pd.read_csv(args.dataset[0])
-
-    # model = Model()
-    # df = model.make_fair(df, dataset_name)
-
-    # target = targets[dataset_name]
-    # target = df.pop(target)
 
 
-    def custom_random_genome():
-        return np.random.random(20)
-
-    g = GA.GeneticAlgorithm(custom_random_genome)
+    g = GA2.GeneticAlgorithm(custom_random_genome)
     g.set_evaluate(custom_fitness)
 
 
