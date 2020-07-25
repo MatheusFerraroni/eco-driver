@@ -334,7 +334,7 @@ def custom_fitness(genome, outputfile):
         consumo = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "./output/"+m+outputfile, model, m)
 
         consumo_total += consumo
-    return 1-(consumo_total/50000)
+    return 1-(consumo_total/10000)
 
 def custom_random_genome():
     model = get_model()
