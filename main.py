@@ -27,7 +27,7 @@ import traci
 
 
 mapas_todos = ["0.net.xml","1.net.xml","2.net.xml","3.net.xml","4.net.xml","5.net.xml","6.net.xml","7.net.xml","8.net.xml","9.net.xml"]
-mapas_todos = ["0.net.xml","1.net.xml","2.net.xml"]
+# mapas_todos = ["0.net.xml","1.net.xml","2.net.xml"]
 
 
 max_speed_caminhao = 30 # ~ 108km/h
@@ -377,8 +377,8 @@ def main():
 
 
     pre_simulation()
-    population_size   = 10
-    iteration_limit   = 10
+    population_size   = 50
+    iteration_limit   = 50
     cut_half_pop      = True
     replicate_best    = 0.1
 
