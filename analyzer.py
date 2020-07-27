@@ -47,6 +47,7 @@ def proc(arquivos):
     # ax.set_ylim(0,300)
     # ax.patch.set_facecolor('#87d3e0')
     # ax.set_xlim(-20,1920)
+    print(geracoes_txt)
     ax.plot(geracoes_txt, ys_min_geral,label="ys_min_geral")
     ax.plot(geracoes_txt, ys_max_geral,label="ys_max_geral")
     ax.plot(geracoes_txt, ys_min_geracao,label="ys_min_geracao")

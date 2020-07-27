@@ -43,8 +43,9 @@ extras_mapas = None
 
 def get_model():
     model = Sequential()
-    model.add(Dense(6, activation='sigmoid', input_shape=(6,)))
-    model.add(Dense(6, activation='sigmoid'))
+    model.add(Dense(18, activation='sigmoid', input_shape=(6,)))
+    model.add(Dense(18, activation='sigmoid'))
+    model.add(Dense(18, activation='sigmoid'))
     model.add(Dense(1, activation='sigmoid'))
     model.compile(optimizer='adam', loss='categorical_crossentropy')
 
@@ -377,8 +378,8 @@ def main():
 
 
     pre_simulation()
-    population_size   = 50
-    iteration_limit   = 50
+    population_size   = 10
+    iteration_limit   = 5
     cut_half_pop      = True
     replicate_best    = 0.1
 
