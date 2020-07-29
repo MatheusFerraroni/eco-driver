@@ -1,23 +1,23 @@
 
-netgenerate.exe -g --grid.x-number 20 --perturb-x 10 --grid.y-number 2 --perturb-z 30 -o 0.net.xml --seed 5379479
+netgenerate.exe -g --grid.x-number 21 --grid.y-number 2 --perturb-z 25 --default.speed 100 -o 0.net.xml --seed 5379479
 
-netgenerate.exe -g --grid.x-number 20 --perturb-x 10 --grid.y-number 2 --perturb-z 30 -o 1.net.xml --seed 6831837
+netgenerate.exe -g --grid.x-number 21 --grid.y-number 2 --perturb-z 25 --default.speed 100 -o 1.net.xml --seed 6831837
 
-netgenerate.exe -g --grid.x-number 20 --perturb-x 10 --grid.y-number 2 --perturb-z 30 -o 2.net.xml --seed 9726976
+netgenerate.exe -g --grid.x-number 21 --grid.y-number 2 --perturb-z 25 --default.speed 100 -o 2.net.xml --seed 9726976
 
-netgenerate.exe -g --grid.x-number 20 --perturb-x 10 --grid.y-number 2 --perturb-z 30 -o 3.net.xml --seed 6106279
+netgenerate.exe -g --grid.x-number 21 --grid.y-number 2 --perturb-z 25 --default.speed 100 -o 3.net.xml --seed 6106279
 
-netgenerate.exe -g --grid.x-number 20 --perturb-x 10 --grid.y-number 2 --perturb-z 30 -o 4.net.xml --seed 9023093
+netgenerate.exe -g --grid.x-number 21 --grid.y-number 2 --perturb-z 25 --default.speed 100 -o 4.net.xml --seed 9022593
 
-netgenerate.exe -g --grid.x-number 20 --perturb-x 10 --grid.y-number 2 --perturb-z 30 -o 5.net.xml --seed 4310387
+netgenerate.exe -g --grid.x-number 21 --grid.y-number 2 --perturb-z 25 --default.speed 100 -o 5.net.xml --seed 4310387
 
-netgenerate.exe -g --grid.x-number 20 --perturb-x 10 --grid.y-number 2 --perturb-z 30 -o 6.net.xml --seed 8351704
+netgenerate.exe -g --grid.x-number 21 --grid.y-number 2 --perturb-z 25 --default.speed 100 -o 6.net.xml --seed 8351704
 
-netgenerate.exe -g --grid.x-number 20 --perturb-x 10 --grid.y-number 2 --perturb-z 30 -o 7.net.xml --seed 8419726
+netgenerate.exe -g --grid.x-number 21 --grid.y-number 2 --perturb-z 25 --default.speed 100 -o 7.net.xml --seed 8419726
 
-netgenerate.exe -g --grid.x-number 20 --perturb-x 10 --grid.y-number 2 --perturb-z 30 -o 8.net.xml --seed 1243412
+netgenerate.exe -g --grid.x-number 21 --grid.y-number 2 --perturb-z 25 --default.speed 100 -o 8.net.xml --seed 1243412
 
-netgenerate.exe -g --grid.x-number 20 --perturb-x 10 --grid.y-number 2 --perturb-z 30 -o 9.net.xml --seed 5982279
+netgenerate.exe -g --grid.x-number 21 --grid.y-number 2 --perturb-z 25 --default.speed 100 -o 9.net.xml --seed 5982279
 
 
 

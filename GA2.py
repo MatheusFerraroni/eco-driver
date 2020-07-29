@@ -27,7 +27,7 @@ class element:
 
 
     def __repr__(self):
-        return "(id="+str(self.idd)+",geracao="+str(self.geracao)+",score="+str(self.score)+")"
+        return "(id={},geracao={},score={:.20f})".format(self.idd, self.geracao,self.score)
 
 
 """
@@ -111,15 +111,16 @@ class GeneticAlgorithm:
                 self.best_element_total = self.population[0]
 
             self.do_log()
-            print("[GA]  Geração: {}, Best geral: {:.2f}, Best Atual: {:.2f}, Média: {:.2f}".format(self.iteration_counter,self.best_element_total.score,self.historic[-1]["best"],self.historic[-1]["avg"]))
+            print("[GA]  Geração: {}, Best geral: {:.20f}, Best Atual: {:.20f}, Média: {:.20f}".format(self.iteration_counter,self.best_element_total.score,self.historic[-1]["best"],self.historic[-1]["avg"]))
 
 
             if self.cut_half_population: # Desativado por padrão. Pode ser util para ajudar a melhoarar a evolução
                 self.population = self.population[0:len(self.population)//2] # Descarta pior metade da populacao. 
 
+            self.iteration_counter +=1
+            
             self.new_population()
 
-            self.iteration_counter +=1
 
 
 
@@ -144,8 +145,13 @@ class GeneticAlgorithm:
         best_replicator = int(self.population_size*self.replicate_best)
 
         while len(newPop)<self.population_size-best_replicator:
-            #print(probs)
-            parents = np.random.choice(self.population,size=2,p=probs) #seleciona parents
+            parents = []
+            try:
+                parents = np.random.choice(self.population, size=2, p=probs) #seleciona parents
+            except Exception as e:
+                print("[GA] ERRO_POP", self.population)
+                print("[GA] probs", probs)
+                raise
 
             if parents[0].score<parents[1].score: # garantirmos que o parents[0] sempre tem o elemento melhor. assim as funcoes de crossover sempre vao receber ele no primeiro parametro
                 parents = parents[::-1] # reverse o array
@@ -374,13 +380,11 @@ class GeneticAlgorithm:
 
     #chama a funcao que calcula o score para cada elemento da populacao
     def calculate_score(self):
+        print("[GA]  Iniciando avaliação de scores")
         for e in self.population:
             e.score = self.evaluate(e.genome, "_"+str(e.geracao)+"_"+str(e.idd)+".out.xml")
-
-
-    #funcao que as threads chamam para avaliar o elemento
-    def thread_evaluate(self, e):
-        e.score = self.evaluate(e.genome)
+            print("[GA]  Avaliado: "+str(e))
+        print("[GA]  Completo avaliação de scores")
 
 
     # a mutacao troca o valor dos bits entre 0 e 1

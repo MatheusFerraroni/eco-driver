@@ -26,13 +26,28 @@ import traci
 
 
 
-mapas_todos = ["0.net.xml","1.net.xml","2.net.xml","3.net.xml","4.net.xml","5.net.xml","6.net.xml","7.net.xml","8.net.xml","9.net.xml"]
-# mapas_todos = ["0.net.xml","1.net.xml","2.net.xml"]
+mapas_todos = [
+"0.net.xml",
+"1.net.xml",
+"2.net.xml",
+"3.net.xml",
+"4.net.xml",
+"5.net.xml",
+"6.net.xml",
+"7.net.xml",
+"8.net.xml",
+"9.net.xml",
+]
+
+
+# mapas_todos = [
+# "0.net.xml",
+# "1.net.xml",
+# ]
 
 
 max_speed_caminhao = 30 # ~ 108km/h
-max_angle_caminhao = 360 # não sei se é 360 mesmo..
-max_dif_altura = 60+10 # +10 margem de segurança
+max_dif_altura = 50
 
 
 
@@ -43,9 +58,9 @@ extras_mapas = None
 
 def get_model():
     model = Sequential()
-    model.add(Dense(18, activation='sigmoid', input_shape=(6,)))
-    model.add(Dense(18, activation='sigmoid'))
-    model.add(Dense(18, activation='sigmoid'))
+    model.add(Dense(8, activation='sigmoid', input_shape=(6,)))
+    model.add(Dense(8, activation='sigmoid'))
+    model.add(Dense(8, activation='sigmoid'))
     model.add(Dense(1, activation='sigmoid'))
     model.compile(optimizer='adam', loss='categorical_crossentropy')
 
@@ -140,8 +155,7 @@ def find_unused_port():
     return port
 
 def terminate_sumo(sumo):
-
-    if sumo.returncode == None:
+    if sumo.returncode != None:
         os.system("taskkill.exe /F /im sumo.exe")
         time.sleep(1)
 
@@ -170,17 +184,18 @@ def run(model, mapa):
     traci.vehicle.setShapeClass("caminhao","truck")
     traci.vehicle.setEmissionClass("caminhao","HBEFA3/HDV")
     traci.vehicle.setMaxSpeed("caminhao",max_speed_caminhao) 
-
+    r = 1
 
     total_fuel = 0
 
     try:
         while step == 1 or traci.simulation.getMinExpectedNumber() > 0:
             traci.simulationStep()
-            vehicles = traci.simulation.getEndingTeleportIDList()
-            for vehicle in vehicles:
-                traci.vehicle.remove(vehicle, reason=4)
 
+            if step>1000:
+                total_fuel = float("Infinity")
+                for v in traci.vehicle.getIDList():
+                    traci.vehicle.remove(v, reason=4)
 
             try:
                 speed = traci.vehicle.getSpeed("caminhao")
@@ -194,23 +209,23 @@ def run(model, mapa):
                 inf70 = get_info_pos(mapa, x+70)
 
                 speed /= max_speed_caminhao
-                angle /= max_angle_caminhao
+                angle /= max_dif_altura
                 inf10 = (inf10["z"]-z)/max_dif_altura
                 inf30 = (inf30["z"]-z)/max_dif_altura
                 inf50 = (inf50["z"]-z)/max_dif_altura
                 inf70 = (inf70["z"]-z)/max_dif_altura
 
-                entrada = [speed,angle,inf10,inf30,inf50,inf70]
-                # print(entrada)
-                r = model.predict(np.array([np.array(entrada)]))[0][0]
+                entrada = [speed, angle, inf10, inf30, inf50, inf70]
 
-                # print("MODEL: ", entrada, r)
+                if step%2==0:
+                    r = model.predict(np.array([np.array(entrada)]))[0][0]
+
+                if r==0:
+                    r = 0.01
+                # print(r, max_speed_caminhao , r*max_speed_caminhao)
                 traci.vehicle.setSpeed("caminhao",r*max_speed_caminhao)
                 total_fuel += traci.vehicle.getFuelConsumption("caminhao")
             except Exception as e:
-                print("######################")
-                print(e)
-                print("######################")
                 pass
 
 
@@ -221,12 +236,12 @@ def run(model, mapa):
         print("######################")
         raise
 
-    
+
 
     print("Simulation finished")
     traci.close()
     sys.stdout.flush()
-    time.sleep(1)
+    # time.sleep(1)
 
     return total_fuel
 
@@ -239,7 +254,7 @@ def run_pre():
     traci.vehicle.add("path_mapper", "trip")
     traci.vehicle.setParameter("path_mapper","carFollowModel","KraussPS")
     traci.vehicle.setVehicleClass("path_mapper","passenger")
-    traci.vehicle.setMaxSpeed("path_mapper",1) # 3.6
+    traci.vehicle.setMaxSpeed("path_mapper",0.3) # 3.6
 
 
 
@@ -247,15 +262,14 @@ def run_pre():
     try:
         step = 1
         while step == 1 or traci.simulation.getMinExpectedNumber() > 0:        
-            traci.simulationStep()                          
-            vehicles = traci.simulation.getEndingTeleportIDList()        
-            for vehicle in vehicles:
-                traci.vehicle.remove(vehicle, reason=4)
+            traci.simulationStep()
 
             try:
-                traci.vehicle.setSpeed("path_mapper",1)
+                traci.vehicle.setSpeed("path_mapper",0.3)
                 angle = traci.vehicle.getSlope("path_mapper")
                 x, _, z = traci.vehicle.getPosition3D("path_mapper")
+                speed = traci.vehicle.getSpeed("path_mapper")
+
 
                 dados.append({"x":x, "z":z, "angle":angle})
             except:
@@ -271,11 +285,11 @@ def run_pre():
 
     
 
-    time.sleep(1)
+    # time.sleep(1)
     print("Pre Simulation finished")
     traci.close()
     sys.stdout.flush()
-    time.sleep(1)
+    # time.sleep(1)
 
     return dados
 
@@ -316,7 +330,7 @@ def start_simulation(sumo, scenario, network, output, model, mapa):
         print(e)
         raise
     finally:
-        print("Terminating SUMO")  
+        print("Terminating SUMO")
         terminate_sumo(sumo)
         unused_port_lock.__exit__()
 
@@ -335,7 +349,11 @@ def custom_fitness(genome, outputfile):
         consumo = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "./output/"+m+outputfile, model, m)
 
         consumo_total += consumo
-    return 1-(consumo_total/10000)
+
+        # if consumo_total==float("Infinity"): # isso faz pular mapas no teste caso a gente ja tenha identificado algum muito lento
+        #     break
+
+    return 1/consumo_total
 
 def custom_random_genome():
     model = get_model()
@@ -349,8 +367,36 @@ def custom_random_genome():
 
 
 def pre_simulation():
-    mapas = mapas_todos
+
+    mapas = [
+    "0.net.xml",
+    "1.net.xml",
+    "2.net.xml",
+    "3.net.xml",
+    "4.net.xml",
+    "5.net.xml",
+    "6.net.xml",
+    "7.net.xml",
+    "8.net.xml",
+    "9.net.xml"
+    ]
     folder = "./mapas/"
+
+    for m in mapas:
+        dados = start_pre_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m))
+
+        f = open((folder+m).replace(".net.xml",".extras"),"w")
+        f.write(json.dumps(dados))
+        f.close()
+
+    mapas = [
+    "0.net.xml",
+    "1.net.xml",
+    "2.net.xml",
+    "3.net.xml",
+    "4.net.xml"
+    ]
+    folder = "./mapas_validation/"
 
     for m in mapas:
         dados = start_pre_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m))
@@ -377,9 +423,9 @@ def main():
             print('Failed to delete %s. Reason: %s' % (file_path, e))
 
 
-    pre_simulation()
+    # pre_simulation()
     population_size   = 10
-    iteration_limit   = 5
+    iteration_limit   = 10
     cut_half_pop      = True
     replicate_best    = 0.1
 
@@ -394,6 +440,7 @@ def main():
 
     g.set_population_size(population_size)
     g.set_iteration_limit(iteration_limit)
+    g.set_stop_criteria_type(1)
     g.set_mutate(custom_mutate)
     g.set_cut_half_population(cut_half_pop)
     g.set_replicate_best(replicate_best)
