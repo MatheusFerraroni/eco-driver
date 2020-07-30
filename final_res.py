@@ -13,6 +13,8 @@ import time
 from keras.models import Sequential
 from keras.layers import Dense
 import shutil
+import fuzzySpeed
+
 
 caminho_veiculo = ['A0B0', 'B0C0', 'C0D0', 'D0E0', 'E0F0', 'F0G0', 'G0H0', 'H0I0', 'I0J0', 'J0K0', 'K0L0', 'L0M0', 'M0N0', 'N0O0', 'O0P0', 'P0Q0', 'Q0R0', 'R0S0', 'S0T0']
 max_speed_caminhao = 30 # ~ 108km/h
@@ -131,6 +133,9 @@ class UnusedPortLock:
 
 def run(model, mapa):
 
+
+    g = fuzzySpeed.Algorithm()
+
     step = 0
     
     traci.route.add("trip", caminho_veiculo)
@@ -138,7 +143,7 @@ def run(model, mapa):
     traci.vehicle.setParameter("caminhao","carFollowModel","KraussPS")
     traci.vehicle.setVehicleClass("caminhao","truck")
     traci.vehicle.setShapeClass("caminhao","truck")
-    traci.vehicle.setEmissionClass("caminhao","HBEFA3/HDV")
+    traci.vehicle.setEmissionClass("caminhao","PHEMlight/PC_G_EU4")
     traci.vehicle.setMaxSpeed("caminhao",max_speed_caminhao) 
     r = 1
 
@@ -163,7 +168,7 @@ def run(model, mapa):
 
 
 
-                if model!=None:
+                if model!=None and model!="fuzzy":
                     angle /= 90
                     inf10 = inf10["angle"]/90
                     inf30 = inf30["angle"]/90
@@ -176,9 +181,17 @@ def run(model, mapa):
                     if r==0:
                         r = 0.01
                     traci.vehicle.setSpeed("caminhao",r*max_speed_caminhao)
+                elif model=="fuzzy":
+                    normalization = 1 #90
+                    angle /= normalization
+                    inf10 = inf10["angle"]/normalization
+                    inf30 = inf30["angle"]/normalization
+                    inf50 = inf50["angle"]/normalization
+                    inf70 = inf70["angle"]/normalization
 
+                    r = g.findSpeed(speed/max_speed_caminhao, angle, inf10, inf30, inf50, inf70)
 
-
+                    traci.vehicle.setSpeed("caminhao",r)
                 fuel_last_step = traci.vehicle.getFuelConsumption("caminhao")
                 total_fuel += fuel_last_step
 
@@ -300,6 +313,13 @@ def plow(dados, extras, nome):
         ys.append(a['fuel_last_step'])
     ax[1].plot(xs, ys, label="Model")
 
+    xs = []
+    ys = []
+    for a in dados["fuzzy"]:
+        xs.append(a['x'])
+        ys.append(a['fuel_last_step'])
+    ax[1].plot(xs, ys, label="Fuzzy")
+
 
     ax[1].set_xlabel('Distance (m)')
     ax[1].set_ylabel('Fuel Consuption')
@@ -330,6 +350,15 @@ def plow(dados, extras, nome):
         total_model = a['total_fuel']
     total_model = round(total_model,0)
     ax[2].plot(xs, ys, label="Model ({})".format(total_model))
+
+    xs = []
+    ys = []
+    for a in dados["fuzzy"]:
+        xs.append(a['x'])
+        ys.append(a['speed'])
+        total_model = a['total_fuel']
+    total_model = round(total_model,0)
+    ax[2].plot(xs, ys, label="Fuzzy ({})".format(total_model))
 
     xs = []
     ys = []
@@ -371,6 +400,7 @@ def main(arquivo):
         resultados_obtidos[m] = {"raw":None, "model":None}
         resultados_obtidos[m]["raw"]   = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), None, m)
         resultados_obtidos[m]["model"] = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), model, m)
+        resultados_obtidos[m]["fuzzy"] = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "fuzzy", m)
 
 
         file = open(folder+m.replace(".net.xml",".extras"),"r")

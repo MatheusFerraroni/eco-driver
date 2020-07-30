@@ -187,7 +187,7 @@ def run(model, mapa):
     traci.vehicle.setParameter("caminhao","carFollowModel","KraussPS")
     traci.vehicle.setVehicleClass("caminhao","truck")
     traci.vehicle.setShapeClass("caminhao","truck")
-    traci.vehicle.setEmissionClass("caminhao","HBEFA3/HDV")
+    traci.vehicle.setEmissionClass("caminhao","PHEMlight/PC_G_EU4")
     traci.vehicle.setMaxSpeed("caminhao",max_speed_caminhao) 
     r = 1
 

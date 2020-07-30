@@ -13,4 +13,4 @@ if __name__ == '__main__':
 
     g = fuzzySpeed.Algorithm()
     r = g.findSpeed(speed, angle, inf10, inf30, inf50, inf70)
-    print(r)
+    # print(r)
