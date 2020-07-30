@@ -32,6 +32,7 @@ mapas_todos = [
 
 max_speed_caminhao = 30 # ~ 108km/h
 max_dif_altura = 50
+extras_mapas = None
 
 
 
@@ -59,7 +60,6 @@ caminho_veiculo = ['AA0AB0','AB0AC0','AC0AD0','AD0AE0','AE0AF0','AF0AG0','AG0AH0
 'KM0KN0','KN0KO0','KO0KP0','KP0KQ0','KQ0KR0','KR0KS0','KS0KT0','KT0KU0','KU0KV0','KV0KW0','KW0KX0','KX0KY0','KY0KZ0','KZ0LA0',
 'LA0LB0','LB0LC0','LC0LD0','LD0LE0','LE0LF0','LF0LG0','LG0LH0','LH0LI0','LI0LJ0','LJ0LK0','LK0LL0','LL0LM0','LM0LN0','LN0LO0',
 ]
-extras_mapas = None
 
 def get_model():
     model = Sequential()
