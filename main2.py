@@ -77,7 +77,7 @@ def getClosest(arr, n, target):
         return arr
     if (target <= arr[0]["x"]): 
         return arr[0]
-    if (target >= arr[n - 1]["x"]): 
+    if (target >= arr[n - 1]["x"]):
         return arr[n - 1]
 
 
@@ -174,8 +174,12 @@ def custom_mutate(wei):
             ret.append(custom_mutate(w))
         return np.array(ret, dtype=object)
     
-    return (wei*np.random.uniform(low=0.9, high=1.1)) + np.random.uniform(low=-0.01, high=0.01)
-    
+
+    if np.random.random() < 0.2:
+        return np.random.uniform(low=-1, high=1)
+    else:
+        return wei + np.random.uniform(low=-0.1, high=0.1)
+
 
 
 def run(model, mapa):
@@ -217,6 +221,8 @@ def run(model, mapa):
                 inf70 = inf70["angle"]/90
 
                 entrada = [speed, angle, inf10, inf30, inf50, inf70]
+
+                # print("ENTRADAAQUI",entrada)
 
                 r = model.predict(np.array([np.array(entrada)]))[0][0]
 
@@ -399,9 +405,9 @@ def main():
             print('Failed to delete %s. Reason: %s' % (file_path, e))
 
 
-    # pre_simulation()
-    population_size   = 30
-    iteration_limit   = 30
+    pre_simulation()
+    population_size   = 10
+    iteration_limit   = 10
     cut_half_pop      = True
     replicate_best    = 0.1
 

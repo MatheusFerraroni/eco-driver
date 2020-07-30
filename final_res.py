@@ -137,7 +137,7 @@ def run(model, mapa):
     g = fuzzySpeed.Algorithm()
 
     step = 0
-    
+
     traci.route.add("trip", caminho_veiculo)
     traci.vehicle.add("caminhao", "trip")
     traci.vehicle.setParameter("caminhao","carFollowModel","KraussPS")
@@ -385,10 +385,19 @@ def main(arquivo):
     f = open(arquivo,"r")
     dado = json.loads(f.read())
     f.close()
-    gen = dado["historic"][0]["best_genome"]
+    gen = dado["historic"][-1]["best_genome"]
     gen = converter(gen)
     model = get_model()
     model.set_weights(gen)
+
+
+    for _ in range(10):
+        entrada = [np.random.random(), np.random.random(), np.random.random(), np.random.random(), np.random.random(), np.random.random()]
+
+        r = model.predict(np.array([np.array(entrada)]))[0][0]
+
+        print(entrada,r)
+    return
 
     folder = "./mapas_validation/"
     mapas = os.listdir(folder)
@@ -412,5 +421,5 @@ def main(arquivo):
 
 
 if __name__ == '__main__':
-    a = "./results/30_30_True_0.1.json"
+    a = "./results/10_10_True_0.1 sigmoid.json"
     main(a)
