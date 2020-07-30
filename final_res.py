@@ -152,7 +152,6 @@ def run(model, mapa):
 
             try:
                 speed = traci.vehicle.getSpeed("caminhao")
-                print("sepeed",speed)
                 angle = traci.vehicle.getSlope("caminhao")
                 x, y, z = traci.vehicle.getPosition3D("caminhao")
 
@@ -276,6 +275,8 @@ def plow(dados, extras, nome):
     # ax[0].set_ylim(0,300)
     ax[0].patch.set_facecolor('#87d3e0')
     ax[0].set_xlim(-20,xs[-1]+20)
+    ax[1].set_xlim(-20,xs[-1]+20)
+    ax[2].set_xlim(-20,xs[-1]+20)
     ax[0].stackplot(xs, ys_green_above, color="#269126")
     ax[0].stackplot(xs, ys, color="#000000")
     ax[0].stackplot(xs, ys_green_below, color="#269126")
@@ -307,13 +308,18 @@ def plow(dados, extras, nome):
 
 
 
+    total_raw = 0
+    total_model = 0
 
     xs = []
     ys = []
     for a in dados["raw"]:
         xs.append(a['x'])
         ys.append(a['speed'])
-    ax[2].plot(xs, ys, label="Sumo")
+        total_raw = a['total_fuel']
+
+    total_raw = round(total_raw,0)
+    ax[2].plot(xs, ys, label="Sumo ({})".format(total_raw))
 
 
     xs = []
@@ -321,7 +327,9 @@ def plow(dados, extras, nome):
     for a in dados["model"]:
         xs.append(a['x'])
         ys.append(a['speed'])
-    ax[2].plot(xs, ys, label="Model")
+        total_model = a['total_fuel']
+    total_model = round(total_model,0)
+    ax[2].plot(xs, ys, label="Model ({})".format(total_model))
 
     xs = []
     ys = []
@@ -338,8 +346,8 @@ def plow(dados, extras, nome):
 
 
 
-    plt.show()
-    # plt.savefig(f+".pdf", bbox_inches="tight")
+    plt.savefig("./mapas_validation/FINAL_"+nome+".pdf", bbox_inches="tight")
+    plt.close()
     # break
 
 
@@ -348,7 +356,7 @@ def main(arquivo):
     f = open(arquivo,"r")
     dado = json.loads(f.read())
     f.close()
-    gen = dado["historic"][-4]["best_genome"]
+    gen = dado["historic"][0]["best_genome"]
     gen = converter(gen)
     model = get_model()
     model.set_weights(gen)
@@ -371,7 +379,6 @@ def main(arquivo):
 
         plow(resultados_obtidos[m], extras, m)
 
-        break
 
 
 if __name__ == '__main__':

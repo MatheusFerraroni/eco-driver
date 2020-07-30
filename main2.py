@@ -399,7 +399,7 @@ def main():
             print('Failed to delete %s. Reason: %s' % (file_path, e))
 
 
-    pre_simulation()
+    # pre_simulation()
     population_size   = 30
     iteration_limit   = 30
     cut_half_pop      = True
