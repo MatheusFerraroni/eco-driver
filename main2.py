@@ -1,7 +1,7 @@
 import GA2
 import numpy as np
 import os
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 import matplotlib.pyplot as plt
 import argparse
 import json
@@ -61,11 +61,22 @@ caminho_veiculo = ['AA0AB0','AB0AC0','AC0AD0','AD0AE0','AE0AF0','AF0AG0','AG0AH0
 'LA0LB0','LB0LC0','LC0LD0','LD0LE0','LE0LF0','LF0LG0','LG0LH0','LH0LI0','LI0LJ0','LJ0LK0','LK0LL0','LL0LM0','LM0LN0','LN0LO0',
 ]
 
+# def get_model():
+#     model = Sequential()
+#     model.add(Dense(8, activation='sigmoid', input_shape=(6,)))
+#     model.add(Dense(8, activation='sigmoid'))
+#     model.add(Dense(8, activation='sigmoid'))
+#     model.add(Dense(1, activation='sigmoid'))
+#     model.compile(optimizer='adam', loss='categorical_crossentropy')
+#
+#     return model
+
+
 def get_model():
     model = Sequential()
-    model.add(Dense(8, activation='sigmoid', input_shape=(6,)))
-    model.add(Dense(8, activation='sigmoid'))
-    model.add(Dense(8, activation='sigmoid'))
+    model.add(Dense(8, input_shape=(6,)))
+    model.add(Dense(8))
+    model.add(Dense(8))
     model.add(Dense(1, activation='sigmoid'))
     model.compile(optimizer='adam', loss='categorical_crossentropy')
 
@@ -75,42 +86,42 @@ def getClosest(arr, n, target):
 
     if type(arr) is not list:
         return arr
-    if (target <= arr[0]["x"]): 
+    if (target <= arr[0]["x"]):
         return arr[0]
     if (target >= arr[n - 1]["x"]):
         return arr[n - 1]
 
 
-    # Doing binary search 
+    # Doing binary search
     i = 0; j = n; mid = 0
-    while (i < j):  
+    while (i < j):
         mid = (i + j) // 2
-  
-        if (arr[mid]["x"] == target): 
-            return arr[mid] 
-  
-        # If target is less than array  
-        # element, then search in left 
-        if (target < arr[mid]["x"]) : 
-  
-            # If target is greater than previous 
-            # to mid, return closest of two 
-            if (mid > 0 and target > arr[mid - 1]["x"]): 
-                return getClosest(arr[mid - 1], arr[mid], target) 
-  
-            # Repeat for left half  
-            j = mid 
-          
-        # If target is greater than mid 
-        else : 
-            if (mid < n - 1 and target < arr[mid + 1]["x"]): 
-                return getClosest(arr[mid], arr[mid + 1], target) 
-                  
-            # update i 
+
+        if (arr[mid]["x"] == target):
+            return arr[mid]
+
+        # If target is less than array
+        # element, then search in left
+        if (target < arr[mid]["x"]) :
+
+            # If target is greater than previous
+            # to mid, return closest of two
+            if (mid > 0 and target > arr[mid - 1]["x"]):
+                return getClosest(arr[mid - 1], arr[mid], target)
+
+            # Repeat for left half
+            j = mid
+
+        # If target is greater than mid
+        else :
+            if (mid < n - 1 and target < arr[mid + 1]["x"]):
+                return getClosest(arr[mid], arr[mid + 1], target)
+
+            # update i
             i = mid + 1
-          
-    # Only single element left after search 
-    return arr[mid] 
+
+    # Only single element left after search
+    return arr[mid]
 
 
 def get_info_pos(mapa, x):
@@ -173,7 +184,7 @@ def custom_mutate(wei):
         for w in wei:
             ret.append(custom_mutate(w))
         return np.array(ret, dtype=object)
-    
+
 
     if np.random.random() < 0.2:
         return np.random.uniform(low=-1, high=1)
@@ -185,14 +196,14 @@ def custom_mutate(wei):
 def run(model, mapa):
 
     step = 1
-    
+
     traci.route.add("trip", caminho_veiculo)
     traci.vehicle.add("caminhao", "trip")
     traci.vehicle.setParameter("caminhao","carFollowModel","KraussPS")
     traci.vehicle.setVehicleClass("caminhao","truck")
     traci.vehicle.setShapeClass("caminhao","truck")
     traci.vehicle.setEmissionClass("caminhao","PHEMlight/PC_G_EU4")
-    traci.vehicle.setMaxSpeed("caminhao",max_speed_caminhao) 
+    traci.vehicle.setMaxSpeed("caminhao",max_speed_caminhao)
     r = 1
 
     total_fuel = 0
@@ -268,7 +279,7 @@ def run_pre():
     dados = []
     try:
         step = 1
-        while step == 1 or traci.simulation.getMinExpectedNumber() > 0:        
+        while step == 1 or traci.simulation.getMinExpectedNumber() > 0:
             traci.simulationStep()
 
             try:
@@ -290,7 +301,7 @@ def run_pre():
         print(e, step)
         print("######################")
 
-    
+
 
     # time.sleep(1)
     print("Pre Simulation finished")
@@ -306,18 +317,18 @@ def start_pre_simulation(sumo, scenario, network):
     unused_port_lock.__enter__()
     remote_port = find_unused_port()
 
-    sumo = subprocess.Popen([sumo, "-c", scenario, "--device.emissions.probability", "1.0", "--remote-port", str(remote_port), "--duration-log.statistics","--log", "logfile.txt"], stdout=sys.stdout, stderr=sys.stderr)    
+    sumo = subprocess.Popen([sumo, "-c", scenario, "--device.emissions.probability", "1.0", "--remote-port", str(remote_port), "--duration-log.statistics","--log", "logfile.txt"], stdout=sys.stdout, stderr=sys.stderr)
     unused_port_lock.release()
 
 
     try:
-        traci.init(remote_port)            
+        traci.init(remote_port)
         return run_pre()
     except Exception as e:
         print(e)
         raise
     finally:
-        print("Terminating SUMO")  
+        print("Terminating SUMO")
         terminate_sumo(sumo)
         unused_port_lock.__exit__()
 
@@ -326,12 +337,12 @@ def start_simulation(sumo, scenario, network, output, model, mapa):
     unused_port_lock.__enter__()
     remote_port = find_unused_port()
 
-    sumo = subprocess.Popen([sumo, "-c", scenario, "--tripinfo-output", output, "--device.emissions.probability", "1.0", "--remote-port", str(remote_port), "--duration-log.statistics","--log", "logfile.txt"], stdout=sys.stdout, stderr=sys.stderr)    
+    sumo = subprocess.Popen([sumo, "-c", scenario, "--tripinfo-output", output, "--device.emissions.probability", "1.0", "--remote-port", str(remote_port), "--duration-log.statistics","--log", "logfile.txt"], stdout=sys.stdout, stderr=sys.stderr)
     unused_port_lock.release()
 
 
     try:
-        traci.init(remote_port)            
+        traci.init(remote_port)
         return run(model, mapa)
     except Exception as e:
         print(e)
