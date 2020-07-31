@@ -75,7 +75,7 @@ caminho_veiculo = ['AA0AB0','AB0AC0','AC0AD0','AD0AE0','AE0AF0','AF0AG0','AG0AH0
 
 def get_model():
     model = Sequential()
-    model.add(Dense(18, input_shape=(9,)))
+    model.add(Dense(48, input_shape=(7,)))
     model.add(Dense(1, activation='sigmoid'))
     model.compile(optimizer='adam', loss='mean_squared_error')
 
@@ -271,11 +271,11 @@ def run(model, mapa):
                 inf30 = inf30["angle"]/max_angulo
                 inf40 = inf40["angle"]/max_angulo
                 inf50 = inf50["angle"]/max_angulo
-                inf60 = inf60["angle"]/max_angulo
-                inf70 = inf70["angle"]/max_angulo
+                #inf60 = inf60["angle"]/max_angulo
+                #inf70 = inf70["angle"]/max_angulo
 
-
-                entrada = [speed, angle, inf10, inf20, inf30, inf40, inf50, inf60, inf70]
+                entrada = [speed, angle, inf10, inf20, inf30, inf40, inf50]
+                #entrada = [speed, angle, inf10, inf20, inf30, inf40, inf50, inf60, inf70]
 
                 # print("ENTRADAAQUI",entrada)
 
