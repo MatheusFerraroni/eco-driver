@@ -389,7 +389,7 @@ class GeneticAlgorithm:
 
     # a mutacao troca o valor dos bits entre 0 e 1
     def active_mutate(self,gen):
-        return self.mutate(gen)
+        return self.mutate(gen, float(self.iteration_counter)/self.iteration_limit)
 
 
 

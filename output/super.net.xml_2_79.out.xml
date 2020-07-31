@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 07/30/20 17:41:29 by Eclipse SUMO Version 1.5.0
+<!-- generated on 07/31/20 18:10:32 by Eclipse SUMO Version 1.5.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -9,7 +9,7 @@
     </input>
 
     <output>
-        <tripinfo-output value="./output/super.net.xml_1_11.out.xml"/>
+        <tripinfo-output value="./output/super.net.xml_2_79.out.xml"/>
     </output>
 
     <report>
@@ -23,14 +23,14 @@
     </emissions>
 
     <traci_server>
-        <remote-port value="51302"/>
+        <remote-port value="60550"/>
     </traci_server>
 
 </configuration>
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="caminhao" depart="0.00" departLane="AA0AB0_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="1716.00" arrivalLane="LN0LO0_0" arrivalPos="90.41" arrivalSpeed="18.59" duration="1716.00" routeLength="31839.45" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="654.50" rerouteNo="0" devices="tripinfo_caminhao emissions_caminhao" vType="DEFAULT_VEHTYPE@caminhao" speedFactor="1.06" vaporized="">
-        <emissions CO_abs="195832.366416" CO2_abs="7487843.741110" HC_abs="1156.865339" PMx_abs="462.155512" NOx_abs="3775.277513" fuel_abs="3317.381973" electricity_abs="0"/>
+    <tripinfo id="caminhao" depart="0.00" departLane="AA0AB0_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="3232.00" arrivalLane="LN0LO0_0" arrivalPos="90.41" arrivalSpeed="10.21" duration="3232.00" routeLength="31839.45" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="2170.62" rerouteNo="0" devices="tripinfo_caminhao emissions_caminhao" vType="DEFAULT_VEHTYPE@caminhao" speedFactor="1.06" vaporized="">
+        <emissions CO_abs="199344.759390" CO2_abs="10185595.187701" HC_abs="1269.245918" PMx_abs="473.509263" NOx_abs="4678.553821" fuel_abs="4467.359823" electricity_abs="0"/>
     </tripinfo>
 </tripinfos>
