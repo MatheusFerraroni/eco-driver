@@ -244,7 +244,7 @@ def run(model, mapa):
                 r = model.predict(np.array([np.array(entrada)]))[0][0]
 
                 #se o modelo nao for bom, tentar de novo com esse rescaling
-                r = returnScaledOutput(r)
+                #r = returnScaledOutput(r)
 
 
                 if r==0:
