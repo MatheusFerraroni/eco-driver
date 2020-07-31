@@ -241,7 +241,7 @@ def run(model, mapa):
                 inf70 = get_info_pos(mapa, x+70)
 
                 speed /= max_speed_caminhao
-                max_angulo = 70
+                max_angulo = 60
 
                 angle /= max_angulo
                 inf10 = inf10["angle"]/max_angulo
