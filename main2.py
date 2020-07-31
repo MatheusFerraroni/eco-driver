@@ -184,6 +184,28 @@ def terminate_sumo(sumo):
 
 
 
+# def custom_mutate(wei):
+#     if type(wei)==np.ndarray:
+#         ret = []
+#         for w in wei:
+#             ret.append(custom_mutate(w))
+#         return np.array(ret, dtype=object)
+#
+#     if np.random.random() < 0.2:
+#         return np.random.uniform(low=-1, high=1)
+#     else:
+#         return wei + np.random.uniform(low=-0.1, high=0.1)
+
+def returnRandomWeightVariation(wei):
+    if type(wei)==np.ndarray:
+        ret = []
+        for w in wei:
+            ret.append(custom_mutate(w))
+        return np.array(ret, dtype=object)
+
+    return wei * (1 + np.random.uniform(low=-0.05, high=0.05))
+
+
 def custom_mutate(wei):
     if type(wei)==np.ndarray:
         ret = []
@@ -191,11 +213,7 @@ def custom_mutate(wei):
             ret.append(custom_mutate(w))
         return np.array(ret, dtype=object)
 
-
-    if np.random.random() < 0.2:
-        return np.random.uniform(low=-1, high=1)
-    else:
-        return wei + np.random.uniform(low=-0.1, high=0.1)
+    return returnRandomWeightVariation(wei)
 
 
 
