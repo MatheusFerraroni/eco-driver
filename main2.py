@@ -74,11 +74,9 @@ caminho_veiculo = ['AA0AB0','AB0AC0','AC0AD0','AD0AE0','AE0AF0','AF0AG0','AG0AH0
 
 def get_model():
     model = Sequential()
-    model.add(Dense(8, input_shape=(6,)))
-    model.add(Dense(8))
-    model.add(Dense(8))
+    model.add(Dense(16, input_shape=(6,)))
     model.add(Dense(1, activation='sigmoid'))
-    model.compile(optimizer='adam', loss='categorical_crossentropy')
+    model.compile(optimizer='adam', loss='mean_squared_error')
 
     return model
 
@@ -243,11 +241,13 @@ def run(model, mapa):
                 inf70 = get_info_pos(mapa, x+70)
 
                 speed /= max_speed_caminhao
-                angle /= 90
-                inf10 = inf10["angle"]/90
-                inf30 = inf30["angle"]/90
-                inf50 = inf50["angle"]/90
-                inf70 = inf70["angle"]/90
+                max_angulo = 70
+
+                angle /= max_angulo
+                inf10 = inf10["angle"]/max_angulo
+                inf30 = inf30["angle"]/max_angulo
+                inf50 = inf50["angle"]/max_angulo
+                inf70 = inf70["angle"]/max_angulo
 
                 entrada = [speed, angle, inf10, inf30, inf50, inf70]
 
@@ -256,7 +256,7 @@ def run(model, mapa):
                 r = model.predict(np.array([np.array(entrada)]))[0][0]
 
                 #se o modelo nao for bom, tentar de novo com esse rescaling
-                #r = returnScaledOutput(r)
+                r = returnScaledOutput(r)
 
 
                 if r==0:
