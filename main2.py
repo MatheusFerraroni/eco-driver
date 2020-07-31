@@ -76,7 +76,6 @@ caminho_veiculo = ['AA0AB0','AB0AC0','AC0AD0','AD0AE0','AE0AF0','AF0AG0','AG0AH0
 def get_model():
     model = Sequential()
     model.add(Dense(18, input_shape=(9,)))
-    model.add(Dense(9))
     model.add(Dense(1, activation='sigmoid'))
     model.compile(optimizer='adam', loss='mean_squared_error')
 
@@ -188,12 +187,12 @@ def norm_force(a):
     return a
 
 
-<<<<<<< HEAD
-def gaus(ger):
-    return 0.05+0.95*math.pow(math.e,(-math.pow((2*ger),4)))
+#<<<<<<< HEAD
+#def gaus(ger):
+#    return 0.05+0.95*math.pow(math.e,(-math.pow((2*ger),4)))
 
-def custom_mutate(wei, progresso):
-=======
+#def custom_mutate(wei, progresso):
+#=======
 # def custom_mutate(wei):
 #     if type(wei)==np.ndarray:
 #         ret = []
@@ -221,12 +220,12 @@ def custom_mutate(wei, progresso):
         for w in wei:
             ret.append(custom_mutate(w,progresso))
         return np.array(ret, dtype=object)
-    
 
-    if np.random.random() < 0.2*gaus(progresso):
-        return np.random.uniform(low=-1, high=1)
-    else:
-        return norm_force(wei + np.random.uniform(low=-0.2, high=0.2)*gaus(progresso))
+    return returnRandomWeightVariation(wei)
+    # if np.random.random() < 0.2*gaus(progresso):
+    #     return np.random.uniform(low=-1, high=1)
+    # else:
+    #     return norm_force(wei + np.random.uniform(low=-0.2, high=0.2)*gaus(progresso))
 
 
 
@@ -265,14 +264,15 @@ def run(model, mapa):
                 inf70 = get_info_pos(mapa, x+70)
 
                 speed /= max_speed_caminhao
-                angle /= 90
-                inf10 = inf10["angle"]/90
-                inf20 = inf20["angle"]/90
-                inf30 = inf30["angle"]/90
-                inf40 = inf40["angle"]/90
-                inf50 = inf50["angle"]/90
-                inf60 = inf60["angle"]/90
-                inf70 = inf70["angle"]/90
+                max_angulo = 60
+                angle /= max_angulo
+                inf10 = inf10["angle"]/max_angulo
+                inf20 = inf20["angle"]/max_angulo
+                inf30 = inf30["angle"]/max_angulo
+                inf40 = inf40["angle"]/max_angulo
+                inf50 = inf50["angle"]/max_angulo
+                inf60 = inf60["angle"]/max_angulo
+                inf70 = inf70["angle"]/max_angulo
 
 
                 entrada = [speed, angle, inf10, inf20, inf30, inf40, inf50, inf60, inf70]
@@ -282,7 +282,7 @@ def run(model, mapa):
                 r = model.predict(np.array([np.array(entrada)]))[0][0]
 
                 #se o modelo nao for bom, tentar de novo com esse rescaling
-                # r = returnScaledOutput(r)
+                r = returnScaledOutput(r)
 
 
                 if r==0:
