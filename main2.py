@@ -14,7 +14,7 @@ import time
 from keras.models import Sequential
 from keras.layers import Dense
 import shutil
-
+from random import gauss
 
 
 if 'SUMO_HOME' in os.environ:
@@ -197,7 +197,7 @@ def terminate_sumo(sumo):
 #         return wei + np.random.uniform(low=-0.1, high=0.1)
 
 def returnRandomWeightVariation(wei):
-    return wei * (1 + np.random.uniform(low=-0.05, high=0.05))
+    return gauss(wei, 0.05)
 
 
 def custom_mutate(wei):
