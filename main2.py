@@ -195,7 +195,12 @@ def terminate_sumo(sumo):
 #         return wei + np.random.uniform(low=-0.1, high=0.1)
 
 def returnRandomWeightVariation(wei):
-    return gauss(wei, 0.05)
+    updated_weight = gauss(wei, 0.05)
+    if updated_weight < -1:
+        return -1
+    if updated_weight > 1:
+        return 1
+    return updated_weight
 
 
 def custom_mutate(wei):
