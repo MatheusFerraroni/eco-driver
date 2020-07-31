@@ -14,6 +14,7 @@ import time
 from keras.models import Sequential
 from keras.layers import Dense
 import shutil
+import math
 
 
 
@@ -63,9 +64,8 @@ caminho_veiculo = ['AA0AB0','AB0AC0','AC0AD0','AD0AE0','AE0AF0','AF0AG0','AG0AH0
 
 def get_model():
     model = Sequential()
-    model.add(Dense(8, activation='sigmoid', input_shape=(6,)))
-    model.add(Dense(8, activation='sigmoid'))
-    model.add(Dense(8, activation='sigmoid'))
+    model.add(Dense(18, input_shape=(9,)))
+    model.add(Dense(9))
     model.add(Dense(1, activation='sigmoid'))
     model.compile(optimizer='adam', loss='categorical_crossentropy')
 
@@ -165,20 +165,27 @@ def terminate_sumo(sumo):
         time.sleep(1)
 
 
+def norm_force(a):
+    a = min(a,1)
+    a = max(a,-1)
+    return a
 
 
-def custom_mutate(wei):
+def gaus(ger):
+    return 0.05+0.95*math.pow(math.e,(-math.pow((2*ger),4)))
+
+def custom_mutate(wei, progresso):
     if type(wei)==np.ndarray:
         ret = []
         for w in wei:
-            ret.append(custom_mutate(w))
+            ret.append(custom_mutate(w,progresso))
         return np.array(ret, dtype=object)
     
 
-    if np.random.random() < 0.2:
+    if np.random.random() < 0.2*gaus(progresso):
         return np.random.uniform(low=-1, high=1)
     else:
-        return wei + np.random.uniform(low=-0.1, high=0.1)
+        return norm_force(wei + np.random.uniform(low=-0.2, high=0.2)*gaus(progresso))
 
 
 
@@ -209,18 +216,24 @@ def run(model, mapa):
 
 
                 inf10 = get_info_pos(mapa, x+10)
+                inf20 = get_info_pos(mapa, x+20)
                 inf30 = get_info_pos(mapa, x+30)
+                inf40 = get_info_pos(mapa, x+40)
                 inf50 = get_info_pos(mapa, x+50)
+                inf60 = get_info_pos(mapa, x+60)
                 inf70 = get_info_pos(mapa, x+70)
 
                 speed /= max_speed_caminhao
                 angle /= 90
                 inf10 = inf10["angle"]/90
+                inf20 = inf20["angle"]/90
                 inf30 = inf30["angle"]/90
+                inf40 = inf40["angle"]/90
                 inf50 = inf50["angle"]/90
+                inf60 = inf60["angle"]/90
                 inf70 = inf70["angle"]/90
 
-                entrada = [speed, angle, inf10, inf30, inf50, inf70]
+                entrada = [speed, angle, inf10, inf20, inf30, inf40, inf50, inf60, inf70]
 
                 # print("ENTRADAAQUI",entrada)
 
@@ -367,7 +380,7 @@ def custom_random_genome():
 
     w = model.get_weights()
 
-    return custom_mutate(np.array(w, dtype=object))
+    return custom_mutate(np.array(w, dtype=object), 0)
 
 
 
@@ -405,9 +418,9 @@ def main():
             print('Failed to delete %s. Reason: %s' % (file_path, e))
 
 
-    pre_simulation()
-    population_size   = 10
-    iteration_limit   = 10
+    # pre_simulation()
+    population_size   = 30
+    iteration_limit   = 30
     cut_half_pop      = True
     replicate_best    = 0.1
 

@@ -31,9 +31,8 @@ import traci
 
 def get_model():
     model = Sequential()
-    model.add(Dense(8, activation='sigmoid', input_shape=(6,)))
-    model.add(Dense(8, activation='sigmoid'))
-    model.add(Dense(8, activation='sigmoid'))
+    model.add(Dense(18, input_shape=(9,)))
+    model.add(Dense(9))
     model.add(Dense(1, activation='sigmoid'))
     model.compile(optimizer='adam', loss='categorical_crossentropy')
 
@@ -170,12 +169,30 @@ def run(model, mapa):
 
                 if model!=None and model!="fuzzy":
                     angle /= 90
-                    inf10 = inf10["angle"]/90
-                    inf30 = inf30["angle"]/90
-                    inf50 = inf50["angle"]/90
-                    inf70 = inf70["angle"]/90
-                    entrada = [speed/max_speed_caminhao, angle, inf10, inf30, inf50, inf70]
+                    # inf10 = inf10["angle"]/90
+                    # inf30 = inf30["angle"]/90
+                    # inf50 = inf50["angle"]/90
+                    # inf70 = inf70["angle"]/90
+                    # entrada = [speed/max_speed_caminhao, angle, inf10, inf30, inf50, inf70]
 
+                    inf10 = get_info_pos(mapa, x+10)
+                    inf20 = get_info_pos(mapa, x+20)
+                    inf30 = get_info_pos(mapa, x+30)
+                    inf40 = get_info_pos(mapa, x+40)
+                    inf50 = get_info_pos(mapa, x+50)
+                    inf60 = get_info_pos(mapa, x+60)
+                    inf70 = get_info_pos(mapa, x+70)
+
+                    angle /= 90
+                    inf10 = inf10["angle"]/90
+                    inf20 = inf20["angle"]/90
+                    inf30 = inf30["angle"]/90
+                    inf40 = inf40["angle"]/90
+                    inf50 = inf50["angle"]/90
+                    inf60 = inf60["angle"]/90
+                    inf70 = inf70["angle"]/90
+
+                    entrada = [speed/max_speed_caminhao, angle, inf10, inf20, inf30, inf40, inf50, inf60, inf70]
                     r = model.predict(np.array([np.array(entrada)]))[0][0]
 
                     if r==0:
@@ -313,12 +330,12 @@ def plow(dados, extras, nome):
         ys.append(a['fuel_last_step'])
     ax[1].plot(xs, ys, label="Model")
 
-    xs = []
-    ys = []
-    for a in dados["fuzzy"]:
-        xs.append(a['x'])
-        ys.append(a['fuel_last_step'])
-    ax[1].plot(xs, ys, label="Fuzzy")
+    # xs = []
+    # ys = []
+    # for a in dados["fuzzy"]:
+    #     xs.append(a['x'])
+    #     ys.append(a['fuel_last_step'])
+    # ax[1].plot(xs, ys, label="Fuzzy")
 
 
     ax[1].set_xlabel('Distance (m)')
@@ -351,14 +368,14 @@ def plow(dados, extras, nome):
     total_model = round(total_model,0)
     ax[2].plot(xs, ys, label="Model ({})".format(total_model))
 
-    xs = []
-    ys = []
-    for a in dados["fuzzy"]:
-        xs.append(a['x'])
-        ys.append(a['speed'])
-        total_model = a['total_fuel']
-    total_model = round(total_model,0)
-    ax[2].plot(xs, ys, label="Fuzzy ({})".format(total_model))
+    # xs = []
+    # ys = []
+    # for a in dados["fuzzy"]:
+    #     xs.append(a['x'])
+    #     ys.append(a['speed'])
+    #     total_model = a['total_fuel']
+    # total_model = round(total_model,0)
+    # ax[2].plot(xs, ys, label="Fuzzy ({})".format(total_model))
 
     xs = []
     ys = []
@@ -375,7 +392,7 @@ def plow(dados, extras, nome):
 
 
 
-    plt.savefig("./mapas_validation/FINAL_"+nome+".pdf", bbox_inches="tight")
+    plt.savefig("./mapas_validation/FINAL_"+nome+".png", bbox_inches="tight")
     plt.close()
     # break
 
@@ -391,13 +408,13 @@ def main(arquivo):
     model.set_weights(gen)
 
 
-    for _ in range(10):
-        entrada = [np.random.random(), np.random.random(), np.random.random(), np.random.random(), np.random.random(), np.random.random()]
+    # for _ in range(10):
+    #     entrada = [np.random.random(), np.random.uniform(low=-1, high=1), np.random.uniform(low=-1, high=1), np.random.uniform(low=-1, high=1), np.random.uniform(low=-1, high=1), np.random.uniform(low=-1, high=1)]
 
-        r = model.predict(np.array([np.array(entrada)]))[0][0]
+    #     r = model.predict(np.array([np.array(entrada)]))[0][0]
 
-        print(entrada,r)
-    return
+    #     print(entrada,r)
+
 
     folder = "./mapas_validation/"
     mapas = os.listdir(folder)
@@ -421,5 +438,5 @@ def main(arquivo):
 
 
 if __name__ == '__main__':
-    a = "./results/10_10_True_0.1 sigmoid.json"
+    a = "./results/5_10_True_0.1.json"
     main(a)
