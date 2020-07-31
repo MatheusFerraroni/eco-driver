@@ -82,6 +82,12 @@ def get_model():
 
     return model
 
+
+def returnScaledOutput(youtput):
+  yscaled = youtput + 0.25
+  return min(yscaled, 1.0)
+
+
 def getClosest(arr, n, target):
 
     if type(arr) is not list:
@@ -236,6 +242,10 @@ def run(model, mapa):
                 # print("ENTRADAAQUI",entrada)
 
                 r = model.predict(np.array([np.array(entrada)]))[0][0]
+
+                #se o modelo nao for bom, tentar de novo com esse rescaling
+                r = returnScaledOutput(r)
+
 
                 if r==0:
                     r = 0.01
