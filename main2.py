@@ -197,12 +197,6 @@ def terminate_sumo(sumo):
 #         return wei + np.random.uniform(low=-0.1, high=0.1)
 
 def returnRandomWeightVariation(wei):
-    if type(wei)==np.ndarray:
-        ret = []
-        for w in wei:
-            ret.append(custom_mutate(w))
-        return np.array(ret, dtype=object)
-
     return wei * (1 + np.random.uniform(low=-0.05, high=0.05))
 
 
