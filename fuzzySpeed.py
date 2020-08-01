@@ -33,10 +33,13 @@ class Algorithm:
 
 
         maxIS = 30
-        mimIS = 0 
+        mimIS = 0
 
-        maxAngle = 90
-        mimAngle = -90
+        maxSpeed = 30
+        mimSpeed = 24  
+
+        maxAngle = 50
+        mimAngle = -50
 
         # Create the problem variables
         IS = ctrl.Antecedent(np.arange(mimIS, maxIS + 1, 1), 'IS')
@@ -47,28 +50,55 @@ class Algorithm:
         A70 = ctrl.Antecedent(np.arange(mimAngle, maxAngle, 1), 'A70')
 
 
-        S = ctrl.Consequent(np.arange(0, 31, 1), 'S')
+        S = ctrl.Consequent(np.arange(mimSpeed, maxSpeed + 1, 1), 'S')
 
-        # Automatically creates mapping between crisp and fuzzy values
-        # using a standard membership function (triangle)
-        IS.automf(names=['low', 'medium', 'high'])
+     
+        S.automf(names=['verylow', 'low', 'medium', 'high', 'veryhigh'])
+    
 
-        A10.automf(names=['negative', 'neutral', 'positive'])
-        A30.automf(names=['negative', 'neutral', 'positive'])
-        A50.automf(names=['negative', 'neutral', 'positive'])
-        A70.automf(names=['negative', 'neutral', 'positive'])
+
+
+
+
+        RG.automf(names=['negative', 'neutral', 'positive'])
+        # RG['negative'] = fuzz.gaussmf(RG.universe, mimAngle, 50)
+        # RG['neutral'] = fuzz.gaussmf(RG.universe, 0, 30)
+        # RG['positive'] = fuzz.gaussmf(RG.universe, maxAngle,50)
+
+        A10['negative'] = fuzz.gaussmf(A10.universe, mimAngle, 30)
+        A10['neutral'] = fuzz.gaussmf(A10.universe, 0, 30)
+        A10['positive'] = fuzz.gaussmf(A10.universe, maxAngle, 30)
+
+       
+
+        # A10.automf(names=['negative', 'neutral', 'positive'])
+        # A30.automf(names=['negative', 'neutral', 'positive'])
+        # A50.automf(names=['negative', 'neutral', 'positive'])
+        # A70.automf(names=['negative', 'neutral', 'positive'])
+      
 
         # Creates membership functions using different types
-        RG['negative'] = fuzz.gaussmf(RG.universe, -90, 50)
-        RG['neutral'] = fuzz.gaussmf(RG.universe, 0, 30)
-        RG['positive'] = fuzz.gaussmf(RG.universe, 90,50)
 
 
-        S['verylow'] = fuzz.trimf(S.universe, [0, 0, 9])
-        S['low'] = fuzz.trapmf(S.universe, [3, 6, 10, 15])
-        S['medium'] = fuzz.trimf(S.universe, [9, 15, 21])
-        S['high'] = fuzz.trapmf(S.universe, [15, 20, 24, 27])
-        S['veryhigh'] = fuzz.trimf(S.universe, [21, 30, 30])
+        # S['verylow'] = fuzz.trimf(S.universe, [0, 0, 9])
+        # S['low'] = fuzz.trapmf(S.universe, [3, 6, 10, 15])
+        # S['medium'] = fuzz.trimf(S.universe, [9, 15, 21])
+        # S['high'] = fuzz.trapmf(S.universe, [15, 20, 24, 27])
+        # S['veryhigh'] = fuzz.trimf(S.universe, [21, 30, 30])
+
+        # S['verylow'] = fuzz.trimf(S.universe, [0, 0, 9])
+        # S['low'] = fuzz.trapmf(S.universe, [3, 6, 10, 15])
+        # S['medium'] = fuzz.trimf(S.universe, [9, 15, 21])
+        # S['high'] = fuzz.trapmf(S.universe, [15, 24, 28, 30])
+        # S['veryhigh'] = fuzz.trimf(S.universe, [18, 30, 30])
+
+        # S['verylow'] = fuzz.trimf(S.universe, [0, 0, 9])
+        # S['low'] = fuzz.trapmf(S.universe, [3, 6, 10, 15])
+        # S['medium'] = fuzz.trimf(S.universe, [9, 15, 21])
+        # S['high'] = fuzz.trapmf(S.universe, [15, 20, 28, 30])
+        # S['veryhigh'] = fuzz.trimf(S.universe, [21, 30, 30])
+
+       
 
         # Graphically showing the created parting functions
         # IS.view()
@@ -79,20 +109,37 @@ class Algorithm:
         # A70.view()
         # S.view()
    
-        rule1 = ctrl.Rule(RG['negative'], S['veryhigh'])
- 
-        rule2 = ctrl.Rule(RG['neutral'] & A10['negative'], S['high'])
+        # rule1 = ctrl.Rule(RG['negative'], S['veryhigh'])
+        # rule2 = ctrl.Rule(RG['neutral'] & A10['negative'], S['high'])
+        # rule3 = ctrl.Rule(RG['neutral'] & A10['negative'] & A30['positive'], S['veryhigh'])
+        # rule4 = ctrl.Rule(RG['neutral'] & A10['negative'], S['high'])
+        # rule5 = ctrl.Rule(RG['positive'] & A30['negative'], S['high'])
+        # rule6 = ctrl.Rule((RG['positive'] & IS['low']), S['medium'])
+        # rule7 = ctrl.Rule(RG['positive'] & IS['medium'] & A10['negative'], S['high'])
 
-        rule3 = ctrl.Rule(RG['neutral'] & A10['negative'] & A30['positive'], S['veryhigh'])
 
-        rule4 = ctrl.Rule(RG['neutral'] & A10['negative'], S['high'])
-
-        rule5 = ctrl.Rule(RG['positive'] & A30['negative'], S['high'])
-
-        rule6 = ctrl.Rule((RG['positive'] & IS['low']), S['medium'])
-
-        rule7 = ctrl.Rule(RG['positive'] & IS['medium'] & A10['negative'], S['high'])
+        # rule1 = ctrl.Rule(RG['negative'], S['veryhigh'])
+        # rule2 = ctrl.Rule(RG['neutral'] & A10['negative'], S['high'])
+        # rule3 = ctrl.Rule(RG['neutral'] & A10['negative'] & A30['positive'], S['high'])
+        # rule4 = ctrl.Rule(RG['neutral'] & A10['negative'], S['high'])
+        # rule5 = ctrl.Rule(RG['positive'] & A30['negative'], S['high'])
+        # rule6 = ctrl.Rule((RG['positive'] & IS['low']), S['medium'])
+        # rule7 = ctrl.Rule(RG['positive'] & IS['medium'] & A10['negative'], S['medium'])
+        # rule8 = ctrl.Rule(RG['positive'] & IS['low'] & A10['positive'], S['low'])
+        # rule9 = ctrl.Rule(RG['positive'] & IS['low'] & A10['positive']& A10['positive'], S['verylow'])
          
+
+
+        rule1 = ctrl.Rule(RG['negative']  & A10['negative'], S['veryhigh'])
+        rule2 = ctrl.Rule(RG['negative'] & A10['neutral'], S['veryhigh'])
+        rule3 = ctrl.Rule(RG['negative'] & A10['positive'], S['high'])
+        rule4 = ctrl.Rule(RG['neutral'] & A10['negative'], S['high'])
+        rule4 = ctrl.Rule(RG['neutral'] & A10['neutral'], S['high'])
+        rule4 = ctrl.Rule(RG['neutral'] & A10['positive'], S['high'])
+        rule5 = ctrl.Rule(RG['positive'] & A10['negative'], S['high'])
+        rule6 = ctrl.Rule(RG['positive'] & A10['neutral'], S['medium'])
+        rule7 = ctrl.Rule(RG['positive'] & A10['positive'], S['low'])
+
         # Creating and simulating a fuzzy controller
         S_ctrl = ctrl.ControlSystem([rule1, rule2, rule3, rule4, rule5, rule6, rule7])
         self.S_simulator = ctrl.ControlSystemSimulation(S_ctrl)
@@ -103,24 +150,31 @@ class Algorithm:
     def findSpeed(self, speed, angle, inf10, inf30, inf50, inf70):
 
         # print("Running Fuzzy")
+        print('.')
+        print('angle: ',angle)
+        print('inf10: ', inf10)
         
-        self.S_simulator.input['IS'] = speed # Instantaneous Speed (0, 30) m/s
         self.S_simulator.input['RG'] = angle  # Road gradient (-90, 90) grados
         self.S_simulator.input['A10'] = inf10 # Road gradient (-90, 90) grados
-        self.S_simulator.input['A30'] = inf30 # Road gradient (-90, 90) grados
+       
+        # self.S_simulator.input['IS'] = speed # Instantaneous Speed (0, 30) m/s
+        # self.S_simulator.input['A30'] = inf30 # Road gradient (-90, 90) grados
         #self.S_simulator.input['A50'] = inf50 # Road gradient (-90, 90) grados
         # self.S_simulator.input['A70'] = inf70 # Road gradient (-90, 90) grados
 
         # Computing the result
         self.S_simulator.compute()
-        # print('Speed:', self.S_simulator.output['S'], 'm/s')
+        # 
 
         # Graphically showing the result
         # IS.view(sim=S_simulator)
         # RG.view(sim=S_simulator)
         # S.view(sim=S_simulator) 
-        
-        return(self.S_simulator.output['S'])
+
+        speed = self.S_simulator.output['S']
+       
+        print('Speed:', speed, 'm/s')
+        return(speed)
         plt.show()
 
 

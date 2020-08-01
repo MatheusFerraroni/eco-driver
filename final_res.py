@@ -330,12 +330,12 @@ def plow(dados, extras, nome):
         ys.append(a['fuel_last_step'])
     ax[1].plot(xs, ys, label="Model")
 
-    # xs = []
-    # ys = []
-    # for a in dados["fuzzy"]:
-    #     xs.append(a['x'])
-    #     ys.append(a['fuel_last_step'])
-    # ax[1].plot(xs, ys, label="Fuzzy")
+    xs = []
+    ys = []
+    for a in dados["fuzzy"]:
+        xs.append(a['x'])
+        ys.append(a['fuel_last_step'])
+    ax[1].plot(xs, ys, label="Fuzzy")
 
 
     ax[1].set_xlabel('Distance (m)')
@@ -368,14 +368,14 @@ def plow(dados, extras, nome):
     total_model = round(total_model,0)
     ax[2].plot(xs, ys, label="Model ({})".format(total_model))
 
-    # xs = []
-    # ys = []
-    # for a in dados["fuzzy"]:
-    #     xs.append(a['x'])
-    #     ys.append(a['speed'])
-    #     total_model = a['total_fuel']
-    # total_model = round(total_model,0)
-    # ax[2].plot(xs, ys, label="Fuzzy ({})".format(total_model))
+    xs = []
+    ys = []
+    for a in dados["fuzzy"]:
+        xs.append(a['x'])
+        ys.append(a['speed'])
+        total_model = a['total_fuel']
+    total_model = round(total_model,0)
+    ax[2].plot(xs, ys, label="Fuzzy ({})".format(total_model))
 
     xs = []
     ys = []
