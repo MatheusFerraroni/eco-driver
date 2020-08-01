@@ -14,6 +14,7 @@ from keras.models import Sequential
 from keras.layers import Dense
 import shutil
 import fuzzySpeed
+import fuzzyV
 
 
 caminho_veiculo = ['A0B0', 'B0C0', 'C0D0', 'D0E0', 'E0F0', 'F0G0', 'G0H0', 'H0I0', 'I0J0', 'J0K0', 'K0L0', 'L0M0', 'M0N0', 'N0O0', 'O0P0', 'P0Q0', 'Q0R0', 'R0S0', 'S0T0']
@@ -134,6 +135,7 @@ def run(model, mapa):
 
 
     g = fuzzySpeed.Algorithm()
+    v = fuzzyV.Algorithm()
 
     step = 0
 
@@ -192,6 +194,7 @@ def run(model, mapa):
                     inf60 = inf60["angle"]/90
                     inf70 = inf70["angle"]/90
 
+                    #  REDE NEURAL
                     entrada = [speed/max_speed_caminhao, angle, inf10, inf20, inf30, inf40, inf50, inf60, inf70]
                     r = model.predict(np.array([np.array(entrada)]))[0][0]
 
@@ -206,7 +209,8 @@ def run(model, mapa):
                     inf50 = inf50["angle"]/normalization
                     inf70 = inf70["angle"]/normalization
 
-                    r = g.findSpeed(speed/max_speed_caminhao, angle, inf10, inf30, inf50, inf70)
+                    # FUZZY
+                    r = v.findSpeed(speed,angle, inf10, inf30, inf50, inf70)
 
                     traci.vehicle.setSpeed("caminhao",r)
                 fuel_last_step = traci.vehicle.getFuelConsumption("caminhao")
