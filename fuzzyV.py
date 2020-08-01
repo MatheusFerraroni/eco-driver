@@ -47,11 +47,12 @@ class Algorithm:
         A70 = ctrl.Antecedent(np.arange(mimAngle, maxAngle, 1), 'A70')
 
 
-        S = ctrl.Consequent(np.arange(0, 31, 1), 'S')
+        S = ctrl.Consequent(np.arange(20, 31, 1), 'S')
 
         # Automatically creates mapping between crisp and fuzzy values
         # using a standard membership function (triangle)
         IS.automf(names=['low', 'medium', 'high'])
+        S.automf(names=['verylow','low', 'medium', 'high','veryhigh'])
 
         A10.automf(names=['negative', 'neutral', 'positive'])
         A30.automf(names=['negative', 'neutral', 'positive'])
@@ -59,16 +60,16 @@ class Algorithm:
         A70.automf(names=['negative', 'neutral', 'positive'])
 
         # Creates membership functions using different types
-        RG['negative'] = fuzz.gaussmf(RG.universe, -90, 50)
+        RG['negative'] = fuzz.gaussmf(RG.universe, mimAngle, 50)
         RG['neutral'] = fuzz.gaussmf(RG.universe, 0, 30)
-        RG['positive'] = fuzz.gaussmf(RG.universe, 90,50)
+        RG['positive'] = fuzz.gaussmf(RG.universe, maxAngle,50)
 
 
-        S['verylow'] = fuzz.trimf(S.universe, [0, 0, 9])
-        S['low'] = fuzz.trapmf(S.universe, [3, 6, 10, 15])
-        S['medium'] = fuzz.trimf(S.universe, [9, 15, 21])
-        S['high'] = fuzz.trapmf(S.universe, [15, 20, 24, 27])
-        S['veryhigh'] = fuzz.trimf(S.universe, [21, 30, 30])
+        #S['verylow'] = fuzz.trimf(S.universe, [0, 0, 9])
+        #S['low'] = fuzz.trapmf(S.universe, [3, 6, 10, 15])
+        #S['medium'] = fuzz.trimf(S.universe, [9, 15, 21])
+        #S['high'] = fuzz.trapmf(S.universe, [15, 20, 24, 27])
+        #S['veryhigh'] = fuzz.trimf(S.universe, [21, 30, 30])
 
         # Graphically showing the created parting functions
         # IS.view()
@@ -111,7 +112,7 @@ class Algorithm:
 
         # print("Running Fuzzy")
         
-        self.S_simulator.input['IS'] = speed # Instantaneous Speed (0, 30) m/s
+        #self.S_simulator.input['IS'] = speed # Instantaneous Speed (0, 30) m/s
         self.S_simulator.input['RG'] = angle  # Road gradient (-90, 90) grados
         self.S_simulator.input['A10'] = inf10 # Road gradient (-90, 90) grados
         self.S_simulator.input['A30'] = inf30 # Road gradient (-90, 90) grados
