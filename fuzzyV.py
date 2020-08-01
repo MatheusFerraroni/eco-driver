@@ -35,8 +35,8 @@ class Algorithm:
         maxIS = 30
         mimIS = 0 
 
-        maxAngle = 70
-        mimAngle = -70
+        maxAngle = 90
+        mimAngle = -90
 
         # Create the problem variables
         IS = ctrl.Antecedent(np.arange(mimIS, maxIS + 1, 1), 'IS')
@@ -47,7 +47,7 @@ class Algorithm:
         A70 = ctrl.Antecedent(np.arange(mimAngle, maxAngle, 1), 'A70')
 
 
-        S = ctrl.Consequent(np.arange(20, 31, 1), 'S')
+        S = ctrl.Consequent(np.arange(20, maxIS + 1, 1), 'S')
 
         # Automatically creates mapping between crisp and fuzzy values
         # using a standard membership function (triangle)
@@ -57,52 +57,34 @@ class Algorithm:
         A10.automf(names=['negative', 'neutral', 'positive'])
         A30.automf(names=['negative', 'neutral', 'positive'])
         A50.automf(names=['negative', 'neutral', 'positive'])
-        A70.automf(names=['negative', 'neutral', 'positive'])
+        A70.automf(names=['negative', 'neutral', 'positive'])        
 
         # Creates membership functions using different types
-        RG['negative'] = fuzz.gaussmf(RG.universe, mimAngle, 50)
+        RG['negative'] = fuzz.gaussmf(RG.universe, mimAngle, 40) # 50
         RG['neutral'] = fuzz.gaussmf(RG.universe, 0, 30)
         RG['positive'] = fuzz.gaussmf(RG.universe, maxAngle,50)
-
-
-        #S['verylow'] = fuzz.trimf(S.universe, [0, 0, 9])
-        #S['low'] = fuzz.trapmf(S.universe, [3, 6, 10, 15])
-        #S['medium'] = fuzz.trimf(S.universe, [9, 15, 21])
-        #S['high'] = fuzz.trapmf(S.universe, [15, 20, 24, 27])
-        #S['veryhigh'] = fuzz.trimf(S.universe, [21, 30, 30])
-
-        # Graphically showing the created parting functions
-        # IS.view()
-        # RG.view()
-        # A10.view()
-        # A30.view()
-        # A50.view()
-        # A70.view()
-        # S.view()
    
-        #rule1 = ctrl.Rule(RG['negative'], S['veryhigh'])
-        rule1 = ctrl.Rule(RG['negative'] & A10['negative'], S['veryhigh'])
- 
-        #rule2 = ctrl.Rule(RG['neutral'] & A10['negative'], S['high'])
-        rule2 = ctrl.Rule(RG['negative'] & A30['positive'], S['verylow'])
-
-        #rule3 = ctrl.Rule(RG['neutral'] & A10['negative'] & A30['positive'], S['veryhigh'])
-        rule3 = ctrl.Rule(RG['positive'] & A30['positive'], S['medium'])
-
-        #rule4 = ctrl.Rule(RG['neutral'] & A10['negative'], S['high'])
-        rule4 = ctrl.Rule(RG['positive'] & A10['neutral'], S['high'])
-
-        #rule5 = ctrl.Rule(RG['positive'] & A30['negative'], S['high'])
-        rule5 = ctrl.Rule(RG['positive'] & A30['negative'], S['veryhigh'])
-
-        #rule6 = ctrl.Rule((RG['positive'] & IS['low']), S['medium'])
-        rule6 = ctrl.Rule(RG['neutral'] & A10['neutral'], S['veryhigh'])
-
-        rule7 = ctrl.Rule(RG['neutral'] & A10['positive'], S['medium'])
         
+        rule1 = ctrl.Rule(RG['negative'] & A10['negative'], S['veryhigh'])        
+                
+        rule2 = ctrl.Rule(RG['negative'] & A10['positive'], S['low'])
+        
+        rule3 = ctrl.Rule(RG['positive'] & A30['positive'], S['veryhigh'])        
+        
+        rule4 = ctrl.Rule(RG['positive'] & A10['neutral'], S['veryhigh'])
+        
+        rule5 = ctrl.Rule(RG['positive'] & A30['negative'], S['veryhigh'])
+        
+        rule6 = ctrl.Rule(RG['neutral'] & A10['neutral'], S['veryhigh'])        
+        
+        rule7 = ctrl.Rule(RG['neutral'] & A10['positive'], S['veryhigh'])
+
+        rule8 = ctrl.Rule(RG['negative'] & A30['neutral'], S['high'])        
+        
+        rule9 = ctrl.Rule(RG['negative'] & A10['neutral'] & A30['neutral'], S['veryhigh'])
          
         # Creating and simulating a fuzzy controller
-        S_ctrl = ctrl.ControlSystem([rule1, rule2, rule3, rule4, rule5, rule6, rule7])
+        S_ctrl = ctrl.ControlSystem([rule1, rule2, rule3, rule4, rule5, rule6, rule7, rule8, rule9])
         self.S_simulator = ctrl.ControlSystemSimulation(S_ctrl)
 
         # Entering some values for quality of IS and RG
@@ -116,17 +98,11 @@ class Algorithm:
         self.S_simulator.input['RG'] = angle  # Road gradient (-90, 90) grados
         self.S_simulator.input['A10'] = inf10 # Road gradient (-90, 90) grados
         self.S_simulator.input['A30'] = inf30 # Road gradient (-90, 90) grados
-        #self.S_simulator.input['A50'] = inf50 # Road gradient (-90, 90) grados
-        # self.S_simulator.input['A70'] = inf70 # Road gradient (-90, 90) grados
+
 
         # Computing the result
         self.S_simulator.compute()
         # print('Speed:', self.S_simulator.output['S'], 'm/s')
-
-        # Graphically showing the result
-        # IS.view(sim=S_simulator)
-        # RG.view(sim=S_simulator)
-        # S.view(sim=S_simulator) 
         
         return(self.S_simulator.output['S'])
         plt.show()
