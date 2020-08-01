@@ -31,8 +31,8 @@ import traci
 
 def get_model():
     model = Sequential()
-    model.add(Dense(18, input_shape=(9,)))
-    model.add(Dense(9))
+    model.add(Dense(20, input_shape=(10,)))
+    model.add(Dense(20))
     model.add(Dense(1, activation='sigmoid'))
     model.compile(optimizer='adam', loss='categorical_crossentropy')
 
@@ -182,6 +182,7 @@ def run(model, mapa):
                     inf50 = get_info_pos(mapa, x+50)
                     inf60 = get_info_pos(mapa, x+60)
                     inf70 = get_info_pos(mapa, x+70)
+                    inf100 = get_info_pos(mapa, x+100)
 
                     angle /= 90
                     inf10 = inf10["angle"]/90
@@ -191,12 +192,14 @@ def run(model, mapa):
                     inf50 = inf50["angle"]/90
                     inf60 = inf60["angle"]/90
                     inf70 = inf70["angle"]/90
+                    inf100 = inf100["angle"]/90
 
-                    entrada = [speed/max_speed_caminhao, angle, inf10, inf20, inf30, inf40, inf50, inf60, inf70]
+                    entrada = [speed/max_speed_caminhao, angle, inf10, inf20, inf30, inf40, inf50, inf60, inf70, inf100]
                     r = model.predict(np.array([np.array(entrada)]))[0][0]
 
-                    if r==0:
-                        r = 0.01
+
+                    if r<0.1:
+                        r = 0.1
                     traci.vehicle.setSpeed("caminhao",r*max_speed_caminhao)
                 elif model=="fuzzy":
                     normalization = 1 #90
@@ -438,5 +441,5 @@ def main(arquivo):
 
 
 if __name__ == '__main__':
-    a = "./results/5_10_True_0.1.json"
+    a = "./results/10_25_True_0.1.json"
     main(a)

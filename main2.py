@@ -46,20 +46,20 @@ caminho_veiculo = ['AA0AB0','AB0AC0','AC0AD0','AD0AE0','AE0AF0','AF0AG0','AG0AH0
 'CK0CL0','CL0CM0','CM0CN0','CN0CO0','CO0CP0','CP0CQ0','CQ0CR0','CR0CS0','CS0CT0','CT0CU0','CU0CV0','CV0CW0','CW0CX0','CX0CY0','CY0CZ0','CZ0DA0',
 'DA0DB0','DB0DC0','DC0DD0','DD0DE0','DE0DF0','DF0DG0','DG0DH0','DH0DI0','DI0DJ0','DJ0DK0','DK0DL0','DL0DM0','DM0DN0','DN0DO0','DO0DP0','DP0DQ0',
 'DQ0DR0','DR0DS0','DS0DT0','DT0DU0','DU0DV0','DV0DW0','DW0DX0','DX0DY0','DY0DZ0','DZ0EA0','EA0EB0','EB0EC0','EC0ED0',
-'ED0EE0','EE0EF0','EF0EG0','EG0EH0','EH0EI0','EI0EJ0','EJ0EK0','EK0EL0','EL0EM0','EM0EN0','EN0EO0','EO0EP0','EP0EQ0',
-'EQ0ER0','ER0ES0','ES0ET0','ET0EU0','EU0EV0','EV0EW0','EW0EX0','EX0EY0','EY0EZ0','EZ0FA0','FA0FB0','FB0FC0','FC0FD0',
-'FD0FE0','FE0FF0','FF0FG0','FG0FH0','FH0FI0','FI0FJ0','FJ0FK0','FK0FL0','FL0FM0','FM0FN0','FN0FO0','FO0FP0','FP0FQ0',
-'FQ0FR0','FR0FS0','FS0FT0','FT0FU0','FU0FV0','FV0FW0','FW0FX0','FX0FY0','FY0FZ0','FZ0GA0','GA0GB0','GB0GC0','GC0GD0','GD0GE0',
-'GE0GF0','GF0GG0','GG0GH0','GH0GI0','GI0GJ0','GJ0GK0','GK0GL0','GL0GM0','GM0GN0','GN0GO0','GO0GP0','GP0GQ0','GQ0GR0','GR0GS0',
-'GS0GT0','GT0GU0','GU0GV0','GV0GW0','GW0GX0','GX0GY0','GY0GZ0','GZ0HA0','HA0HB0','HB0HC0','HC0HD0','HD0HE0','HE0HF0','HF0HG0',
-'HG0HH0','HH0HI0','HI0HJ0','HJ0HK0','HK0HL0','HL0HM0','HM0HN0','HN0HO0','HO0HP0','HP0HQ0','HQ0HR0','HR0HS0','HS0HT0','HT0HU0',
-'HU0HV0','HV0HW0','HW0HX0','HX0HY0','HY0HZ0','HZ0IA0','IA0IB0','IB0IC0','IC0ID0','ID0IE0','IE0IF0','IF0IG0','IG0IH0','IH0II0',
-'II0IJ0','IJ0IK0','IK0IL0','IL0IM0','IM0IN0','IN0IO0','IO0IP0','IP0IQ0','IQ0IR0','IR0IS0','IS0IT0','IT0IU0','IU0IV0','IV0IW0',
-'IW0IX0','IX0IY0','IY0IZ0','IZ0JA0','JA0JB0','JB0JC0','JC0JD0','JD0JE0','JE0JF0','JF0JG0','JG0JH0','JH0JI0','JI0JJ0','JJ0JK0',
-'JK0JL0','JL0JM0','JM0JN0','JN0JO0','JO0JP0','JP0JQ0','JQ0JR0','JR0JS0','JS0JT0','JT0JU0','JU0JV0','JV0JW0','JW0JX0','JX0JY0',
-'JY0JZ0','JZ0KA0','KA0KB0','KB0KC0','KC0KD0','KD0KE0','KE0KF0','KF0KG0','KG0KH0','KH0KI0','KI0KJ0','KJ0KK0','KK0KL0','KL0KM0',
-'KM0KN0','KN0KO0','KO0KP0','KP0KQ0','KQ0KR0','KR0KS0','KS0KT0','KT0KU0','KU0KV0','KV0KW0','KW0KX0','KX0KY0','KY0KZ0','KZ0LA0',
-'LA0LB0','LB0LC0','LC0LD0','LD0LE0','LE0LF0','LF0LG0','LG0LH0','LH0LI0','LI0LJ0','LJ0LK0','LK0LL0','LL0LM0','LM0LN0','LN0LO0',
+# 'ED0EE0','EE0EF0','EF0EG0','EG0EH0','EH0EI0','EI0EJ0','EJ0EK0','EK0EL0','EL0EM0','EM0EN0','EN0EO0','EO0EP0','EP0EQ0',
+# 'EQ0ER0','ER0ES0','ES0ET0','ET0EU0','EU0EV0','EV0EW0','EW0EX0','EX0EY0','EY0EZ0','EZ0FA0','FA0FB0','FB0FC0','FC0FD0',
+# 'FD0FE0','FE0FF0','FF0FG0','FG0FH0','FH0FI0','FI0FJ0','FJ0FK0','FK0FL0','FL0FM0','FM0FN0','FN0FO0','FO0FP0','FP0FQ0',
+# 'FQ0FR0','FR0FS0','FS0FT0','FT0FU0','FU0FV0','FV0FW0','FW0FX0','FX0FY0','FY0FZ0','FZ0GA0','GA0GB0','GB0GC0','GC0GD0','GD0GE0',
+# 'GE0GF0','GF0GG0','GG0GH0','GH0GI0','GI0GJ0','GJ0GK0','GK0GL0','GL0GM0','GM0GN0','GN0GO0','GO0GP0','GP0GQ0','GQ0GR0','GR0GS0',
+# 'GS0GT0','GT0GU0','GU0GV0','GV0GW0','GW0GX0','GX0GY0','GY0GZ0','GZ0HA0','HA0HB0','HB0HC0','HC0HD0','HD0HE0','HE0HF0','HF0HG0',
+# 'HG0HH0','HH0HI0','HI0HJ0','HJ0HK0','HK0HL0','HL0HM0','HM0HN0','HN0HO0','HO0HP0','HP0HQ0','HQ0HR0','HR0HS0','HS0HT0','HT0HU0',
+# 'HU0HV0','HV0HW0','HW0HX0','HX0HY0','HY0HZ0','HZ0IA0','IA0IB0','IB0IC0','IC0ID0','ID0IE0','IE0IF0','IF0IG0','IG0IH0','IH0II0',
+# 'II0IJ0','IJ0IK0','IK0IL0','IL0IM0','IM0IN0','IN0IO0','IO0IP0','IP0IQ0','IQ0IR0','IR0IS0','IS0IT0','IT0IU0','IU0IV0','IV0IW0',
+# 'IW0IX0','IX0IY0','IY0IZ0','IZ0JA0','JA0JB0','JB0JC0','JC0JD0','JD0JE0','JE0JF0','JF0JG0','JG0JH0','JH0JI0','JI0JJ0','JJ0JK0',
+# 'JK0JL0','JL0JM0','JM0JN0','JN0JO0','JO0JP0','JP0JQ0','JQ0JR0','JR0JS0','JS0JT0','JT0JU0','JU0JV0','JV0JW0','JW0JX0','JX0JY0',
+# 'JY0JZ0','JZ0KA0','KA0KB0','KB0KC0','KC0KD0','KD0KE0','KE0KF0','KF0KG0','KG0KH0','KH0KI0','KI0KJ0','KJ0KK0','KK0KL0','KL0KM0',
+# 'KM0KN0','KN0KO0','KO0KP0','KP0KQ0','KQ0KR0','KR0KS0','KS0KT0','KT0KU0','KU0KV0','KV0KW0','KW0KX0','KX0KY0','KY0KZ0','KZ0LA0',
+# 'LA0LB0','LB0LC0','LC0LD0','LD0LE0','LE0LF0','LF0LG0','LG0LH0','LH0LI0','LI0LJ0','LJ0LK0','LK0LL0','LL0LM0','LM0LN0','LN0LO0',
 ]
 
 # def get_model():
@@ -75,16 +75,17 @@ caminho_veiculo = ['AA0AB0','AB0AC0','AC0AD0','AD0AE0','AE0AF0','AF0AG0','AG0AH0
 
 def get_model():
     model = Sequential()
-    model.add(Dense(48, input_shape=(7,)))
+    model.add(Dense(20, input_shape=(10,)))
+    model.add(Dense(20))
     model.add(Dense(1, activation='sigmoid'))
     model.compile(optimizer='adam', loss='mean_squared_error')
 
     return model
 
 
-def returnScaledOutput(youtput):
-  yscaled = youtput + 0.25
-  return min(yscaled, 1.0)
+# def returnScaledOutput(youtput):
+#   yscaled = youtput + 0.25
+#   return min(yscaled, 1.0)
 
 
 def getClosest(arr, n, target):
@@ -186,32 +187,18 @@ def norm_force(a):
     a = max(a,-1)
     return a
 
+def gaus(ger):
+    return 0.05+0.95*math.pow(math.e,(-math.pow((2*ger),4)))
 
-#<<<<<<< HEAD
-#def gaus(ger):
-#    return 0.05+0.95*math.pow(math.e,(-math.pow((2*ger),4)))
 
-#def custom_mutate(wei, progresso):
-#=======
-# def custom_mutate(wei):
-#     if type(wei)==np.ndarray:
-#         ret = []
-#         for w in wei:
-#             ret.append(custom_mutate(w))
-#         return np.array(ret, dtype=object)
-#
-#     if np.random.random() < 0.2:
-#         return np.random.uniform(low=-1, high=1)
-#     else:
-#         return wei + np.random.uniform(low=-0.1, high=0.1)
+# def returnRandomWeightVariation(wei):
+#     updated_weight = gauss(wei, 0.05)
+#     if updated_weight < -1:
+#         return -1
+#     if updated_weight > 1:
+#         return 1
+#     return updated_weight
 
-def returnRandomWeightVariation(wei):
-    updated_weight = gauss(wei, 0.05)
-    if updated_weight < -1:
-        return -1
-    if updated_weight > 1:
-        return 1
-    return updated_weight
 
 
 def custom_mutate(wei, progresso):
@@ -220,18 +207,17 @@ def custom_mutate(wei, progresso):
         for w in wei:
             ret.append(custom_mutate(w,progresso))
         return np.array(ret, dtype=object)
+    
 
-    return returnRandomWeightVariation(wei)
-    # if np.random.random() < 0.2*gaus(progresso):
-    #     return np.random.uniform(low=-1, high=1)
-    # else:
-    #     return norm_force(wei + np.random.uniform(low=-0.2, high=0.2)*gaus(progresso))
+    if np.random.random() < 0.2*gaus(progresso):
+        return np.random.uniform(low=-1, high=1)
+    else:
+        return norm_force(wei + np.random.uniform(low=-0.2, high=0.2)*gaus(progresso))
 
 
 
 def run(model, mapa):
 
-    step = 1
 
     traci.route.add("trip", caminho_veiculo)
     traci.vehicle.add("caminhao", "trip")
@@ -241,6 +227,7 @@ def run(model, mapa):
     traci.vehicle.setEmissionClass("caminhao","PHEMlight/PC_G_EU4")
     traci.vehicle.setMaxSpeed("caminhao",max_speed_caminhao)
     r = 1
+    step = 1
 
     total_fuel = 0
 
@@ -255,13 +242,14 @@ def run(model, mapa):
                 x, y, z = traci.vehicle.getPosition3D("caminhao")
 
 
-                inf10 = get_info_pos(mapa, x+10)
-                inf20 = get_info_pos(mapa, x+20)
-                inf30 = get_info_pos(mapa, x+30)
-                inf40 = get_info_pos(mapa, x+40)
-                inf50 = get_info_pos(mapa, x+50)
-                inf60 = get_info_pos(mapa, x+60)
-                inf70 = get_info_pos(mapa, x+70)
+                inf10 = get_info_pos(mapa,  x+10)
+                inf20 = get_info_pos(mapa,  x+20)
+                inf30 = get_info_pos(mapa,  x+30)
+                inf40 = get_info_pos(mapa,  x+40)
+                inf50 = get_info_pos(mapa,  x+50)
+                inf60 = get_info_pos(mapa,  x+60)
+                inf70 = get_info_pos(mapa,  x+70)
+                inf100 = get_info_pos(mapa, x+100)
 
                 speed /= max_speed_caminhao
                 max_angulo = 60
@@ -271,22 +259,21 @@ def run(model, mapa):
                 inf30 = inf30["angle"]/max_angulo
                 inf40 = inf40["angle"]/max_angulo
                 inf50 = inf50["angle"]/max_angulo
-                #inf60 = inf60["angle"]/max_angulo
-                #inf70 = inf70["angle"]/max_angulo
+                inf60 = inf60["angle"]/max_angulo
+                inf70 = inf70["angle"]/max_angulo
+                inf100 = inf100["angle"]/max_angulo
 
-                entrada = [speed, angle, inf10, inf20, inf30, inf40, inf50]
-                #entrada = [speed, angle, inf10, inf20, inf30, inf40, inf50, inf60, inf70]
+                entrada = [speed, angle, inf10, inf20, inf30, inf40, inf50, inf60, inf70, inf100]
 
                 # print("ENTRADAAQUI",entrada)
 
                 r = model.predict(np.array([np.array(entrada)]))[0][0]
 
-                #se o modelo nao for bom, tentar de novo com esse rescaling
-                r = returnScaledOutput(r)
 
 
-                if r==0:
-                    r = 0.01
+
+                if r<0.1:
+                    r = 0.1
                 # print(r, max_speed_caminhao , r*max_speed_caminhao)
                 traci.vehicle.setSpeed("caminhao",r*max_speed_caminhao)
                 total_fuel += traci.vehicle.getFuelConsumption("caminhao")
@@ -465,8 +452,8 @@ def main():
 
 
     # pre_simulation()
-    population_size   = 30
-    iteration_limit   = 30
+    population_size   = 10
+    iteration_limit   = 25
     cut_half_pop      = True
     replicate_best    = 0.1
 
