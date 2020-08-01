@@ -17,7 +17,12 @@ import fuzzySpeed
 import fuzzyV
 
 
-caminho_veiculo = ['A0B0', 'B0C0', 'C0D0', 'D0E0', 'E0F0', 'F0G0', 'G0H0', 'H0I0', 'I0J0', 'J0K0', 'K0L0', 'L0M0', 'M0N0', 'N0O0', 'O0P0', 'P0Q0', 'Q0R0', 'R0S0', 'S0T0']
+caminho_veiculo = [
+'AA0AB0','AB0AC0','AC0AD0','AD0AE0','AE0AF0','AF0AG0','AG0AH0','AH0AI0','AI0AJ0','AJ0AK0','AK0AL0','AL0AM0','AM0AN0','AN0AO0',
+'AO0AP0','AP0AQ0','AQ0AR0','AR0AS0','AS0AT0','AT0AU0','AU0AV0','AV0AW0','AW0AX0','AX0AY0','AY0AZ0','AZ0BA0','BA0BB0','BB0BC0','BC0BD0','BD0BE0',
+'BE0BF0','BF0BG0','BG0BH0','BH0BI0','BI0BJ0','BJ0BK0','BK0BL0','BL0BM0','BM0BN0','BN0BO0'
+    ]
+
 max_speed_caminhao = 30 # ~ 108km/h
 max_dif_altura = 50
 extras_mapas = None
@@ -141,7 +146,12 @@ def run(model, mapa):
 
     traci.route.add("trip", caminho_veiculo)
     traci.vehicle.add("caminhao", "trip")
-    traci.vehicle.setParameter("caminhao","carFollowModel","KraussPS")
+    if type(model)==str and model!="fuzzy":
+        traci.vehicle.setParameter("caminhao","carFollowModel",model)
+        # print("entrou",model)
+    else:
+        traci.vehicle.setParameter("caminhao","carFollowModel","KraussPS")
+        # print("padrao")
     traci.vehicle.setVehicleClass("caminhao","truck")
     traci.vehicle.setShapeClass("caminhao","truck")
     traci.vehicle.setEmissionClass("caminhao","PHEMlight/PC_G_EU4")
@@ -169,7 +179,7 @@ def run(model, mapa):
 
 
 
-                if model!=None and model!="fuzzy":
+                if type(model)!=str and model!="fuzzy":
                     angle /= 90
                     # inf10 = inf10["angle"]/90
                     # inf30 = inf30["angle"]/90
@@ -292,7 +302,7 @@ def plow(dados, extras, nome):
     ys_green_below = []
 
 
-    fig, ax = plt.subplots(3,1,figsize=(20,4))
+    fig, ax = plt.subplots(4,1,figsize=(20,5))
     for i in range(len(extras)):
         # if i>10: break
 
@@ -315,6 +325,7 @@ def plow(dados, extras, nome):
     ax[0].set_xlim(-20,xs[-1]+20)
     ax[1].set_xlim(-20,xs[-1]+20)
     ax[2].set_xlim(-20,xs[-1]+20)
+    ax[3].set_xlim(-20,xs[-1]+20)
     ax[0].stackplot(xs, ys_green_above, color="#269126")
     ax[0].stackplot(xs, ys, color="#000000")
     ax[0].stackplot(xs, ys_green_below, color="#269126")
@@ -323,82 +334,81 @@ def plow(dados, extras, nome):
     ax[0].set_ylabel('Height (h)')
 
 
-    xs = []
-    ys = []
-    for a in dados["raw"]:
-        xs.append(a['x'])
-        ys.append(a['fuel_last_step'])
-    ax[1].plot(xs, ys, label="Sumo")
+    entradas = [
+        "Model",
+        "Fuzzy",
+        "Krauss",
+        "KraussOrig1",
+        "KraussPS",
+        "PWagner2009",
+        "IDM",
+        "Wiedemann",
+        "W99",
+    ]
 
+    for e in entradas:
+        xs = []
+        ys = []
+        for a in dados[e]:
+            xs.append(a['x'])
+            ys.append(a['fuel_last_step'])
+        if len(xs)>0:
+            ax[1].plot(xs, ys, label=e)
 
-    xs = []
-    ys = []
-    for a in dados["model"]:
-        xs.append(a['x'])
-        ys.append(a['fuel_last_step'])
-    ax[1].plot(xs, ys, label="Model")
-
-    xs = []
-    ys = []
-    for a in dados["fuzzy"]:
-        xs.append(a['x'])
-        ys.append(a['fuel_last_step'])
-    ax[1].plot(xs, ys, label="Fuzzy")
 
 
     ax[1].set_xlabel('Distance (m)')
-    ax[1].set_ylabel('Fuel Consuption')
+    ax[1].set_ylabel('Instant Fuel')
 
-    ax[1].legend()
-
-
-
-    total_raw = 0
-    total_model = 0
-
-    xs = []
-    ys = []
-    for a in dados["raw"]:
-        xs.append(a['x'])
-        ys.append(a['speed'])
-        total_raw = a['total_fuel']
-
-    total_raw = round(total_raw,0)
-    ax[2].plot(xs, ys, label="Sumo ({})".format(total_raw))
+    # ax[1].legend()
 
 
-    xs = []
-    ys = []
-    for a in dados["model"]:
-        xs.append(a['x'])
-        ys.append(a['speed'])
-        total_model = a['total_fuel']
-    total_model = round(total_model,0)
-    ax[2].plot(xs, ys, label="Model ({})".format(total_model))
+    for e in entradas:
+        xs = []
+        ys = []
+        for a in dados[e]:
+            xs.append(a['x'])
+            ys.append(a['speed'])
+        if len(xs)>0:
+            ax[2].plot(xs, ys, label=e)
 
-    xs = []
-    ys = []
-    for a in dados["fuzzy"]:
-        xs.append(a['x'])
-        ys.append(a['speed'])
-        total_model = a['total_fuel']
-    total_model = round(total_model,0)
-    ax[2].plot(xs, ys, label="Fuzzy ({})".format(total_model))
 
-    xs = []
-    ys = []
-    for a in dados["model"]:
-        xs.append(a['x'])
-        ys.append(a['speed_recommended'])
-    ax[2].plot(xs, ys, label="Recommended")
+
+    if len(dados["Model"])>0:
+        xs = []
+        ys = []
+        for a in dados["Model"]:
+            xs.append(a['x'])
+            ys.append(a['speed_recommended'])
+        if len(xs)>0:
+            ax[2].plot(xs, ys, dashes=[6, 2], label="Model Recommended", color="#bd1111")
+            ax[3].plot([], [], dashes=[6, 2], label="Model Recommended", color="#bd1111")
 
 
     ax[2].set_xlabel('Distance (m)')
     ax[2].set_ylabel('Speed')
+    # ax[2].legend()
 
-    ax[2].legend()
+    for e in entradas:
+        xs = []
+        ys = []
+        total = 0
+        for a in dados[e]:
+            xs.append(a['x'])
+            ys.append(a['total_fuel'])
+            total = a['total_fuel']
+
+        total = round(total,1)
+        if len(xs)>0:
+            ax[3].plot(xs, ys, label="{} ({})".format(e,total))
 
 
+
+    ax[3].set_xlabel('Distance (m)')
+    ax[3].set_ylabel('Total Fuel')
+    ax[3].legend()
+    ax[3].legend(loc='lower center', bbox_to_anchor=(0.5, -2),
+              ncol=3, fancybox=True, shadow=True)
 
     plt.savefig("./mapas_validation/FINAL_"+nome+".png", bbox_inches="tight")
     plt.close()
@@ -416,13 +426,6 @@ def main(arquivo):
     model.set_weights(gen)
 
 
-    # for _ in range(10):
-    #     entrada = [np.random.random(), np.random.uniform(low=-1, high=1), np.random.uniform(low=-1, high=1), np.random.uniform(low=-1, high=1), np.random.uniform(low=-1, high=1), np.random.uniform(low=-1, high=1)]
-
-    #     r = model.predict(np.array([np.array(entrada)]))[0][0]
-
-    #     print(entrada,r)
-
 
     folder = "./mapas_validation/"
     mapas = os.listdir(folder)
@@ -431,18 +434,34 @@ def main(arquivo):
     
     resultados_obtidos = {}
     for m in mapas:
-        resultados_obtidos[m] = {"raw":None, "model":None}
-        resultados_obtidos[m]["raw"]   = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), None, m)
-        resultados_obtidos[m]["model"] = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), model, m)
-        resultados_obtidos[m]["fuzzy"] = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "fuzzy", m)
+        resultados_obtidos[m] = {"Model":[],"Krauss":[],"KraussOrig1":[],"KraussPS":[],"PWagner2009":[],"IDM":[],"Wiedemann":[],"W99":[],"Fuzzy":[]}
+        print("_______Model______________")
+        resultados_obtidos[m]["Model"] = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), model, m)
+        print("_______Krauss______________")
+        resultados_obtidos[m]["Krauss"]   = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "Krauss", m)
+        print("_______KraussOrig1______________")
+        resultados_obtidos[m]["KraussOrig1"]   = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "KraussOrig1", m)
+        print("_______KraussPS______________")
+        resultados_obtidos[m]["KraussPS"]   = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "KraussPS", m)
+        print("_______PWagner2009______________")
+        resultados_obtidos[m]["PWagner2009"]   = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "PWagner2009", m)
+        print("_______IDM______________")
+        resultados_obtidos[m]["IDM"]   = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "IDM", m)
+        print("_______Wiedemann______________")
+        resultados_obtidos[m]["Wiedemann"]   = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "Wiedemann", m)
+        print("_______W99______________")
+        resultados_obtidos[m]["W99"]   = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "W99", m)
+        print("_______Fuzzy______________")
+        resultados_obtidos[m]["Fuzzy"] = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "fuzzy", m)
 
 
         file = open(folder+m.replace(".net.xml",".extras"),"r")
         extras = json.loads(file.read())
         file.close()
 
-        plow(resultados_obtidos[m], extras, m)
 
+        plow(resultados_obtidos[m], extras, m)
+        # break
 
 
 if __name__ == '__main__':
