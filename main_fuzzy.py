@@ -354,7 +354,7 @@ def custom_fitness(genome, outputfile):
     consumo_total = 0
     for m in mapas:
 
-        consumo = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "./output/"+m+outputfile, model, m)
+        consumo = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "./output_fuzzy/"+m+outputfile, model, m)
         # sumo-gui
         consumo_total += consumo
 
@@ -394,7 +394,7 @@ def main():
 
 
 
-    folder = './output/'
+    folder = './output_fuzzy/'
     for filename in os.listdir(folder):
         file_path = os.path.join(folder, filename)
         try:
