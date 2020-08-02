@@ -14,7 +14,8 @@ import time
 from keras.models import Sequential
 from keras.layers import Dense
 import shutil
-import fuzzySpeed
+import fuzzy_in_two
+import fuzzy_in_three
 
 
 if 'SUMO_HOME' in os.environ:
@@ -180,7 +181,8 @@ def custom_mutate(wei):
 
 def run(model, mapa):
 
-    g = fuzzySpeed.Algorithm()
+    f_2 = fuzzy_in_two.Algorithm()
+    f_3 = fuzzy_in_three.Algorithm()
  
     step = 1
     
@@ -212,7 +214,6 @@ def run(model, mapa):
                 inf70 = get_info_pos(mapa, x+70)
 
                 normalization = 1 #90
-                speed /= max_speed_caminhao
                 angle /= normalization
                 inf10 = inf10["angle"]/normalization
                 inf30 = inf30["angle"]/normalization
@@ -224,7 +225,7 @@ def run(model, mapa):
                 print(inf70)
 
                 #r = model.predict(np.array([np.array(entrada)]))[0][0] #chamar fuzzy
-                r = g.findSpeed(speed, angle, inf10, inf30, inf50, inf70)
+                r = f_2.findSpeed(speed, angle, inf10, inf30, inf50, inf70)
 
                 print(r)
              
