@@ -37,13 +37,22 @@ import traci
 
 def get_model():
     model = Sequential()
-    model.add(Dense(20, input_shape=(10,)))
+    model.add(Dense(30, input_shape=(10,)))
     model.add(Dense(20))
     model.add(Dense(1, activation='sigmoid'))
     model.compile(optimizer='adam', loss='categorical_crossentropy')
 
     return model
 
+def calculate_new_fuel(instant_fuel, instant_slope, max_slope, instant_acell, max_accel):
+
+    total_accel = instant_acell/max_accel
+    total_slope = instant_slope/max_slope
+
+    if total_slope>0:
+        instant_fuel = instant_fuel*(1+total_accel)
+
+    return instant_fuel
 
 def getClosest(arr, n, target):
 
@@ -157,6 +166,7 @@ def run(model, mapa):
     traci.vehicle.setEmissionClass("caminhao","PHEMlight/PC_G_EU4")
     traci.vehicle.setMaxSpeed("caminhao",max_speed_caminhao) 
     r = 1
+    max_angulo = 60
 
     total_fuel = 0
 
@@ -171,11 +181,19 @@ def run(model, mapa):
                 angle = traci.vehicle.getSlope("caminhao")
                 x, y, z = traci.vehicle.getPosition3D("caminhao")
 
+                max_acel = traci.vehicle.getAccel("caminhao")
+                inst_acel = traci.vehicle.getAcceleration("caminhao")
+
+
 
                 inf10 = get_info_pos(mapa, x+10)
+                inf20 = get_info_pos(mapa, x+20)
                 inf30 = get_info_pos(mapa, x+30)
+                inf40 = get_info_pos(mapa, x+40)
                 inf50 = get_info_pos(mapa, x+50)
+                inf60 = get_info_pos(mapa, x+60)
                 inf70 = get_info_pos(mapa, x+70)
+                inf100 = get_info_pos(mapa, x+100)
 
 
 
@@ -187,27 +205,20 @@ def run(model, mapa):
                     # inf70 = inf70["angle"]/90
                     # entrada = [speed/max_speed_caminhao, angle, inf10, inf30, inf50, inf70]
 
-                    inf10 = get_info_pos(mapa, x+10)
-                    inf20 = get_info_pos(mapa, x+20)
-                    inf30 = get_info_pos(mapa, x+30)
-                    inf40 = get_info_pos(mapa, x+40)
-                    inf50 = get_info_pos(mapa, x+50)
-                    inf60 = get_info_pos(mapa, x+60)
-                    inf70 = get_info_pos(mapa, x+70)
-                    inf100 = get_info_pos(mapa, x+100)
 
-                    angle /= 90
-                    inf10 = inf10["angle"]/90
-                    inf20 = inf20["angle"]/90
-                    inf30 = inf30["angle"]/90
-                    inf40 = inf40["angle"]/90
-                    inf50 = inf50["angle"]/90
-                    inf60 = inf60["angle"]/90
-                    inf70 = inf70["angle"]/90
-                    inf100 = inf100["angle"]/90
+                    angle /= max_angulo
+                    inf10 = inf10["angle"]/max_angulo
+                    inf20 = inf20["angle"]/max_angulo
+                    inf30 = inf30["angle"]/max_angulo
+                    inf40 = inf40["angle"]/max_angulo
+                    inf50 = inf50["angle"]/max_angulo
+                    inf60 = inf60["angle"]/max_angulo
+                    inf70 = inf70["angle"]/max_angulo
+                    inf100 = inf100["angle"]/max_angulo
 
 
                     entrada = [speed/max_speed_caminhao, angle, inf10, inf20, inf30, inf40, inf50, inf60, inf70, inf100]
+
 
                     r = model.predict(np.array([np.array(entrada)]))[0][0]
 
@@ -227,7 +238,10 @@ def run(model, mapa):
                     r = v.findSpeed(speed,angle, inf10, inf30, inf50, inf70)
 
                     traci.vehicle.setSpeed("caminhao",r)
+
                 fuel_last_step = traci.vehicle.getFuelConsumption("caminhao")
+                instant_fuel_consuption2 = calculate_new_fuel(fuel_last_step, angle, max_angulo, inst_acel, max_acel)
+
                 total_fuel += fuel_last_step
 
                 dados_retorno.append({
@@ -465,5 +479,5 @@ def main(arquivo):
 
 
 if __name__ == '__main__':
-    a = "./results/10_25_True_0.1.json"
+    a = "./results/10_10_True_0.1.json"
     main(a)
