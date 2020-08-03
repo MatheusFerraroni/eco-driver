@@ -174,6 +174,7 @@ class Algorithm:
         speed = self.S_simulator.output['S']
        
         print('Speed:', speed, 'm/s')
+        speed = 29
         return(speed)
         plt.show()
 
