@@ -77,15 +77,15 @@ def calculate_new_fuel(instant_fuel, instant_slope, max_slope, instant_acell, ma
     total_accel = instant_acell/max_accel
     total_slope = instant_slope/max_slope
 
-    if total_slope>0 and total_accel>0:
-        instant_fuel = instant_fuel*(1.1+total_accel)
+    if total_slope>=0 and total_accel>=0:
+        instant_fuel = instant_fuel*(1.1+total_slope)
 
     return instant_fuel
 
 def get_model():
     model = Sequential()
-    model.add(Dense(30, input_shape=(10,)))
-    model.add(Dense(20))
+    model.add(Dense(30, input_shape=(10,), activation='sigmoid'))
+    model.add(Dense(20, activation='sigmoid'))
     model.add(Dense(1, activation='sigmoid'))
     model.compile(optimizer='adam', loss='mean_squared_error')
 
@@ -237,8 +237,8 @@ def run(model, mapa):
     traci.vehicle.setMaxSpeed("caminhao",max_speed_caminhao)
     r = 1
     step = 1
-
     total_fuel = 0
+    max_angulo = 60
 
     try:
         while step == 1 or traci.simulation.getMinExpectedNumber() > 0:
@@ -262,9 +262,6 @@ def run(model, mapa):
                 inf70 = get_info_pos(mapa,  x+70)
                 inf100 = get_info_pos(mapa, x+100)
 
-                speed /= max_speed_caminhao
-                max_angulo = 60
-                angle /= max_angulo
                 inf10 = inf10["angle"]/max_angulo
                 inf20 = inf20["angle"]/max_angulo
                 inf30 = inf30["angle"]/max_angulo
@@ -274,7 +271,7 @@ def run(model, mapa):
                 inf70 = inf70["angle"]/max_angulo
                 inf100 = inf100["angle"]/max_angulo
 
-                entrada = [speed, angle, inf10, inf20, inf30, inf40, inf50, inf60, inf70, inf100]
+                entrada = [speed/max_speed_caminhao, angle/max_angulo, inf10, inf20, inf30, inf40, inf50, inf60, inf70, inf100]
 
                 # print("ENTRADAAQUI",entrada)
 
@@ -513,8 +510,8 @@ def main():
 
     # pre_simulation()
     # return
-    population_size   = 15
-    iteration_limit   = 15
+    population_size   = 10
+    iteration_limit   = 10
     cut_half_pop      = True
     replicate_best    = 0.1
 
