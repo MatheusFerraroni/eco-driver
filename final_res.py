@@ -13,8 +13,8 @@ import time
 from keras.models import Sequential
 from keras.layers import Dense
 import shutil
-import fuzzySpeed
-import fuzzyV
+import fuzzy_in_two
+import fuzzy_in_three
 
 
 caminho_veiculo = [
@@ -148,8 +148,8 @@ class UnusedPortLock:
 def run(model, mapa):
 
 
-    g = fuzzySpeed.Algorithm()
-    v = fuzzyV.Algorithm()
+    f_2 = fuzzy_in_two.Algorithm()
+    f_3 = fuzzy_in_three.Algorithm()
 
     step = 0
 
@@ -235,7 +235,7 @@ def run(model, mapa):
                     inf70 = inf70["angle"]/normalization
 
                     # FUZZY
-                    r = v.findSpeed(speed,angle, inf10, inf30, inf50, inf70)
+                    r = f_2.findSpeed(speed,angle, inf10, inf30, inf50, inf70)
 
                     traci.vehicle.setSpeed("caminhao",r)
 

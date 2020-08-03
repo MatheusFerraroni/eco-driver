@@ -192,3 +192,172 @@ Loading configuration ... done.
 Loading net-file from './mapas/super.net.xml' ... done (326ms).
 Loading done.
 Simulation version 1.5.0 started with time: 0.00
+Step #0.00 (0ms ?*RT. ?UPS, TraCI: 4ms, vehicles TOT 1 ACT 1 BUF 0)                       Step #100.00 (0ms ?*RT. ?UPS, TraCI: 17ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #200.00 (0ms ?*RT. ?UPS, TraCI: 17ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #300.00 (0ms ?*RT. ?UPS, TraCI: 17ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #400.00 (0ms ?*RT. ?UPS, TraCI: 17ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #500.00 (0ms ?*RT. ?UPS, TraCI: 17ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #600.00 (0ms ?*RT. ?UPS, TraCI: 16ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #700.00 (0ms ?*RT. ?UPS, TraCI: 18ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #800.00 (0ms ?*RT. ?UPS, TraCI: 17ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #900.00 (0ms ?*RT. ?UPS, TraCI: 17ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #1000.00 (0ms ?*RT. ?UPS, TraCI: 20ms, vehicles TOT 1 ACT 1 BUF 0)                   Step #1100.00 (0ms ?*RT. ?UPS, TraCI: 18ms, vehicles TOT 1 ACT 1 BUF 0)                   Step #1200.00 (0ms ?*RT. ?UPS, TraCI: 18ms, vehicles TOT 1 ACT 1 BUF 0)                   Step #1300.00 (0ms ?*RT. ?UPS, TraCI: 17ms, vehicles TOT 1 ACT 1 BUF 0)                   Step #1400.00 (0ms ?*RT. ?UPS, TraCI: 16ms, vehicles TOT 1 ACT 1 BUF 0)                   Step #1500.00 (0ms ?*RT. ?UPS, TraCI: 17ms, vehicles TOT 1 ACT 1 BUF 0)                   Step #1600.00 (0ms ?*RT. ?UPS, TraCI: 18ms, vehicles TOT 1 ACT 1 BUF 0)                   Step #1700.00 (0ms ?*RT. ?UPS, TraCI: 17ms, vehicles TOT 1 ACT 1 BUF 0)                   Error: Answered with error to command 0xa4: Vehicle 'caminhao' is not known.
+Step #1708.00 (0ms ?*RT. ?UPS, TraCI: 1ms, vehicles TOT 1 ACT 0 BUF 0)                    Simulation ended at time: 1708.00
+Reason: TraCI requested termination.
+Performance: 
+ Duration: 29875ms
+ Real time factor: 57.1715
+ UPS: 57.138075
+Vehicles: 
+ Inserted: 1
+ Running: 0
+ Waiting: 0
+Statistics (avg):
+ RouteLength: 14079.64
+ Speed: 8.25
+ Duration: 1707.00
+ WaitingTime: 0.00
+ TimeLoss: 1237.52
+ DepartDelay: 0.00
+
+Terminating SUMO
+[GA]  Avaliado: (id=6,geracao=0,score=0.00054441993109263060)
+Simulation finished
+Loading configuration ... done.
+***Starting server on port 52713 ***
+Loading net-file from './mapas/super.net.xml' ... done (329ms).
+Loading done.
+Simulation version 1.5.0 started with time: 0.00
+Step #0.00 (0ms ?*RT. ?UPS, TraCI: 4ms, vehicles TOT 1 ACT 1 BUF 0)                       Step #100.00 (0ms ?*RT. ?UPS, TraCI: 17ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #200.00 (0ms ?*RT. ?UPS, TraCI: 21ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #300.00 (0ms ?*RT. ?UPS, TraCI: 17ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #400.00 (0ms ?*RT. ?UPS, TraCI: 18ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #500.00 (0ms ?*RT. ?UPS, TraCI: 23ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #600.00 (0ms ?*RT. ?UPS, TraCI: 18ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #700.00 (0ms ?*RT. ?UPS, TraCI: 20ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #800.00 (0ms ?*RT. ?UPS, TraCI: 21ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #900.00 (0ms ?*RT. ?UPS, TraCI: 18ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #1000.00 (0ms ?*RT. ?UPS, TraCI: 18ms, vehicles TOT 1 ACT 1 BUF 0)                   Error: Answered with error to command 0xa4: Vehicle 'caminhao' is not known.
+Step #1075.00 (0ms ?*RT. ?UPS, TraCI: 1ms, vehicles TOT 1 ACT 0 BUF 0)                    Simulation ended at time: 1075.00
+Reason: TraCI requested termination.
+Performance: 
+ Duration: 19663ms
+ Real time factor: 54.6712
+ UPS: 54.620353
+Vehicles: 
+ Inserted: 1
+ Running: 0
+ Waiting: 0
+Statistics (avg):
+ RouteLength: 14079.64
+ Speed: 13.11
+ Duration: 1074.00
+ WaitingTime: 0.00
+ TimeLoss: 604.58
+ DepartDelay: 0.00
+
+Terminating SUMO
+[GA]  Avaliado: (id=7,geracao=0,score=0.00040000624694741153)
+Simulation finished
+Loading configuration ... done.
+***Starting server on port 52755 ***
+Loading net-file from './mapas/super.net.xml' ... done (333ms).
+Loading done.
+Simulation version 1.5.0 started with time: 0.00
+Step #0.00 (1ms ~= 1000.00*RT, ~1000.00UPS, TraCI: 4ms, vehicles TOT 1 ACT 1 BUF 0)       Step #100.00 (0ms ?*RT. ?UPS, TraCI: 17ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #200.00 (0ms ?*RT. ?UPS, TraCI: 23ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #300.00 (0ms ?*RT. ?UPS, TraCI: 19ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #400.00 (0ms ?*RT. ?UPS, TraCI: 18ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #500.00 (0ms ?*RT. ?UPS, TraCI: 18ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #600.00 (0ms ?*RT. ?UPS, TraCI: 17ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #700.00 (0ms ?*RT. ?UPS, TraCI: 17ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #800.00 (0ms ?*RT. ?UPS, TraCI: 17ms, vehicles TOT 1 ACT 1 BUF 0)                    Error: Answered with error to command 0xa4: Vehicle 'caminhao' is not known.
+Step #863.00 (0ms ?*RT. ?UPS, TraCI: 1ms, vehicles TOT 1 ACT 0 BUF 0)                     Simulation ended at time: 863.00
+Reason: TraCI requested termination.
+Performance: 
+ Duration: 15755ms
+ Real time factor: 54.7763
+ UPS: 54.712790
+Vehicles: 
+ Inserted: 1
+ Running: 0
+ Waiting: 0
+Statistics (avg):
+ RouteLength: 14079.64
+ Speed: 16.33
+ Duration: 862.00
+ WaitingTime: 0.00
+ TimeLoss: 392.30
+ DepartDelay: 0.00
+
+Terminating SUMO
+[GA]  Avaliado: (id=8,geracao=0,score=0.00046056345822232845)
+Simulation finished
+Loading configuration ... done.
+***Starting server on port 52770 ***
+Loading net-file from './mapas/super.net.xml' ... done (332ms).
+Loading done.
+Simulation version 1.5.0 started with time: 0.00
+Step #0.00 (1ms ~= 1000.00*RT, ~1000.00UPS, TraCI: 4ms, vehicles TOT 1 ACT 1 BUF 0)       Step #100.00 (0ms ?*RT. ?UPS, TraCI: 20ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #200.00 (0ms ?*RT. ?UPS, TraCI: 17ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #300.00 (0ms ?*RT. ?UPS, TraCI: 17ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #400.00 (0ms ?*RT. ?UPS, TraCI: 21ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #500.00 (0ms ?*RT. ?UPS, TraCI: 18ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #600.00 (1ms ~= 1000.00*RT, ~1000.00UPS, TraCI: 16ms, vehicles TOT 1 ACT 1 BUF 0)    Step #700.00 (0ms ?*RT. ?UPS, TraCI: 22ms, vehicles TOT 1 ACT 1 BUF 0)                    Error: Answered with error to command 0xa4: Vehicle 'caminhao' is not known.
+Step #764.00 (0ms ?*RT. ?UPS, TraCI: 0ms, vehicles TOT 1 ACT 0 BUF 0)                     Simulation ended at time: 764.00
+Reason: TraCI requested termination.
+Performance: 
+ Duration: 13599ms
+ Real time factor: 56.1806
+ UPS: 56.107067
+Vehicles: 
+ Inserted: 1
+ Running: 0
+ Waiting: 0
+Statistics (avg):
+ RouteLength: 14079.64
+ Speed: 18.45
+ Duration: 763.00
+ WaitingTime: 0.00
+ TimeLoss: 293.16
+ DepartDelay: 0.00
+
+Terminating SUMO
+[GA]  Avaliado: (id=9,geracao=0,score=0.00048851962814018622)
+[GA]  Completo avaliação de scores
+[GA]  Geração: 0, Best geral: 0.00061480363284736926, Best Atual: 0.00061480363284736926, Média: 0.00048770388481415112
+[GA]  Iniciando avaliação de scores
+Simulation finished
+Loading configuration ... done.
+***Starting server on port 52773 ***
+Loading net-file from './mapas/super.net.xml' ... done (341ms).
+Loading done.
+Simulation version 1.5.0 started with time: 0.00
+Step #0.00 (1ms ~= 1000.00*RT, ~1000.00UPS, TraCI: 3ms, vehicles TOT 1 ACT 1 BUF 0)       Interrupt signal received, trying to exit gracefully.
+Terminating SUMO
+[GA]  Avaliado: (id=10,geracao=1,score=0.00050812058751817932)
+Terminating SUMO
+Traceback (most recent call last):
+  File "main2.py", line 555, in <module>
+    main()
+  File "main2.py", line 538, in main
+    g.run()
+  File "C:\Users\Matheus\Desktop\MC906\eco-driver-Copia\GA2.py", line 104, in run
+    self.calculate_score() # PRIMEIRO: Definir score
+  File "C:\Users\Matheus\Desktop\MC906\eco-driver-Copia\GA2.py", line 385, in calculate_score
+    e.score = self.evaluate(e.genome, "_"+str(e.geracao)+"_"+str(e.idd)+".out.xml")
+  File "main2.py", line 417, in custom_fitness
+    consumo = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "./output/"+m+outputfile, model, m)
+  File "main2.py", line 396, in start_simulation
+    return run(model, mapa)
+  File "main2.py", line 278, in run
+    r = model.predict(np.array([np.array(entrada)]))[0][0]
+  File "C:\Users\Matheus\Desktop\MC906\eco-driver\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 88, in _method_wrapper
+    return method(self, *args, **kwargs)
+  File "C:\Users\Matheus\Desktop\MC906\eco-driver\venv\lib\site-packages\tensorflow\python\keras\engine\training.py", line 1249, in predict
+    model=self)
+  File "C:\Users\Matheus\Desktop\MC906\eco-driver\venv\lib\site-packages\tensorflow\python\keras\engine\data_adapter.py", line 1112, in __init__
+    model=model)
+  File "C:\Users\Matheus\Desktop\MC906\eco-driver\venv\lib\site-packages\tensorflow\python\keras\engine\data_adapter.py", line 362, in __init__
+    indices_dataset = indices_dataset.flat_map(slice_batch_indices)
+  File "C:\Users\Matheus\Desktop\MC906\eco-driver\venv\lib\site-packages\tensorflow\python\data\ops\dataset_ops.py", line 1652, in flat_map
+    return FlatMapDataset(self, map_func)
+  File "C:\Users\Matheus\Desktop\MC906\eco-driver\venv\lib\site-packages\tensorflow\python\data\ops\dataset_ops.py", line 4071, in __init__
+    map_func, self._transformation_name(), dataset=input_dataset)
+  File "C:\Users\Matheus\Desktop\MC906\eco-driver\venv\lib\site-packages\tensorflow\python\data\ops\dataset_ops.py", line 3221, in __init__
+    self._function = wrapper_fn.get_concrete_function()
+  File "C:\Users\Matheus\Desktop\MC906\eco-driver\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2532, in get_concrete_function
+    *args, **kwargs)
+  File "C:\Users\Matheus\Desktop\MC906\eco-driver\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2496, in _get_concrete_function_garbage_collected
+    graph_function, args, kwargs = self._maybe_define_function(args, kwargs)
+  File "C:\Users\Matheus\Desktop\MC906\eco-driver\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2777, in _maybe_define_function
+    graph_function = self._create_graph_function(args, kwargs)
+  File "C:\Users\Matheus\Desktop\MC906\eco-driver\venv\lib\site-packages\tensorflow\python\eager\function.py", line 2673, in _create_graph_function
+    shared_func_graph=False)
+  File "C:\Users\Matheus\Desktop\MC906\eco-driver\venv\lib\site-packages\tensorflow\python\eager\function.py", line 1565, in __init__
+    func_graph, self._attrs, self._garbage_collector)
+  File "C:\Users\Matheus\Desktop\MC906\eco-driver\venv\lib\site-packages\tensorflow\python\eager\function.py", line 654, in __init__
+    self._func_graph.inputs, self._func_graph.outputs, attrs)
+  File "C:\Users\Matheus\Desktop\MC906\eco-driver\venv\lib\site-packages\tensorflow\python\eager\function.py", line 513, in __init__
+    with ops.init_scope():
+  File "C:\Users\Matheus\AppData\Local\Programs\Python\Python37\lib\contextlib.py", line 112, in __enter__
+    return next(self.gen)
+  File "C:\Users\Matheus\Desktop\MC906\eco-driver\venv\lib\site-packages\tensorflow\python\framework\ops.py", line 5503, in init_scope
+    with tape.stop_recording():
+  File "C:\Users\Matheus\AppData\Local\Programs\Python\Python37\lib\contextlib.py", line 239, in helper
+    return _GeneratorContextManager(func, args, kwds)
+  File "C:\Users\Matheus\AppData\Local\Programs\Python\Python37\lib\contextlib.py", line 85, in __init__
+    doc = getattr(func, "__doc__", None)
+KeyboardInterrupt
+Error: tcpip::Socket::recvAndCheck @ recv: peer shutdown
+Quitting (on error).

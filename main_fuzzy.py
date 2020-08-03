@@ -179,7 +179,7 @@ def custom_mutate(wei):
     
 
 
-def run(model, mapa):
+def run(mapa):
 
     f_2 = fuzzy_in_two.Algorithm()
     f_3 = fuzzy_in_three.Algorithm()
@@ -320,7 +320,7 @@ def start_pre_simulation(sumo, scenario, network):
         terminate_sumo(sumo)
         unused_port_lock.__exit__()
 
-def start_simulation(sumo, scenario, network, output, model, mapa):
+def start_simulation(sumo, scenario, network, output, mapa):
     unused_port_lock = UnusedPortLock()
     unused_port_lock.__enter__()
     remote_port = find_unused_port()
@@ -331,7 +331,7 @@ def start_simulation(sumo, scenario, network, output, model, mapa):
 
     try:
         traci.init(remote_port)            
-        return run(model, mapa)
+        return run(mapa)
     except Exception as e:
         print(e)
         raise
@@ -341,10 +341,8 @@ def start_simulation(sumo, scenario, network, output, model, mapa):
         unused_port_lock.__exit__()
 
 
-def custom_fitness(genome, outputfile):
-    model = get_model()
-
-    model.set_weights(genome)
+def custom_fitness(outputfile="super.net.xml_0_0.out.xml"):
+ 
 
     mapas = mapas_todos
     folder = "./mapas/"
@@ -352,7 +350,10 @@ def custom_fitness(genome, outputfile):
     consumo_total = 0
     for m in mapas:
 
-        consumo = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "./output_fuzzy/"+m+outputfile, model, m)
+
+
+        consumo = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "./output_fuzzy/"+m+outputfile, m)
+
         # sumo-gui
         consumo_total += consumo
 
@@ -403,46 +404,46 @@ def main():
         except Exception as e:
             print('Failed to delete %s. Reason: %s' % (file_path, e))
 
+    custom_fitness()
+    #pre_simulation()
+    # population_size   = 1
+    # iteration_limit   = 1
+    # cut_half_pop      = True
+    # replicate_best    = 0.1
 
-    pre_simulation()
-    population_size   = 1
-    iteration_limit   = 1
-    cut_half_pop      = True
-    replicate_best    = 0.1
-
-    name =  str(population_size)+"_"+\
-            str(iteration_limit)+"_"+\
-            str(cut_half_pop)+"_"+\
-            str(replicate_best)
-
-
-    g = GA2.GeneticAlgorithm(custom_random_genome)
-    g.set_evaluate(custom_fitness)
-
-    g.set_population_size(population_size)
-    g.set_iteration_limit(iteration_limit)
-    g.set_stop_criteria_type(1)
-    g.set_mutate(custom_mutate)
-    g.set_cut_half_population(cut_half_pop)
-    g.set_replicate_best(replicate_best)
+    # name =  str(population_size)+"_"+\
+    #         str(iteration_limit)+"_"+\
+    #         str(cut_half_pop)+"_"+\
+    #         str(replicate_best)
 
 
+    # g = GA2.GeneticAlgorithm(custom_random_genome)
+    # g.set_evaluate(custom_fitness)
+
+    # g.set_population_size(population_size)
+    # g.set_iteration_limit(iteration_limit)
+    # g.set_stop_criteria_type(1)
+    # g.set_mutate(custom_mutate)
+    # g.set_cut_half_population(cut_half_pop)
+    # g.set_replicate_best(replicate_best)
 
 
 
-    g.run()
+
+
+    # g.run()
 
 
 
-    infos = {}
-    infos["ga_config"] = g.get_config()
-    infos["historic"] = g.historic
+    # infos = {}
+    # infos["ga_config"] = g.get_config()
+    # infos["historic"] = g.historic
 
 
 
-    f = open("./results/"+name+".json","w")
-    f.write(json.dumps(infos, indent=2))
-    f.close()
+    # f = open("./results/"+name+".json","w")
+    # f.write(json.dumps(infos, indent=2))
+    # f.close()
 
 
 
