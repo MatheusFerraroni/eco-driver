@@ -72,6 +72,20 @@ def get_model():
 
     return model
 
+def calculate_new_fuel(speed, max_speed_caminhao, instant_fuel, instant_slope, max_slope, instant_acell, max_accel, step):
+
+    total_accel = instant_acell/max_accel
+    total_slope = instant_slope/max_slope
+    # print('total_slope', total_slope)
+    # print('instant_slope', instant_slope)
+    if total_slope>=0 and total_accel>=0:
+        instant_fuel = instant_fuel*(1.1+total_accel)
+        # print('total_accel', total_accel)
+    
+
+    return instant_fuel
+
+
 def getClosest(arr, n, target):
 
     if type(arr) is not list:
@@ -225,12 +239,24 @@ def run(mapa):
                 #r = model.predict(np.array([np.array(entrada)]))[0][0] #chamar fuzzy
                 r = f_2.findSpeed(speed, angle, inf10, inf30, inf50, inf70)
 
-                print(r)
-             
+                            
                 # print(r, max_speed_caminhao , r*max_speed_caminhao)
-                traci.vehicle.setSpeed("caminhao",r*max_speed_caminhao)
-                total_fuel += traci.vehicle.getFuelConsumption("caminhao")
+                traci.vehicle.setSpeed("caminhao",r)
+                instant_fuel_consuption = traci.vehicle.getFuelConsumption("caminhao")
+
+                max_angulo = 60
+                # angle /= max_angulo
+                max_acel = traci.vehicle.getAccel("caminhao")
+                inst_acel = traci.vehicle.getAcceleration("caminhao")
+
+                instant_fuel_consuption2 = calculate_new_fuel(speed, max_speed_caminhao, instant_fuel_consuption, angle, max_angulo, inst_acel, max_acel, step)
+                total_fuel += instant_fuel_consuption2
+
+
             except Exception as e:
+                print("######################---")
+                print(e)
+                print("######################---")
                 pass
 
 
@@ -357,6 +383,16 @@ def custom_fitness(outputfile="super.net.xml_0_0.out.xml"):
         # if consumo_total==float("Infinity"): # isso faz pular mapas no teste caso a gente ja tenha identificado algum muito lento
         #     break
 
+    f = open("./output_fuzzy/"+m+outputfile,"r")
+    conteudo = f.read()
+    f.close()
+    conteudo = conteudo.split("\n")
+    conteudo[33] = conteudo[33].split("fuel_abs")
+    conteudo[33] = conteudo[33][0]+"fuel_abs=\"{:.6f}\" electricity_abs=\"0\"/>".format(consumo_total)
+    conteudo = "\n".join(conteudo)
+    f = open("./output_fuzzy/"+m+outputfile,"w")
+    f.write(conteudo)
+    f.close()
     return 1/consumo_total
 
 def custom_random_genome():

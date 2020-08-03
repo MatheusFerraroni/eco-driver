@@ -172,7 +172,7 @@ class Algorithm:
         # S.view(sim=S_simulator) 
 
         speed = self.S_simulator.output['S']
-       
+        speed = 30
         #print('Speed:', speed, 'm/s')
         return(speed)
         plt.show()
