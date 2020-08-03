@@ -30,3 +30,7 @@
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="caminhao" depart="0.00" departLane="AA0AB0_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="1048.00" arrivalLane="FC0FD0_0" arrivalPos="91.11" arrivalSpeed="13.13" duration="1048.00" routeLength="14079.64" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="578.61" rerouteNo="0" devices="tripinfo_caminhao emissions_caminhao" vType="DEFAULT_VEHTYPE@caminhao" speedFactor="1.06" vaporized="">
+        <emissions CO_abs="73373.585571" CO2_abs="4021647.633282" HC_abs="485.836810" PMx_abs="185.339749" NOx_abs="1894.249672" fuel_abs="2234.504540" electricity_abs="0"/>
+    </tripinfo>
+</tripinfos>
