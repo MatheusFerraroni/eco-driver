@@ -150,9 +150,9 @@ class Algorithm:
     def findSpeed(self, speed, angle, inf10, inf30, inf50, inf70):
 
         # print("Running Fuzzy")
-        print('.')
-        print('angle: ',angle)
-        print('inf10: ', inf10)
+        # print('.')
+        # print('angle: ',angle)
+        # print('inf10: ', inf10)
         
         self.S_simulator.input['RG'] = angle  # Road gradient (-90, 90) grados
         self.S_simulator.input['A10'] = inf10 # Road gradient (-90, 90) grados
@@ -173,8 +173,7 @@ class Algorithm:
 
         speed = self.S_simulator.output['S']
        
-        print('Speed:', speed, 'm/s')
-        speed = 29
+        #print('Speed:', speed, 'm/s')
         return(speed)
         plt.show()
 

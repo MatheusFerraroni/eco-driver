@@ -253,6 +253,9 @@ def run(model, mapa):
                 angle = traci.vehicle.getSlope("caminhao")
                 x, y, z = traci.vehicle.getPosition3D("caminhao")
 
+                max_acel = traci.vehicle.getAccel("caminhao")
+                inst_acel = traci.vehicle.getAcceleration("caminhao")
+
 
                 inf10 = get_info_pos(mapa, x+10)
                 inf30 = get_info_pos(mapa, x+30)
@@ -260,6 +263,7 @@ def run(model, mapa):
                 inf70 = get_info_pos(mapa, x+70)
 
                 normalization = 1 #90
+               
                 angle /= normalization
                 inf10 = inf10["angle"]/normalization
                 inf30 = inf30["angle"]/normalization
@@ -272,8 +276,8 @@ def run(model, mapa):
                 r = f_2.findSpeed(speed, angle, inf10, inf30, inf50, inf70)
 
                 print(r)
-
-
+                max_angulo = 60
+                angle /= max_angulo
                 # print(r, max_speed_caminhao , r*max_speed_caminhao)
                 traci.vehicle.setSpeed("caminhao",r)
                 instant_fuel_consuption = traci.vehicle.getFuelConsumption("caminhao")
@@ -283,6 +287,9 @@ def run(model, mapa):
 
                 total_fuel += instant_fuel_consuption2
             except Exception as e:
+                print("######################")
+                print(e)
+                print("######################")
                 pass
 
 
