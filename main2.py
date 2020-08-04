@@ -16,6 +16,7 @@ from keras.layers import Dense
 import shutil
 import math
 from random import gauss
+import ConsuptionModel as cM
 
 
 if 'SUMO_HOME' in os.environ:
@@ -61,6 +62,36 @@ caminho_veiculo = ['AA0AB0','AB0AC0','AC0AD0','AD0AE0','AE0AF0','AF0AG0','AG0AH0
 # 'LA0LB0','LB0LC0','LC0LD0','LD0LE0','LE0LF0','LF0LG0','LG0LH0','LH0LI0','LI0LJ0','LJ0LK0','LK0LL0','LL0LM0','LM0LN0','LN0LO0',
 ]
 
+def calculate_real_fuel(speed,accel,slope,instant_fuel):
+    modelo = cM.ModelConsuption(speed, accel, slope)
+    consuption = modelo.run()
+    instant_fuel = consuption
+    
+    return instant_fuel
+
+def calculate_power(slope,speed):
+    # slope : angulo em graus
+	# velocidade : m/s
+	accelG = 10 # m/s^2
+	coefAtrito = 0.2
+	massa = 1000 # kg
+	rendimento = 0.85
+	angulo = math.radians(slope) # graus para radianos
+	seno = math.sin(angulo)
+	cosseno = math.cos(angulo)
+
+	F1 = massa * accelG * seno # Forca 1
+	Fat = coefAtrito * (massa * accelG * cosseno) # Forca atrito
+
+	Fmotor = F1 + Fat # Forca do motor
+
+	deslocamento = ((seno ** 2) + (cosseno ** 2)) ** 1/2
+
+	trabalho = Fmotor * deslocamento
+
+	potencia = (Fmotor * velocidade)/rendimento
+
+	return potencia
 
 def calculate_new_fuel(instant_fuel, instant_slope, max_slope, instant_acell, max_accel):
 
@@ -280,8 +311,8 @@ def run(model, mapa):
                 traci.vehicle.setSpeed("caminhao",r*max_speed_caminhao)
                 instant_fuel_consuption = traci.vehicle.getFuelConsumption("caminhao")
 
-                instant_fuel_consuption2 = calculate_new_fuel(instant_fuel_consuption, angle, max_angulo, inst_acel, max_acel)
-
+                # instant_fuel_consuption2 = calculate_new_fuel(instant_fuel_consuption, angle, max_angulo, inst_acel, max_acel)
+                instant_fuel_consuption2 = calculate_real_fuel(speed, accel,slope,instant_fuel)
 
                 total_fuel += instant_fuel_consuption2
             except Exception as e:
@@ -307,11 +338,13 @@ def run(model, mapa):
 
 def run_pre():
 
-    caminho_veiculo_pre = [
-'AA0AB0','AB0AC0','AC0AD0','AD0AE0','AE0AF0','AF0AG0','AG0AH0','AH0AI0','AI0AJ0','AJ0AK0','AK0AL0','AL0AM0','AM0AN0','AN0AO0',
-'AO0AP0','AP0AQ0','AQ0AR0','AR0AS0','AS0AT0','AT0AU0','AU0AV0','AV0AW0','AW0AX0','AX0AY0','AY0AZ0','AZ0BA0','BA0BB0','BB0BC0','BC0BD0','BD0BE0',
-'BE0BF0','BF0BG0','BG0BH0','BH0BI0','BI0BJ0','BJ0BK0','BK0BL0','BL0BM0','BM0BN0','BN0BO0'
-    ]
+#     caminho_veiculo_pre = [
+# 'AA0AB0','AB0AC0','AC0AD0','AD0AE0','AE0AF0','AF0AG0','AG0AH0','AH0AI0','AI0AJ0','AJ0AK0','AK0AL0','AL0AM0','AM0AN0','AN0AO0',
+# 'AO0AP0','AP0AQ0','AQ0AR0','AR0AS0','AS0AT0','AT0AU0','AU0AV0','AV0AW0','AW0AX0','AX0AY0','AY0AZ0','AZ0BA0','BA0BB0','BB0BC0','BC0BD0','BD0BE0',
+# 'BE0BF0','BF0BG0','BG0BH0','BH0BI0','BI0BJ0','BJ0BK0','BK0BL0','BL0BM0','BM0BN0','BN0BO0'
+#     ]
+    
+    caminho_veiculo_pre = caminho_veiculo
     traci.route.add("trip", caminho_veiculo_pre)
     traci.vehicle.add("path_mapper", "trip")
     traci.vehicle.setParameter("path_mapper","carFollowModel","KraussPS")
@@ -444,38 +477,38 @@ def custom_random_genome():
 def pre_simulation():
 
     mapas = [
-        "0.net.xml",
-        "1.net.xml",
-        "2.net.xml",
-        "3.net.xml",
-        "4.net.xml",
-        "5.net.xml",
-        "6.net.xml",
-        "7.net.xml",
-        "8.net.xml",
-        "9.net.xml",
-        "10.net.xml",
-        "11.net.xml",
-        "12.net.xml",
-        "13.net.xml",
-        "14.net.xml",
-        "15.net.xml",
-        "16.net.xml",
-        "17.net.xml",
-        "18.net.xml",
-        "19.net.xml",
-        "20.net.xml",
-        "21.net.xml",
-        "22.net.xml",
-        "23.net.xml",
-        "24.net.xml",
-        "25.net.xml",
-        "26.net.xml",
-        "27.net.xml",
-        "28.net.xml",
-        "29.net.xml",
+        "super.net.xml",
+        # "1.net.xml",
+        # "2.net.xml",
+        # "3.net.xml",
+        # "4.net.xml",
+        # "5.net.xml",
+        # "6.net.xml",
+        # "7.net.xml",
+        # "8.net.xml",
+        # "9.net.xml",
+        # "10.net.xml",
+        # "11.net.xml",
+        # "12.net.xml",
+        # "13.net.xml",
+        # "14.net.xml",
+        # "15.net.xml",
+        # "16.net.xml",
+        # "17.net.xml",
+        # "18.net.xml",
+        # "19.net.xml",
+        # "20.net.xml",
+        # "21.net.xml",
+        # "22.net.xml",
+        # "23.net.xml",
+        # "24.net.xml",
+        # "25.net.xml",
+        # "26.net.xml",
+        # "27.net.xml",
+        # "28.net.xml",
+        # "29.net.xml",
     ]
-    folder = "./mapas_validation/"
+    folder = "./mapas/"
 
     for m in mapas:
         dados = start_pre_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m))
@@ -502,8 +535,8 @@ def main():
             print('Failed to delete %s. Reason: %s' % (file_path, e))
 
 
-    # pre_simulation()
-    # return
+    pre_simulation()
+    return
     population_size   = 10
     iteration_limit   = 11
     cut_half_pop      = True

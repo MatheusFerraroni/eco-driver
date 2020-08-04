@@ -36,7 +36,7 @@ class Algorithm:
         mimIS = 0
 
         maxSpeed = 30
-        mimSpeed = 24  
+        mimSpeed = 18 
 
         maxAngle = 50
         mimAngle = -50
@@ -55,11 +55,6 @@ class Algorithm:
      
         S.automf(names=['verylow', 'low', 'medium', 'high', 'veryhigh'])
     
-
-
-
-
-
         RG.automf(names=['negative', 'neutral', 'positive'])
         # RG['negative'] = fuzz.gaussmf(RG.universe, mimAngle, 50)
         # RG['neutral'] = fuzz.gaussmf(RG.universe, 0, 30)
@@ -172,7 +167,7 @@ class Algorithm:
         # S.view(sim=S_simulator) 
 
         speed = self.S_simulator.output['S']
-        speed = 30
+        speed = 10
         #print('Speed:', speed, 'm/s')
         return(speed)
         plt.show()
