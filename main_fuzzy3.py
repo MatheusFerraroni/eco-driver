@@ -80,13 +80,27 @@ def calculate_real_fuel(speed,accel,slope,instant_fuel):
     
     return instant_fuel
 
-def calculate_real_fuel2(speed,accel,slope,instant_fuel):
-    modelo = cM.ModelConsuption(speed, accel, slope)
-    consuption = modelo.run()
-    consuption = consuption + ((speed*10/3000)*consuption)
-    instant_fuel = consuption
+def verificaVelocidadeIdeal():
+    consumo = []
+    menor_consumo1 = []
+    velocidade1 = []
+    angulo = []
     
-    return instant_fuel
+    for angle in range(-15,15,1):
+        menor_consumo = float('Infinity')
+        for speed in range(1,30,1):
+            consumo = calculate_real_fuel(speed, 0, angle)
+            if consumo < menor_consumo:
+                menor_consumo = consumo
+                velocidade = speed
+                ang = angle
+        menor_consumo1.append(menor_consumo)
+        velocidade1.append(velocidade)
+        angulo.append(ang)
+    
+    print("Ângulos", angulo)
+    print("Melhores velocidades",velocidade1)
+    
 
 def calculate_new_fuel(speed, max_speed_caminhao, instant_fuel, instant_slope, max_slope, instant_acell, max_accel, step):
 
