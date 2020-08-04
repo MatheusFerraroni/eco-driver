@@ -37,20 +37,21 @@ import traci
 
 def get_model():
     model = Sequential()
-    model.add(Dense(30, input_shape=(10,)))
-    model.add(Dense(20))
+    model.add(Dense(16, input_shape=(8,)))
+    model.add(Dense(24))
     model.add(Dense(1, activation='sigmoid'))
-    model.compile(optimizer='adam', loss='categorical_crossentropy')
+    model.compile(optimizer='adam', loss='mean_squared_error')
 
     return model
 
 def calculate_new_fuel(instant_fuel, instant_slope, max_slope, instant_acell, max_accel):
 
+
     total_accel = instant_acell/max_accel
     total_slope = instant_slope/max_slope
 
-    if total_slope>0:
-        instant_fuel = instant_fuel*(1+total_accel)
+    if total_slope>=0 and total_accel>=0:
+        instant_fuel += total_slope*4
 
     return instant_fuel
 
@@ -58,9 +59,9 @@ def getClosest(arr, n, target):
 
     if type(arr) is not list:
         return arr
-    if (target <= arr[0]["x"]): 
+    if (target <= arr[0]["x"]):
         return arr[0]
-    if (target >= arr[n - 1]["x"]): 
+    if (target >= arr[n - 1]["x"]):
         return arr[n - 1]
 
 
@@ -169,6 +170,7 @@ def run(model, mapa):
     max_angulo = 60
 
     total_fuel = 0
+    last_speed = 0
 
     dados_retorno = []
     try:
@@ -198,15 +200,7 @@ def run(model, mapa):
 
 
                 if type(model)!=str and model!="fuzzy":
-                    angle /= 90
-                    # inf10 = inf10["angle"]/90
-                    # inf30 = inf30["angle"]/90
-                    # inf50 = inf50["angle"]/90
-                    # inf70 = inf70["angle"]/90
-                    # entrada = [speed/max_speed_caminhao, angle, inf10, inf30, inf50, inf70]
 
-
-                    angle /= max_angulo
                     inf10 = inf10["angle"]/max_angulo
                     inf20 = inf20["angle"]/max_angulo
                     inf30 = inf30["angle"]/max_angulo
@@ -217,10 +211,11 @@ def run(model, mapa):
                     inf100 = inf100["angle"]/max_angulo
 
 
-                    entrada = [speed/max_speed_caminhao, angle, inf10, inf20, inf30, inf40, inf50, inf60, inf70, inf100]
+                    entrada = [speed/max_speed_caminhao, last_speed, angle/max_angulo, inf10, inf20, inf30, inf40, inf50]
 
 
                     r = model.predict(np.array([np.array(entrada)]))[0][0]
+                    last_speed = r
 
 
                     if r<0.1:
@@ -228,28 +223,27 @@ def run(model, mapa):
                     traci.vehicle.setSpeed("caminhao",r*max_speed_caminhao)
                 elif model=="fuzzy":
                     normalization = 1 #90
-                    angle /= normalization
                     inf10 = inf10["angle"]/normalization
                     inf30 = inf30["angle"]/normalization
                     inf50 = inf50["angle"]/normalization
                     inf70 = inf70["angle"]/normalization
 
                     # FUZZY
-                    r = f_2.findSpeed(speed,angle, inf10, inf30, inf50, inf70)
+                    r = f_2.findSpeed(speed,angle/normalization, inf10, inf30, inf50, inf70)
 
                     traci.vehicle.setSpeed("caminhao",r)
 
                 fuel_last_step = traci.vehicle.getFuelConsumption("caminhao")
                 instant_fuel_consuption2 = calculate_new_fuel(fuel_last_step, angle, max_angulo, inst_acel, max_acel)
 
-                total_fuel += fuel_last_step
+                total_fuel += instant_fuel_consuption2
 
                 dados_retorno.append({
                     "x": x,
                     "y": y,
                     "z": z,
                     "total_fuel": total_fuel,
-                    "fuel_last_step": fuel_last_step,
+                    "fuel_last_step": instant_fuel_consuption2,
                     "speed_recommended": r*max_speed_caminhao,
                     "step": step,
                     "speed": speed
@@ -414,6 +408,8 @@ def plow(dados, extras, nome):
 
         total = round(total,1)
         if len(xs)>0:
+            if e=="Krauss":
+                e = "SUMO"
             ax[3].plot(xs, ys, label="{} ({})".format(e,total))
 
 
@@ -421,8 +417,8 @@ def plow(dados, extras, nome):
     ax[3].set_xlabel('Distance (m)')
     ax[3].set_ylabel('Total Fuel')
     ax[3].legend()
-    ax[3].legend(loc='lower center', bbox_to_anchor=(0.5, -2),
-              ncol=3, fancybox=True, shadow=True)
+    ax[3].legend(loc='lower center', bbox_to_anchor=(0.5, -1.5),
+              ncol=4, fancybox=True, shadow=True)
 
     plt.savefig("./mapas_validation/FINAL_"+nome+".png", bbox_inches="tight")
     plt.close()
@@ -434,7 +430,7 @@ def main(arquivo):
     f = open(arquivo,"r")
     dado = json.loads(f.read())
     f.close()
-    gen = dado["historic"][-1]["best_genome"]
+    gen = dado["historic"][0]["best_genome"]
     gen = converter(gen)
     model = get_model()
     model.set_weights(gen)
@@ -479,5 +475,5 @@ def main(arquivo):
 
 
 if __name__ == '__main__':
-    a = "./results/10_10_True_0.1.json"
+    a = "./results/10_11_True_0.1.json"
     main(a)

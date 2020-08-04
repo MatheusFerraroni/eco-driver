@@ -29,12 +29,29 @@ def proc(arquivos):
     for g in geracoes_txt:
         valores_fuel = []
         for arqs in geracoes[str(g)]:
+            dado = None
             try:
                 f = open("./output/"+arqs,"r")
-                dado = ET.fromstring(f.read())
+                dado = f.read()
+                f.close()
+                dado = dado.split("\n")
+                if dado[-1]=="":
+                    dado.pop()
+                dado.pop()
+                dado.append("</tripinfos>")
+                dado = "\n".join(dado)
+                f = open("./output/"+arqs,"w")
+                f.write(dado)
+                f.close()
+                f = open("./output/"+arqs,"r")
+                dado = f.read()
+                dado = ET.fromstring(dado)
                 f.close()
             except Exception as e:
+                print(arqs)
                 print(e)
+                print(dado)
+                # raise
                 continue
 
             valores_fuel.append(float(dado[0][0].attrib["fuel_abs"]))

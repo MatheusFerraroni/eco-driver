@@ -32,7 +32,6 @@ mapas_todos = [
 ]
 
 max_speed_caminhao = 30 # ~ 108km/h
-max_dif_altura = 50
 extras_mapas = None
 
 
@@ -48,7 +47,7 @@ caminho_veiculo = ['AA0AB0','AB0AC0','AC0AD0','AD0AE0','AE0AF0','AF0AG0','AG0AH0
 'DQ0DR0','DR0DS0','DS0DT0','DT0DU0','DU0DV0','DV0DW0','DW0DX0','DX0DY0','DY0DZ0','DZ0EA0','EA0EB0','EB0EC0','EC0ED0',
 'ED0EE0','EE0EF0','EF0EG0','EG0EH0','EH0EI0','EI0EJ0','EJ0EK0','EK0EL0','EL0EM0','EM0EN0','EN0EO0','EO0EP0','EP0EQ0',
 'EQ0ER0','ER0ES0','ES0ET0','ET0EU0','EU0EV0','EV0EW0','EW0EX0','EX0EY0','EY0EZ0','EZ0FA0','FA0FB0','FB0FC0','FC0FD0',
-# 'FD0FE0','FE0FF0','FF0FG0','FG0FH0','FH0FI0','FI0FJ0','FJ0FK0','FK0FL0','FL0FM0','FM0FN0','FN0FO0','FO0FP0','FP0FQ0',
+'FD0FE0','FE0FF0','FF0FG0','FG0FH0','FH0FI0','FI0FJ0','FJ0FK0','FK0FL0','FL0FM0','FM0FN0','FN0FO0','FO0FP0','FP0FQ0',
 # 'FQ0FR0','FR0FS0','FS0FT0','FT0FU0','FU0FV0','FV0FW0','FW0FX0','FX0FY0','FY0FZ0','FZ0GA0','GA0GB0','GB0GC0','GC0GD0','GD0GE0',
 # 'GE0GF0','GF0GG0','GG0GH0','GH0GI0','GI0GJ0','GJ0GK0','GK0GL0','GL0GM0','GM0GN0','GN0GO0','GO0GP0','GP0GQ0','GQ0GR0','GR0GS0',
 # 'GS0GT0','GT0GU0','GU0GV0','GV0GW0','GW0GX0','GX0GY0','GY0GZ0','GZ0HA0','HA0HB0','HB0HC0','HC0HD0','HD0HE0','HE0HF0','HF0HG0',
@@ -62,30 +61,22 @@ caminho_veiculo = ['AA0AB0','AB0AC0','AC0AD0','AD0AE0','AE0AF0','AF0AG0','AG0AH0
 # 'LA0LB0','LB0LC0','LC0LD0','LD0LE0','LE0LF0','LF0LG0','LG0LH0','LH0LI0','LI0LJ0','LJ0LK0','LK0LL0','LL0LM0','LM0LN0','LN0LO0',
 ]
 
-# def get_model():
-#     model = Sequential()
-#     model.add(Dense(8, activation='sigmoid', input_shape=(6,)))
-#     model.add(Dense(8, activation='sigmoid'))
-#     model.add(Dense(8, activation='sigmoid'))
-#     model.add(Dense(1, activation='sigmoid'))
-#     model.compile(optimizer='adam', loss='categorical_crossentropy')
-#
-#     return model
 
 def calculate_new_fuel(instant_fuel, instant_slope, max_slope, instant_acell, max_accel):
+
 
     total_accel = instant_acell/max_accel
     total_slope = instant_slope/max_slope
 
     if total_slope>=0 and total_accel>=0:
-        instant_fuel = instant_fuel*(1.1+total_slope)
+        instant_fuel += total_slope*4
 
     return instant_fuel
 
 def get_model():
     model = Sequential()
-    model.add(Dense(30, input_shape=(10,), activation='sigmoid'))
-    model.add(Dense(20, activation='sigmoid'))
+    model.add(Dense(16, input_shape=(8,)))
+    model.add(Dense(24))
     model.add(Dense(1, activation='sigmoid'))
     model.compile(optimizer='adam', loss='mean_squared_error')
 
@@ -196,8 +187,6 @@ def norm_force(a):
     a = max(a,-1)
     return a
 
-def gaus(ger):
-    return 0.1+0.9*math.pow(math.e,(-math.pow((2*ger),4)))
 
 
 # def returnRandomWeightVariation(wei):
@@ -210,13 +199,17 @@ def gaus(ger):
 
 
 
+def gaus(ger):
+    return 0.1+0.9*math.pow(math.e,(-math.pow((2*ger),4)))
+
+
 def custom_mutate(wei, progresso):
     if type(wei)==np.ndarray:
         ret = []
         for w in wei:
             ret.append(custom_mutate(w,progresso))
         return np.array(ret, dtype=object)
-    
+
 
     if np.random.random() < 0.2*gaus(progresso):
         return np.random.uniform(low=-1, high=1)
@@ -240,6 +233,7 @@ def run(model, mapa):
     total_fuel = 0
     max_angulo = 60
 
+    last_speed = 0
     try:
         while step == 1 or traci.simulation.getMinExpectedNumber() > 0:
             traci.simulationStep()
@@ -258,24 +252,24 @@ def run(model, mapa):
                 inf30 = get_info_pos(mapa,  x+30)
                 inf40 = get_info_pos(mapa,  x+40)
                 inf50 = get_info_pos(mapa,  x+50)
-                inf60 = get_info_pos(mapa,  x+60)
-                inf70 = get_info_pos(mapa,  x+70)
-                inf100 = get_info_pos(mapa, x+100)
+                # inf60 = get_info_pos(mapa,  x+60)
+                # inf70 = get_info_pos(mapa,  x+70)
+                # inf100 = get_info_pos(mapa, x+100)
 
                 inf10 = inf10["angle"]/max_angulo
                 inf20 = inf20["angle"]/max_angulo
                 inf30 = inf30["angle"]/max_angulo
                 inf40 = inf40["angle"]/max_angulo
                 inf50 = inf50["angle"]/max_angulo
-                inf60 = inf60["angle"]/max_angulo
-                inf70 = inf70["angle"]/max_angulo
-                inf100 = inf100["angle"]/max_angulo
+                # inf60 = inf60["angle"]/max_angulo
+                # inf70 = inf70["angle"]/max_angulo
+                # inf100 = inf100["angle"]/max_angulo
 
-                entrada = [speed/max_speed_caminhao, angle/max_angulo, inf10, inf20, inf30, inf40, inf50, inf60, inf70, inf100]
+                entrada = [speed/max_speed_caminhao, last_speed, angle/max_angulo, inf10, inf20, inf30, inf40, inf50]
 
-                # print("ENTRADAAQUI",entrada)
 
                 r = model.predict(np.array([np.array(entrada)]))[0][0]
+                last_speed = r
 
 
 
@@ -511,7 +505,7 @@ def main():
     # pre_simulation()
     # return
     population_size   = 10
-    iteration_limit   = 10
+    iteration_limit   = 11
     cut_half_pop      = True
     replicate_best    = 0.1
 
