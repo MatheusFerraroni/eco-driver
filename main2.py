@@ -72,6 +72,30 @@ caminho_veiculo = ['AA0AB0','AB0AC0','AC0AD0','AD0AE0','AE0AF0','AF0AG0','AG0AH0
 #
 #     return model
 
+def calculate_power(slope,speed):
+    # slope : angulo em graus
+	# velocidade : m/s
+	accelG = 10 # m/s^2
+	coefAtrito = 0.2
+	massa = 1000 # kg
+	rendimento = 0.85
+	angulo = math.radians(slope) # graus para radianos
+	seno = math.sin(angulo)
+	cosseno = math.cos(angulo)
+
+	F1 = massa * accelG * seno # Forca 1
+	Fat = coefAtrito * (massa * accelG * cosseno) # Forca atrito
+
+	Fmotor = F1 + Fat # Forca do motor
+
+	deslocamento = ((seno ** 2) + (cosseno ** 2)) ** 1/2
+
+	trabalho = Fmotor * deslocamento
+
+	potencia = (Fmotor * velocidade)/rendimento
+
+	return potencia
+
 def calculate_new_fuel(instant_fuel, instant_slope, max_slope, instant_acell, max_accel):
 
     total_accel = instant_acell/max_accel
