@@ -15,6 +15,7 @@ from keras.layers import Dense
 import shutil
 import fuzzy_in_two
 import fuzzy_in_three
+import ConsuptionModel as cM
 
 
 caminho_veiculo = [
@@ -43,6 +44,12 @@ def get_model():
     model.compile(optimizer='adam', loss='categorical_crossentropy')
 
     return model
+
+def calculate_real_fuel(speed,accel,slope):
+    modelo = cM.ModelConsuption(speed, accel, slope)
+    consuption = modelo.run()
+    instant_fuel = consuption    
+    return instant_fuel
 
 def calculate_new_fuel(instant_fuel, instant_slope, max_slope, instant_acell, max_accel):
 
@@ -240,7 +247,8 @@ def run(model, mapa):
                     traci.vehicle.setSpeed("caminhao",r)
 
                 fuel_last_step = traci.vehicle.getFuelConsumption("caminhao")
-                instant_fuel_consuption2 = calculate_new_fuel(fuel_last_step, angle, max_angulo, inst_acel, max_acel)
+                #instant_fuel_consuption2 = calculate_new_fuel(fuel_last_step, angle, max_angulo, inst_acel, max_acel)
+                instant_fuel_consuption2 = calculate_real_fuel(speed, inst_acel, angle)
 
                 total_fuel += fuel_last_step
 

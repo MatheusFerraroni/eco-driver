@@ -16,6 +16,7 @@ from keras.layers import Dense
 import shutil
 import fuzzy_in_two
 import fuzzy_in_three
+import ConsuptionModel as cM
 
 
 if 'SUMO_HOME' in os.environ:
@@ -72,6 +73,21 @@ def get_model():
 
     return model
 
+def calculate_real_fuel(speed,accel,slope,instant_fuel):
+    modelo = cM.ModelConsuption(speed, accel, slope)
+    consuption = modelo.run()
+    instant_fuel = consuption
+    
+    return instant_fuel
+
+def calculate_real_fuel2(speed,accel,slope,instant_fuel):
+    modelo = cM.ModelConsuption(speed, accel, slope)
+    consuption = modelo.run()
+    consuption = consuption + ((speed*10/3000)*consuption)
+    instant_fuel = consuption
+    
+    return instant_fuel
+
 def calculate_new_fuel(speed, max_speed_caminhao, instant_fuel, instant_slope, max_slope, instant_acell, max_accel, step):
 
     total_accel = instant_acell/max_accel
@@ -82,7 +98,7 @@ def calculate_new_fuel(speed, max_speed_caminhao, instant_fuel, instant_slope, m
         instant_fuel = instant_fuel*(1.1+total_accel)
         # print('total_accel', total_accel)
     
-
+    print(instant_fuel)
     return instant_fuel
 
 
@@ -249,7 +265,9 @@ def run(mapa):
                 max_acel = traci.vehicle.getAccel("caminhao")
                 inst_acel = traci.vehicle.getAcceleration("caminhao")
 
-                instant_fuel_consuption2 = calculate_new_fuel(speed, max_speed_caminhao, instant_fuel_consuption, angle, max_angulo, inst_acel, max_acel, step)
+                #instant_fuel_consuption2 = calculate_new_fuel(speed, max_speed_caminhao, instant_fuel_consuption, angle, max_angulo, inst_acel, max_acel, step)
+                instant_fuel_consuption2 = calculate_real_fuel2(speed, inst_acel, angle, instant_fuel_consuption)
+                
                 total_fuel += instant_fuel_consuption2
 
 
