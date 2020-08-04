@@ -242,7 +242,7 @@ def run(mapa):
 
     total_fuel = 0
     
-    verificaVelocidadeIdeal()
+    #verificaVelocidadeIdeal()
     
     try:
         while step == 1 or traci.simulation.getMinExpectedNumber() > 0:
@@ -283,7 +283,7 @@ def run(mapa):
                 inst_acel = traci.vehicle.getAcceleration("caminhao")
 
                 #instant_fuel_consuption2 = calculate_new_fuel(speed, max_speed_caminhao, instant_fuel_consuption, angle, max_angulo, inst_acel, max_acel, step)
-                instant_fuel_consuption2 = calculate_real_fuel2(speed, inst_acel, angle, instant_fuel_consuption)
+                instant_fuel_consuption2 = calculate_real_fuel(speed, inst_acel, angle, instant_fuel_consuption)
                 
                 total_fuel += instant_fuel_consuption2
 

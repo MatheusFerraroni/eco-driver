@@ -1,7 +1,23 @@
-***Starting server on port 59265 ***
-Loading net-file from './mapas_validation/12.net.xml' ... done (76ms).
+***Starting server on port 51722 ***
+Loading net-file from './mapas/super.net.xml' ... done (664ms).
 Loading done.
-Simulation version 1.5.0 started with time: 0.00
+Simulation version 1.6.0 started with time: 0.00
 Error: Answered with error to command 0xa4: Vehicle 'caminhao' is not known.
-Error: tcpip::Socket::recvAndCheck @ recv: peer shutdown
-Quitting (on error).
+Simulation ended at time: 3034.00
+Reason: TraCI requested termination.
+Performance: 
+ Duration: 7775ms
+ Real time factor: 390.225
+ UPS: 390.096463
+Vehicles: 
+ Inserted: 1
+ Running: 0
+ Waiting: 0
+Statistics (avg):
+ RouteLength: 30307.91
+ Speed: 9.99
+ Duration: 3033.00
+ WaitingTime: 0.00
+ TimeLoss: 2022.48
+ DepartDelay: 0.00
+

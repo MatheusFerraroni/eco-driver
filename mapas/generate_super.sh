@@ -1,5 +1,5 @@
 
-netgenerate.exe -g --grid.x-number 301 --grid.y-number 2 --perturb-z 25 --default.speed 100 -o super.net.xml --seed 8355201
+netgenerate.exe -g --grid.x-number 301 --grid.y-number 2 --perturb-z 10 --default.speed 100 -o super.net.xml --seed 8355201
 
 
 rm "super.sumo.cfg"
