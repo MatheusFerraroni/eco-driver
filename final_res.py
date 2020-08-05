@@ -522,7 +522,7 @@ def main(arquivo):
         # break
 
     f = open("final_res_complete.json","w")
-    f.write(json.dumps(resultados_obtidos[m]))
+    f.write(json.dumps(resultados_obtidos))
     f.close()
 
 if __name__ == '__main__':
