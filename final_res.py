@@ -16,7 +16,7 @@ import shutil
 import fuzzy_in_two
 import fuzzy_in_three
 import ConsuptionModel as cM
-
+import math
 
 caminho_veiculo = [
 'AA0AB0','AB0AC0','AC0AD0','AD0AE0','AE0AF0','AF0AG0','AG0AH0','AH0AI0','AI0AJ0','AJ0AK0','AK0AL0','AL0AM0','AM0AN0','AN0AO0',
@@ -517,5 +517,5 @@ def main(arquivo):
 
 
 if __name__ == '__main__':
-    a = "./results/10_10_True_0.1.json"
+    a = "./results/20_20_True_0.1.json"
     main(a)
