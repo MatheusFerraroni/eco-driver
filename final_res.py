@@ -27,7 +27,7 @@ caminho_veiculo = [
 max_speed_caminhao = 30 # ~ 108km/h
 max_dif_altura = 50
 extras_mapas = None
-z_add = 100
+z_add = 50
 
 if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
@@ -461,7 +461,8 @@ def plow(dados, extras, nome):
             ax[3].plot(xs, ys, label="{} ({})".format(e,total))
 
 
-
+            #grid
+            #ax[1].grid()
     ax[3].set_xlabel('Distance (m)')
     ax[3].set_ylabel('Total Fuel')
     ax[3].legend()

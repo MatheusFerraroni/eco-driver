@@ -1,359 +1,0 @@
-Loading configuration ... done.
-***Starting server on port 61410 ***
-Loading net-file from './mapas/super.net.xml' ... done (350ms).
-Loading done.
-Simulation version 1.5.0 started with time: 0.00
-Step #0.00 (1ms ~= 1000.00*RT, ~1000.00UPS, TraCI: 4ms, vehicles TOT 1 ACT 1 BUF 0)       Step #100.00 (0ms ?*RT. ?UPS, TraCI: 22ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #200.00 (0ms ?*RT. ?UPS, TraCI: 19ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #300.00 (0ms ?*RT. ?UPS, TraCI: 20ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #400.00 (0ms ?*RT. ?UPS, TraCI: 23ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #500.00 (1ms ~= 1000.00*RT, ~1000.00UPS, TraCI: 18ms, vehicles TOT 1 ACT 1 BUF 0)    Error: Answered with error to command 0xa4: Vehicle 'caminhao' is not known.
-Step #584.00 (1ms ~= 1000.00*RT, ~0.00UPS, TraCI: 0ms, vehicles TOT 1 ACT 0 BUF 0)        Simulation ended at time: 584.00
-Reason: TraCI requested termination.
-Performance: 
- Duration: 11960ms
- Real time factor: 48.8294
- UPS: 48.745819
-Vehicles: 
- Inserted: 1
- Running: 0
- Waiting: 0
-Statistics (avg):
- RouteLength: 9429.58
- Speed: 16.17
- Duration: 583.00
- WaitingTime: 0.00
- TimeLoss: 268.41
- DepartDelay: 0.00
-
-[GA] Evolução iniciada
-[GA]  Iniciando avaliação de scores
-Simulation finished
-Loading configuration ... done.
-***Starting server on port 61418 ***
-Loading net-file from './mapas/super.net.xml' ... done (344ms).
-Loading done.
-Simulation version 1.5.0 started with time: 0.00
-Step #0.00 (1ms ~= 1000.00*RT, ~1000.00UPS, TraCI: 4ms, vehicles TOT 1 ACT 1 BUF 0)       Step #100.00 (0ms ?*RT. ?UPS, TraCI: 18ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #200.00 (0ms ?*RT. ?UPS, TraCI: 18ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #300.00 (0ms ?*RT. ?UPS, TraCI: 19ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #400.00 (0ms ?*RT. ?UPS, TraCI: 19ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #500.00 (0ms ?*RT. ?UPS, TraCI: 20ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #600.00 (0ms ?*RT. ?UPS, TraCI: 19ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #700.00 (0ms ?*RT. ?UPS, TraCI: 18ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #800.00 (0ms ?*RT. ?UPS, TraCI: 19ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #900.00 (0ms ?*RT. ?UPS, TraCI: 19ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #1000.00 (0ms ?*RT. ?UPS, TraCI: 19ms, vehicles TOT 1 ACT 1 BUF 0)                   Step #1100.00 (0ms ?*RT. ?UPS, TraCI: 19ms, vehicles TOT 1 ACT 1 BUF 0)                   Step #1200.00 (0ms ?*RT. ?UPS, TraCI: 19ms, vehicles TOT 1 ACT 1 BUF 0)                   Step #1300.00 (0ms ?*RT. ?UPS, TraCI: 20ms, vehicles TOT 1 ACT 1 BUF 0)                   Step #1400.00 (0ms ?*RT. ?UPS, TraCI: 20ms, vehicles TOT 1 ACT 1 BUF 0)                   Error: Answered with error to command 0xa4: Vehicle 'caminhao' is not known.
-Step #1459.00 (0ms ?*RT. ?UPS, TraCI: 1ms, vehicles TOT 1 ACT 0 BUF 0)                    Simulation ended at time: 1459.00
-Reason: TraCI requested termination.
-Performance: 
- Duration: 29116ms
- Real time factor: 50.1099
- UPS: 50.075560
-Vehicles: 
- Inserted: 1
- Running: 0
- Waiting: 0
-Statistics (avg):
- RouteLength: 9429.58
- Speed: 6.47
- Duration: 1458.00
- WaitingTime: 0.00
- TimeLoss: 1143.55
- DepartDelay: 0.00
-
-Terminating SUMO
-[GA]  Avaliado: (id=0,geracao=0,score=0.00019385684007890600)
-Simulation finished
-Loading configuration ... done.
-***Starting server on port 61435 ***
-Loading net-file from './mapas/super.net.xml' ... done (347ms).
-Loading done.
-Simulation version 1.5.0 started with time: 0.00
-Step #0.00 (0ms ?*RT. ?UPS, TraCI: 5ms, vehicles TOT 1 ACT 1 BUF 0)                       Step #100.00 (0ms ?*RT. ?UPS, TraCI: 20ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #200.00 (0ms ?*RT. ?UPS, TraCI: 18ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #300.00 (0ms ?*RT. ?UPS, TraCI: 19ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #400.00 (0ms ?*RT. ?UPS, TraCI: 19ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #500.00 (0ms ?*RT. ?UPS, TraCI: 20ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #600.00 (0ms ?*RT. ?UPS, TraCI: 19ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #700.00 (0ms ?*RT. ?UPS, TraCI: 18ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #800.00 (1ms ~= 1000.00*RT, ~1000.00UPS, TraCI: 19ms, vehicles TOT 1 ACT 1 BUF 0)    Step #900.00 (0ms ?*RT. ?UPS, TraCI: 20ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #1000.00 (0ms ?*RT. ?UPS, TraCI: 21ms, vehicles TOT 1 ACT 1 BUF 0)                   Step #1100.00 (0ms ?*RT. ?UPS, TraCI: 20ms, vehicles TOT 1 ACT 1 BUF 0)                   Error: Answered with error to command 0xa4: Vehicle 'caminhao' is not known.
-Step #1195.00 (0ms ?*RT. ?UPS, TraCI: 1ms, vehicles TOT 1 ACT 0 BUF 0)                    Simulation ended at time: 1195.00
-Reason: TraCI requested termination.
-Performance: 
- Duration: 24047ms
- Real time factor: 49.6943
- UPS: 49.652763
-Vehicles: 
- Inserted: 1
- Running: 0
- Waiting: 0
-Statistics (avg):
- RouteLength: 9429.58
- Speed: 7.90
- Duration: 1194.00
- WaitingTime: 0.00
- TimeLoss: 879.64
- DepartDelay: 0.00
-
-Terminating SUMO
-[GA]  Avaliado: (id=1,geracao=0,score=0.00011837141958310822)
-Simulation finished
-Loading configuration ... done.
-***Starting server on port 61449 ***
-Loading net-file from './mapas/super.net.xml' ... done (345ms).
-Loading done.
-Simulation version 1.5.0 started with time: 0.00
-Step #0.00 (1ms ~= 1000.00*RT, ~1000.00UPS, TraCI: 4ms, vehicles TOT 1 ACT 1 BUF 0)       Step #100.00 (0ms ?*RT. ?UPS, TraCI: 21ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #200.00 (0ms ?*RT. ?UPS, TraCI: 29ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #300.00 (0ms ?*RT. ?UPS, TraCI: 21ms, vehicles TOT 1 ACT 1 BUF 0)                    Error: Answered with error to command 0xa4: Vehicle 'caminhao' is not known.
-Step #396.00 (1ms ~= 1000.00*RT, ~0.00UPS, TraCI: 0ms, vehicles TOT 1 ACT 0 BUF 0)        Simulation ended at time: 396.00
-Reason: TraCI requested termination.
-Performance: 
- Duration: 7898ms
- Real time factor: 50.1393
- UPS: 50.012661
-Vehicles: 
- Inserted: 1
- Running: 0
- Waiting: 0
-Statistics (avg):
- RouteLength: 9429.58
- Speed: 23.87
- Duration: 395.00
- WaitingTime: 0.00
- TimeLoss: 79.99
- DepartDelay: 0.00
-
-Terminating SUMO
-[GA]  Avaliado: (id=2,geracao=0,score=0.00013069032890372198)
-Simulation finished
-Loading configuration ... done.
-***Starting server on port 61455 ***
-Loading net-file from './mapas/super.net.xml' ... done (336ms).
-Loading done.
-Simulation version 1.5.0 started with time: 0.00
-Step #0.00 (0ms ?*RT. ?UPS, TraCI: 5ms, vehicles TOT 1 ACT 1 BUF 0)                       Step #100.00 (0ms ?*RT. ?UPS, TraCI: 21ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #200.00 (0ms ?*RT. ?UPS, TraCI: 19ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #300.00 (0ms ?*RT. ?UPS, TraCI: 19ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #400.00 (0ms ?*RT. ?UPS, TraCI: 20ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #500.00 (0ms ?*RT. ?UPS, TraCI: 18ms, vehicles TOT 1 ACT 1 BUF 0)                    Error: Answered with error to command 0xa4: Vehicle 'caminhao' is not known.
-Step #575.00 (0ms ?*RT. ?UPS, TraCI: 1ms, vehicles TOT 1 ACT 0 BUF 0)                     Simulation ended at time: 575.00
-Reason: TraCI requested termination.
-Performance: 
- Duration: 11360ms
- Real time factor: 50.6162
- UPS: 50.528169
-Vehicles: 
- Inserted: 1
- Running: 0
- Waiting: 0
-Statistics (avg):
- RouteLength: 9429.58
- Speed: 16.43
- Duration: 574.00
- WaitingTime: 0.00
- TimeLoss: 259.18
- DepartDelay: 0.00
-
-Terminating SUMO
-[GA]  Avaliado: (id=3,geracao=0,score=0.00021389713924565497)
-Simulation finished
-Loading configuration ... done.
-***Starting server on port 61471 ***
-Loading net-file from './mapas/super.net.xml' ... done (349ms).
-Loading done.
-Simulation version 1.5.0 started with time: 0.00
-Step #0.00 (0ms ?*RT. ?UPS, TraCI: 5ms, vehicles TOT 1 ACT 1 BUF 0)                       Step #100.00 (0ms ?*RT. ?UPS, TraCI: 20ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #200.00 (0ms ?*RT. ?UPS, TraCI: 18ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #300.00 (0ms ?*RT. ?UPS, TraCI: 19ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #400.00 (1ms ~= 1000.00*RT, ~1000.00UPS, TraCI: 18ms, vehicles TOT 1 ACT 1 BUF 0)    Step #500.00 (0ms ?*RT. ?UPS, TraCI: 20ms, vehicles TOT 1 ACT 1 BUF 0)                    Error: Answered with error to command 0xa4: Vehicle 'caminhao' is not known.
-Step #546.00 (1ms ~= 1000.00*RT, ~0.00UPS, TraCI: 0ms, vehicles TOT 1 ACT 0 BUF 0)        Simulation ended at time: 546.00
-Reason: TraCI requested termination.
-Performance: 
- Duration: 10924ms
- Real time factor: 49.9817
- UPS: 49.890150
-Vehicles: 
- Inserted: 1
- Running: 0
- Waiting: 0
-Statistics (avg):
- RouteLength: 9429.58
- Speed: 17.30
- Duration: 545.00
- WaitingTime: 0.00
- TimeLoss: 230.33
- DepartDelay: 0.00
-
-Terminating SUMO
-[GA]  Avaliado: (id=4,geracao=0,score=0.00014068605321943507)
-Simulation finished
-Loading configuration ... done.
-***Starting server on port 61479 ***
-Loading net-file from './mapas/super.net.xml' ... done (351ms).
-Loading done.
-Simulation version 1.5.0 started with time: 0.00
-Step #0.00 (0ms ?*RT. ?UPS, TraCI: 5ms, vehicles TOT 1 ACT 1 BUF 0)                       Step #100.00 (0ms ?*RT. ?UPS, TraCI: 19ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #200.00 (0ms ?*RT. ?UPS, TraCI: 21ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #300.00 (0ms ?*RT. ?UPS, TraCI: 19ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #400.00 (0ms ?*RT. ?UPS, TraCI: 18ms, vehicles TOT 1 ACT 1 BUF 0)                    Error: Answered with error to command 0xa4: Vehicle 'caminhao' is not known.
-Step #413.00 (0ms ?*RT. ?UPS, TraCI: 1ms, vehicles TOT 1 ACT 0 BUF 0)                     Simulation ended at time: 413.00
-Reason: TraCI requested termination.
-Performance: 
- Duration: 8273ms
- Real time factor: 49.9214
- UPS: 49.800556
-Vehicles: 
- Inserted: 1
- Running: 0
- Waiting: 0
-Statistics (avg):
- RouteLength: 9429.58
- Speed: 22.89
- Duration: 412.00
- WaitingTime: 0.00
- TimeLoss: 97.09
- DepartDelay: 0.00
-
-Terminating SUMO
-[GA]  Avaliado: (id=5,geracao=0,score=0.00017313008395003433)
-Simulation finished
-Loading configuration ... done.
-***Starting server on port 61485 ***
-Loading net-file from './mapas/super.net.xml' ... done (344ms).
-Loading done.
-Simulation version 1.5.0 started with time: 0.00
-Step #0.00 (0ms ?*RT. ?UPS, TraCI: 5ms, vehicles TOT 1 ACT 1 BUF 0)                       Step #100.00 (0ms ?*RT. ?UPS, TraCI: 19ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #200.00 (0ms ?*RT. ?UPS, TraCI: 20ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #300.00 (0ms ?*RT. ?UPS, TraCI: 19ms, vehicles TOT 1 ACT 1 BUF 0)                    Error: Answered with error to command 0xa4: Vehicle 'caminhao' is not known.
-Step #377.00 (0ms ?*RT. ?UPS, TraCI: 1ms, vehicles TOT 1 ACT 0 BUF 0)                     Simulation ended at time: 377.00
-Reason: TraCI requested termination.
-Performance: 
- Duration: 7562ms
- Real time factor: 49.8545
- UPS: 49.722296
-Vehicles: 
- Inserted: 1
- Running: 0
- Waiting: 0
-Statistics (avg):
- RouteLength: 9429.58
- Speed: 25.08
- Duration: 376.00
- WaitingTime: 0.00
- TimeLoss: 61.27
- DepartDelay: 0.00
-
-Terminating SUMO
-[GA]  Avaliado: (id=6,geracao=0,score=0.00019566683142553418)
-Simulation finished
-Loading configuration ... done.
-***Starting server on port 61491 ***
-Loading net-file from './mapas/super.net.xml' ... done (355ms).
-Loading done.
-Simulation version 1.5.0 started with time: 0.00
-Step #0.00 (0ms ?*RT. ?UPS, TraCI: 4ms, vehicles TOT 1 ACT 1 BUF 0)                       Step #100.00 (0ms ?*RT. ?UPS, TraCI: 23ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #200.00 (0ms ?*RT. ?UPS, TraCI: 19ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #300.00 (0ms ?*RT. ?UPS, TraCI: 19ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #400.00 (0ms ?*RT. ?UPS, TraCI: 22ms, vehicles TOT 1 ACT 1 BUF 0)                    Error: Answered with error to command 0xa4: Vehicle 'caminhao' is not known.
-Step #465.00 (0ms ?*RT. ?UPS, TraCI: 1ms, vehicles TOT 1 ACT 0 BUF 0)                     Simulation ended at time: 465.00
-Reason: TraCI requested termination.
-Performance: 
- Duration: 9198ms
- Real time factor: 50.5545
- UPS: 50.445749
-Vehicles: 
- Inserted: 1
- Running: 0
- Waiting: 0
-Statistics (avg):
- RouteLength: 9429.58
- Speed: 20.32
- Duration: 464.00
- WaitingTime: 0.00
- TimeLoss: 149.03
- DepartDelay: 0.00
-
-Terminating SUMO
-[GA]  Avaliado: (id=7,geracao=0,score=0.00020608856915282334)
-Simulation finished
-Loading configuration ... done.
-***Starting server on port 61499 ***
-Loading net-file from './mapas/super.net.xml' ... done (344ms).
-Loading done.
-Simulation version 1.5.0 started with time: 0.00
-Step #0.00 (0ms ?*RT. ?UPS, TraCI: 4ms, vehicles TOT 1 ACT 1 BUF 0)                       Step #100.00 (0ms ?*RT. ?UPS, TraCI: 24ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #200.00 (0ms ?*RT. ?UPS, TraCI: 19ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #300.00 (0ms ?*RT. ?UPS, TraCI: 19ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #400.00 (0ms ?*RT. ?UPS, TraCI: 22ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #500.00 (0ms ?*RT. ?UPS, TraCI: 22ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #600.00 (0ms ?*RT. ?UPS, TraCI: 20ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #700.00 (0ms ?*RT. ?UPS, TraCI: 18ms, vehicles TOT 1 ACT 1 BUF 0)                    Error: Answered with error to command 0xa4: Vehicle 'caminhao' is not known.
-Step #720.00 (0ms ?*RT. ?UPS, TraCI: 1ms, vehicles TOT 1 ACT 0 BUF 0)                     Simulation ended at time: 720.00
-Reason: TraCI requested termination.
-Performance: 
- Duration: 14308ms
- Real time factor: 50.3215
- UPS: 50.251607
-Vehicles: 
- Inserted: 1
- Running: 0
- Waiting: 0
-Statistics (avg):
- RouteLength: 9429.58
- Speed: 13.11
- Duration: 719.00
- WaitingTime: 0.00
- TimeLoss: 404.26
- DepartDelay: 0.00
-
-Terminating SUMO
-[GA]  Avaliado: (id=8,geracao=0,score=0.00018975438948915999)
-Simulation finished
-Loading configuration ... done.
-***Starting server on port 61512 ***
-Loading net-file from './mapas/super.net.xml' ... done (344ms).
-Loading done.
-Simulation version 1.5.0 started with time: 0.00
-Step #0.00 (0ms ?*RT. ?UPS, TraCI: 5ms, vehicles TOT 1 ACT 1 BUF 0)                       Step #100.00 (0ms ?*RT. ?UPS, TraCI: 18ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #200.00 (0ms ?*RT. ?UPS, TraCI: 20ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #300.00 (0ms ?*RT. ?UPS, TraCI: 19ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #400.00 (0ms ?*RT. ?UPS, TraCI: 20ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #500.00 (0ms ?*RT. ?UPS, TraCI: 20ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #600.00 (0ms ?*RT. ?UPS, TraCI: 19ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #700.00 (0ms ?*RT. ?UPS, TraCI: 20ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #800.00 (0ms ?*RT. ?UPS, TraCI: 18ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #900.00 (0ms ?*RT. ?UPS, TraCI: 18ms, vehicles TOT 1 ACT 1 BUF 0)                    Error: Answered with error to command 0xa4: Vehicle 'caminhao' is not known.
-Step #985.00 (0ms ?*RT. ?UPS, TraCI: 2ms, vehicles TOT 1 ACT 0 BUF 0)                     Simulation ended at time: 985.00
-Reason: TraCI requested termination.
-Performance: 
- Duration: 19791ms
- Real time factor: 49.7701
- UPS: 49.719570
-Vehicles: 
- Inserted: 1
- Running: 0
- Waiting: 0
-Statistics (avg):
- RouteLength: 9429.58
- Speed: 9.58
- Duration: 984.00
- WaitingTime: 0.00
- TimeLoss: 669.42
- DepartDelay: 0.00
-
-Terminating SUMO
-[GA]  Avaliado: (id=9,geracao=0,score=0.00016533888912895827)
-[GA]  Completo avaliação de scores
-[GA]  Geração: 0, Best geral: 0.00021389713924565497, Best Atual: 0.00021389713924565497, Média: 0.00017274805441773363
-[GA]  Iniciando avaliação de scores
-Simulation finished
-Loading configuration ... done.
-***Starting server on port 61523 ***
-Loading net-file from './mapas/super.net.xml' ... done (348ms).
-Loading done.
-Simulation version 1.5.0 started with time: 0.00
-Step #0.00 (1ms ~= 1000.00*RT, ~1000.00UPS, TraCI: 4ms, vehicles TOT 1 ACT 1 BUF 0)       Step #100.00 (0ms ?*RT. ?UPS, TraCI: 19ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #200.00 (0ms ?*RT. ?UPS, TraCI: 20ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #300.00 (0ms ?*RT. ?UPS, TraCI: 22ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #400.00 (0ms ?*RT. ?UPS, TraCI: 19ms, vehicles TOT 1 ACT 1 BUF 0)                    Error: Answered with error to command 0xa4: Vehicle 'caminhao' is not known.
-Step #437.00 (0ms ?*RT. ?UPS, TraCI: 1ms, vehicles TOT 1 ACT 0 BUF 0)                     Simulation ended at time: 437.00
-Reason: TraCI requested termination.
-Performance: 
- Duration: 8689ms
- Real time factor: 50.2935
- UPS: 50.178386
-Vehicles: 
- Inserted: 1
- Running: 0
- Waiting: 0
-Statistics (avg):
- RouteLength: 9429.58
- Speed: 21.63
- Duration: 436.00
- WaitingTime: 0.00
- TimeLoss: 121.19
- DepartDelay: 0.00
-
-Terminating SUMO
-[GA]  Avaliado: (id=10,geracao=1,score=0.00012380938026135892)
-Simulation finished
-Loading configuration ... done.
-***Starting server on port 61530 ***
-Loading net-file from './mapas/super.net.xml' ... done (343ms).
-Loading done.
-Simulation version 1.5.0 started with time: 0.00
-Step #0.00 (1ms ~= 1000.00*RT, ~1000.00UPS, TraCI: 4ms, vehicles TOT 1 ACT 1 BUF 0)       Step #100.00 (0ms ?*RT. ?UPS, TraCI: 19ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #200.00 (0ms ?*RT. ?UPS, TraCI: 20ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #300.00 (0ms ?*RT. ?UPS, TraCI: 19ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #400.00 (0ms ?*RT. ?UPS, TraCI: 22ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #500.00 (0ms ?*RT. ?UPS, TraCI: 19ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #600.00 (0ms ?*RT. ?UPS, TraCI: 18ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #700.00 (0ms ?*RT. ?UPS, TraCI: 19ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #800.00 (0ms ?*RT. ?UPS, TraCI: 20ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #900.00 (0ms ?*RT. ?UPS, TraCI: 20ms, vehicles TOT 1 ACT 1 BUF 0)                    Step #1000.00 (0ms ?*RT. ?UPS, TraCI: 18ms, vehicles TOT 1 ACT 1 BUF 0)                   Step #1100.00 (0ms ?*RT. ?UPS, TraCI: 19ms, vehicles TOT 1 ACT 1 BUF 0)                   Step #1200.00 (0ms ?*RT. ?UPS, TraCI: 20ms, vehicles TOT 1 ACT 1 BUF 0)                   Step #1300.00 (0ms ?*RT. ?UPS, TraCI: 18ms, vehicles TOT 1 ACT 1 BUF 0)                   Step #1400.00 (0ms ?*RT. ?UPS, TraCI: 18ms, vehicles TOT 1 ACT 1 BUF 0)                   Step #1500.00 (0ms ?*RT. ?UPS, TraCI: 19ms, vehicles TOT 1 ACT 1 BUF 0)                   Step #1600.00 (1ms ~= 1000.00*RT, ~1000.00UPS, TraCI: 18ms, vehicles TOT 1 ACT 1 BUF 0)   Step #1700.00 (0ms ?*RT. ?UPS, TraCI: 20ms, vehicles TOT 1 ACT 1 BUF 0)                   Step #1800.00 (0ms ?*RT. ?UPS, TraCI: 20ms, vehicles TOT 1 ACT 1 BUF 0)                   Error: Answered with error to command 0xa4: Vehicle 'caminhao' is not known.
-Step #1889.00 (0ms ?*RT. ?UPS, TraCI: 1ms, vehicles TOT 1 ACT 0 BUF 0)                    Simulation ended at time: 1889.00
-Reason: TraCI requested termination.
-Performance: 
- Duration: 38363ms
- Real time factor: 49.2402
- UPS: 49.214086
-Vehicles: 
- Inserted: 1
- Running: 0
- Waiting: 0
-Statistics (avg):
- RouteLength: 9429.58
- Speed: 4.99
- Duration: 1888.00
- WaitingTime: 0.00
- TimeLoss: 1573.56
- DepartDelay: 0.00
-
-Terminating SUMO
-[GA]  Avaliado: (id=11,geracao=1,score=0.00019946914535658920)
-Simulation finished
-Loading configuration ... done.
-***Starting server on port 61550 ***
-Loading net-file from './mapas/super.net.xml' ... done (347ms).
-Loading done.
-Simulation version 1.5.0 started with time: 0.00
