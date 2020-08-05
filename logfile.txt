@@ -1,32 +1,23 @@
-<<<<<<< HEAD
-***Starting server on port 55547 ***
-Loading net-file from './mapas/super.net.xml' ... done (323ms).
-Loading done.
-Simulation version 1.5.0 started with time: 0.00
-Error: tcpip::Socket::recvAndCheck @ recv: Socket reset by peer
-Quitting (on error).
-=======
-***Starting server on port 54275 ***
-Loading net-file from './mapas/super.net.xml' ... done (648ms).
+***Starting server on port 52996 ***
+Loading net-file from './mapas/super.net.xml' ... done (740ms).
 Loading done.
 Simulation version 1.6.0 started with time: 0.00
 Error: Answered with error to command 0xa4: Vehicle 'caminhao' is not known.
-Simulation ended at time: 6031.00
+Simulation ended at time: 1120.00
 Reason: TraCI requested termination.
 Performance: 
- Duration: 12008ms
- Real time factor: 502.249
- UPS: 502.165223
+ Duration: 3237ms
+ Real time factor: 345.999
+ UPS: 345.690454
 Vehicles: 
  Inserted: 1
  Running: 0
  Waiting: 0
 Statistics (avg):
  RouteLength: 30146.24
- Speed: 5.00
- Duration: 6030.00
+ Speed: 26.94
+ Duration: 1119.00
  WaitingTime: 0.00
- TimeLoss: 5025.08
+ TimeLoss: 113.80
  DepartDelay: 0.00
 
->>>>>>> bffe9a3ecf48b678c497762b1a4d3e894cd77604

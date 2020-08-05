@@ -52,6 +52,39 @@ def calculate_real_fuel(speed,accel,slope,instant_fuel):
     
     return instant_fuel
 
+
+def calculate_real_fuel2(speed,accel,slope,instant_fuel):
+    modelo = cM.ModelConsuption(speed, accel, slope)
+    consuption = modelo.run()
+    p = 0.1 # Percentage increase in consumption [0,1]
+    factor_RPM = ((speed**2)*(p))/(30**2)
+    instant_fuel = consuption + consuption*factor_RPM
+   
+    return instant_fuel
+
+def calculate_real_fuel3(speed,accel,slope,instant_fuel):
+    modelo = cM.ModelConsuption(speed, accel, slope)
+    consuption = modelo.run()
+    p = 0.1 # Percentage increase in consumption [0,1]
+    factor_RPM = (math.exp(speed)*p)/(math.exp(30))
+    instant_fuel = consuption + consuption*factor_RPM
+   
+    return instant_fuel
+
+def calculate_real_fuel4(speed,accel,slope,instant_fuel):
+    modelo = cM.ModelConsuption(speed, accel, slope)
+    consuption = modelo.run()
+    p = 0.2 # Percentage increase in consumption [0,1]
+    maxSlope = 25
+    maxSpeed = 30
+    factor_Slope = math.exp(slope)/math.exp(maxSlope)
+    factor_Speed = math.exp(speed)/math.exp(maxSpeed)
+    factor_RPM = factor_Speed*factor_Speed*p
+    instant_fuel = consuption + consuption*factor_RPM
+   
+    return instant_fuel
+
+
 def calculate_new_fuel(instant_fuel, instant_slope, max_slope, instant_acell, max_accel):
 
 
@@ -243,7 +276,7 @@ def run(model, mapa):
 
                 fuel_last_step = traci.vehicle.getFuelConsumption("caminhao")
                 #instant_fuel_consuption2 = calculate_new_fuel(fuel_last_step, angle, max_angulo, inst_acel, max_acel)
-                instant_fuel_consuption2 = calculate_real_fuel(speed, inst_acel, angle, fuel_last_step)
+                instant_fuel_consuption2 = calculate_real_fuel4(speed, inst_acel, angle, fuel_last_step)
 
                 total_fuel += instant_fuel_consuption2
 
