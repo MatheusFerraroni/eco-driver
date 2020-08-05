@@ -38,8 +38,8 @@ import traci
 
 def get_model():
     model = Sequential()
-    model.add(Dense(16, input_shape=(8,), activation='sigmoid'))
-    model.add(Dense(24, activation='sigmoid'))
+    model.add(Dense(16, input_shape=(8,)))
+    model.add(Dense(16))
     model.add(Dense(1, activation='sigmoid'))
     model.compile(optimizer='adam', loss='mean_squared_error')
 
