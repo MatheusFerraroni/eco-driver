@@ -17,6 +17,7 @@ import shutil
 import fuzzy_in_two
 import fuzzy_in_three
 import ConsuptionModel as cM
+import math
 
 
 if 'SUMO_HOME' in os.environ:
@@ -77,7 +78,38 @@ def calculate_real_fuel(speed,accel,slope,instant_fuel):
     modelo = cM.ModelConsuption(speed, accel, slope)
     consuption = modelo.run()
     instant_fuel = consuption
-    
+       
+    return instant_fuel
+
+def calculate_real_fuel2(speed,accel,slope,instant_fuel):
+    modelo = cM.ModelConsuption(speed, accel, slope)
+    consuption = modelo.run()
+    p = 0.1 # Percentage increase in consumption [0,1]
+    factor_RPM = ((speed**2)*(p))/(30**2)
+    instant_fuel = consuption + consuption*factor_RPM
+   
+    return instant_fuel
+
+def calculate_real_fuel3(speed,accel,slope,instant_fuel):
+    modelo = cM.ModelConsuption(speed, accel, slope)
+    consuption = modelo.run()
+    p = 0.1 # Percentage increase in consumption [0,1]
+    factor_RPM = (math.exp(speed)*p)/(math.exp(30))
+    instant_fuel = consuption + consuption*factor_RPM
+   
+    return instant_fuel
+
+def calculate_real_fuel4(speed,accel,slope,instant_fuel):
+    modelo = cM.ModelConsuption(speed, accel, slope)
+    consuption = modelo.run()
+    p = 0.2 # Percentage increase in consumption [0,1]
+    maxSlope = 25
+    maxSpeed = 30
+    factor_Slope = math.exp(slope)/math.exp(maxSlope)
+    factor_Speed = math.exp(speed)/math.exp(maxSpeed)
+    factor_RPM = factor_Speed*factor_Speed*p
+    instant_fuel = consuption + consuption*factor_RPM
+   
     return instant_fuel
 
 def verificaVelocidadeIdeal():
@@ -225,6 +257,9 @@ def custom_mutate(wei):
 
 
 def run(mapa):
+    npdf = 0
+    mean_speed = 0
+    pdf = np.zeros((31,), dtype=float)
 
     f_2 = fuzzy_in_two.Algorithm()
     f_3 = fuzzy_in_three.Algorithm()
@@ -272,6 +307,10 @@ def run(mapa):
                 #r = model.predict(np.array([np.array(entrada)]))[0][0] #chamar fuzzy
                 r = f_2.findSpeed(speed, angle, inf10, inf30, inf50, inf70)
 
+                i_pdf =  int(r+0.49)
+                pdf[i_pdf] += 1
+                npdf += 1
+
                             
                 # print(r, max_speed_caminhao , r*max_speed_caminhao)
                 traci.vehicle.setSpeed("caminhao",r)
@@ -283,7 +322,7 @@ def run(mapa):
                 inst_acel = traci.vehicle.getAcceleration("caminhao")
 
                 #instant_fuel_consuption2 = calculate_new_fuel(speed, max_speed_caminhao, instant_fuel_consuption, angle, max_angulo, inst_acel, max_acel, step)
-                instant_fuel_consuption2 = calculate_real_fuel(speed, inst_acel, angle, instant_fuel_consuption)
+                instant_fuel_consuption2 = calculate_real_fuel4(speed, inst_acel, angle, instant_fuel_consuption)
                 
                 total_fuel += instant_fuel_consuption2
 
@@ -302,7 +341,23 @@ def run(mapa):
         print("######################")
         raise
 
+    for i in range(len(pdf)):
+        pdf[i] = float(pdf[i]*100)/float(npdf)
+      
 
+
+  
+    if os.path.exists('pdf/results/fuzzy_2.csv'):
+        os.remove('pdf/results/fuzzy_2.csv')
+    resultFile = open('pdf/results/fuzzy_2.csv', 'a')
+   
+    for i in range(len(pdf)):
+        mean_speed +=  i*pdf[i]
+        # print('i: ', i, ' pdf: ', pdf[i], ' i*pdf: ', i*pdf[i])
+        resultFile.write("{}{}{}{}".format(i,':',pdf[i],'\n'))
+
+    resultFile.write("{}{}{}{}".format('mean_speed',':',mean_speed/100,'\n'))
+    resultFile.close()
 
     print("Simulation finished")
     traci.close()
