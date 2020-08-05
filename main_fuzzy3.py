@@ -344,9 +344,7 @@ def run(mapa):
     for i in range(len(pdf)):
         pdf[i] = float(pdf[i]*100)/float(npdf)
       
-
-
-  
+ 
     if os.path.exists('pdf/results/fuzzy_2.csv'):
         os.remove('pdf/results/fuzzy_2.csv')
     resultFile = open('pdf/results/fuzzy_2.csv', 'a')
