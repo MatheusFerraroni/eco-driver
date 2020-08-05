@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 files = os.listdir("./")
 
-z_add = 100
+z_add = 50
 
 files = ['super.extras']
 
@@ -36,8 +36,8 @@ for f in files:
         ys_green_above.append(inf["z"]+z_add+10)
         ys_green_below.append(inf["z"]+z_add-10)
 
-        min_h = min(min_h, inf["z"])
-        max_h = max(max_h, inf["z"])
+        min_h = min(min_h, inf["angle"])
+        max_h = max(max_h, inf["angle"])
 
         if i%50==0 and i%100!=0:
             ax.annotate(str(round(inf["angle"],1)),
@@ -47,7 +47,7 @@ for f in files:
                         horizontalalignment='right', verticalalignment='bottom')
 
     print(min_h, max_h)
-    # ax.set_ylim(0,300)
+    # ax.set_ylim(0,175)
     # ax.patch.set_facecolor('#87d3e0')
     # ax.set_xlim(-20,max_x+20)
     # ax.stackplot(xs, ys_green_above, color="#269126")

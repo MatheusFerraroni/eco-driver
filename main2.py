@@ -49,17 +49,17 @@ caminho_veiculo = ['AA0AB0','AB0AC0','AC0AD0','AD0AE0','AE0AF0','AF0AG0','AG0AH0
 'ED0EE0','EE0EF0','EF0EG0','EG0EH0','EH0EI0','EI0EJ0','EJ0EK0','EK0EL0','EL0EM0','EM0EN0','EN0EO0','EO0EP0','EP0EQ0',
 'EQ0ER0','ER0ES0','ES0ET0','ET0EU0','EU0EV0','EV0EW0','EW0EX0','EX0EY0','EY0EZ0','EZ0FA0','FA0FB0','FB0FC0','FC0FD0',
 'FD0FE0','FE0FF0','FF0FG0','FG0FH0','FH0FI0','FI0FJ0','FJ0FK0','FK0FL0','FL0FM0','FM0FN0','FN0FO0','FO0FP0','FP0FQ0',
-# 'FQ0FR0','FR0FS0','FS0FT0','FT0FU0','FU0FV0','FV0FW0','FW0FX0','FX0FY0','FY0FZ0','FZ0GA0','GA0GB0','GB0GC0','GC0GD0','GD0GE0',
-# 'GE0GF0','GF0GG0','GG0GH0','GH0GI0','GI0GJ0','GJ0GK0','GK0GL0','GL0GM0','GM0GN0','GN0GO0','GO0GP0','GP0GQ0','GQ0GR0','GR0GS0',
-# 'GS0GT0','GT0GU0','GU0GV0','GV0GW0','GW0GX0','GX0GY0','GY0GZ0','GZ0HA0','HA0HB0','HB0HC0','HC0HD0','HD0HE0','HE0HF0','HF0HG0',
-# 'HG0HH0','HH0HI0','HI0HJ0','HJ0HK0','HK0HL0','HL0HM0','HM0HN0','HN0HO0','HO0HP0','HP0HQ0','HQ0HR0','HR0HS0','HS0HT0','HT0HU0',
-# 'HU0HV0','HV0HW0','HW0HX0','HX0HY0','HY0HZ0','HZ0IA0','IA0IB0','IB0IC0','IC0ID0','ID0IE0','IE0IF0','IF0IG0','IG0IH0','IH0II0',
-# 'II0IJ0','IJ0IK0','IK0IL0','IL0IM0','IM0IN0','IN0IO0','IO0IP0','IP0IQ0','IQ0IR0','IR0IS0','IS0IT0','IT0IU0','IU0IV0','IV0IW0',
-# 'IW0IX0','IX0IY0','IY0IZ0','IZ0JA0','JA0JB0','JB0JC0','JC0JD0','JD0JE0','JE0JF0','JF0JG0','JG0JH0','JH0JI0','JI0JJ0','JJ0JK0',
-# 'JK0JL0','JL0JM0','JM0JN0','JN0JO0','JO0JP0','JP0JQ0','JQ0JR0','JR0JS0','JS0JT0','JT0JU0','JU0JV0','JV0JW0','JW0JX0','JX0JY0',
-# 'JY0JZ0','JZ0KA0','KA0KB0','KB0KC0','KC0KD0','KD0KE0','KE0KF0','KF0KG0','KG0KH0','KH0KI0','KI0KJ0','KJ0KK0','KK0KL0','KL0KM0',
-# 'KM0KN0','KN0KO0','KO0KP0','KP0KQ0','KQ0KR0','KR0KS0','KS0KT0','KT0KU0','KU0KV0','KV0KW0','KW0KX0','KX0KY0','KY0KZ0','KZ0LA0',
-# 'LA0LB0','LB0LC0','LC0LD0','LD0LE0','LE0LF0','LF0LG0','LG0LH0','LH0LI0','LI0LJ0','LJ0LK0','LK0LL0','LL0LM0','LM0LN0','LN0LO0',
+'FQ0FR0','FR0FS0','FS0FT0','FT0FU0','FU0FV0','FV0FW0','FW0FX0','FX0FY0','FY0FZ0','FZ0GA0','GA0GB0','GB0GC0','GC0GD0','GD0GE0',
+'GE0GF0','GF0GG0','GG0GH0','GH0GI0','GI0GJ0','GJ0GK0','GK0GL0','GL0GM0','GM0GN0','GN0GO0','GO0GP0','GP0GQ0','GQ0GR0','GR0GS0',
+'GS0GT0','GT0GU0','GU0GV0','GV0GW0','GW0GX0','GX0GY0','GY0GZ0','GZ0HA0','HA0HB0','HB0HC0','HC0HD0','HD0HE0','HE0HF0','HF0HG0',
+'HG0HH0','HH0HI0','HI0HJ0','HJ0HK0','HK0HL0','HL0HM0','HM0HN0','HN0HO0','HO0HP0','HP0HQ0','HQ0HR0','HR0HS0','HS0HT0','HT0HU0',
+'HU0HV0','HV0HW0','HW0HX0','HX0HY0','HY0HZ0','HZ0IA0','IA0IB0','IB0IC0','IC0ID0','ID0IE0','IE0IF0','IF0IG0','IG0IH0','IH0II0',
+'II0IJ0','IJ0IK0','IK0IL0','IL0IM0','IM0IN0','IN0IO0','IO0IP0','IP0IQ0','IQ0IR0','IR0IS0','IS0IT0','IT0IU0','IU0IV0','IV0IW0',
+'IW0IX0','IX0IY0','IY0IZ0','IZ0JA0','JA0JB0','JB0JC0','JC0JD0','JD0JE0','JE0JF0','JF0JG0','JG0JH0','JH0JI0','JI0JJ0','JJ0JK0',
+'JK0JL0','JL0JM0','JM0JN0','JN0JO0','JO0JP0','JP0JQ0','JQ0JR0','JR0JS0','JS0JT0','JT0JU0','JU0JV0','JV0JW0','JW0JX0','JX0JY0',
+'JY0JZ0','JZ0KA0','KA0KB0','KB0KC0','KC0KD0','KD0KE0','KE0KF0','KF0KG0','KG0KH0','KH0KI0','KI0KJ0','KJ0KK0','KK0KL0','KL0KM0',
+'KM0KN0','KN0KO0','KO0KP0','KP0KQ0','KQ0KR0','KR0KS0','KS0KT0','KT0KU0','KU0KV0','KV0KW0','KW0KX0','KX0KY0','KY0KZ0','KZ0LA0',
+'LA0LB0','LB0LC0','LC0LD0','LD0LE0','LE0LF0','LF0LG0','LG0LH0','LH0LI0','LI0LJ0','LJ0LK0','LK0LL0','LL0LM0','LM0LN0','LN0LO0',
 ]
 
 def calculate_real_fuel(speed,accel,slope,instant_fuel):
@@ -338,13 +338,13 @@ def run(model, mapa):
 
 def run_pre():
 
-#     caminho_veiculo_pre = [
-# 'AA0AB0','AB0AC0','AC0AD0','AD0AE0','AE0AF0','AF0AG0','AG0AH0','AH0AI0','AI0AJ0','AJ0AK0','AK0AL0','AL0AM0','AM0AN0','AN0AO0',
-# 'AO0AP0','AP0AQ0','AQ0AR0','AR0AS0','AS0AT0','AT0AU0','AU0AV0','AV0AW0','AW0AX0','AX0AY0','AY0AZ0','AZ0BA0','BA0BB0','BB0BC0','BC0BD0','BD0BE0',
-# 'BE0BF0','BF0BG0','BG0BH0','BH0BI0','BI0BJ0','BJ0BK0','BK0BL0','BL0BM0','BM0BN0','BN0BO0'
-#     ]
+    caminho_veiculo_pre = [
+'AA0AB0','AB0AC0','AC0AD0','AD0AE0','AE0AF0','AF0AG0','AG0AH0','AH0AI0','AI0AJ0','AJ0AK0','AK0AL0','AL0AM0','AM0AN0','AN0AO0',
+'AO0AP0','AP0AQ0','AQ0AR0','AR0AS0','AS0AT0','AT0AU0','AU0AV0','AV0AW0','AW0AX0','AX0AY0','AY0AZ0','AZ0BA0','BA0BB0','BB0BC0','BC0BD0','BD0BE0',
+'BE0BF0','BF0BG0','BG0BH0','BH0BI0','BI0BJ0','BJ0BK0','BK0BL0','BL0BM0','BM0BN0','BN0BO0'
+    ]
     
-    caminho_veiculo_pre = caminho_veiculo
+    # caminho_veiculo_pre = caminho_veiculo
     traci.route.add("trip", caminho_veiculo_pre)
     traci.vehicle.add("path_mapper", "trip")
     traci.vehicle.setParameter("path_mapper","carFollowModel","KraussPS")
@@ -477,38 +477,39 @@ def custom_random_genome():
 def pre_simulation():
 
     mapas = [
-        "super.net.xml",
-        # "1.net.xml",
-        # "2.net.xml",
-        # "3.net.xml",
-        # "4.net.xml",
-        # "5.net.xml",
-        # "6.net.xml",
-        # "7.net.xml",
-        # "8.net.xml",
-        # "9.net.xml",
-        # "10.net.xml",
-        # "11.net.xml",
-        # "12.net.xml",
-        # "13.net.xml",
-        # "14.net.xml",
-        # "15.net.xml",
-        # "16.net.xml",
-        # "17.net.xml",
-        # "18.net.xml",
-        # "19.net.xml",
-        # "20.net.xml",
-        # "21.net.xml",
-        # "22.net.xml",
-        # "23.net.xml",
-        # "24.net.xml",
-        # "25.net.xml",
-        # "26.net.xml",
-        # "27.net.xml",
-        # "28.net.xml",
-        # "29.net.xml",
+        # "super.net.xml",
+        "0.net.xml",
+        "1.net.xml",
+        "2.net.xml",
+        "3.net.xml",
+        "4.net.xml",
+        "5.net.xml",
+        "6.net.xml",
+        "7.net.xml",
+        "8.net.xml",
+        "9.net.xml",
+        "10.net.xml",
+        "11.net.xml",
+        "12.net.xml",
+        "13.net.xml",
+        "14.net.xml",
+        "15.net.xml",
+        "16.net.xml",
+        "17.net.xml",
+        "18.net.xml",
+        "19.net.xml",
+        "20.net.xml",
+        "21.net.xml",
+        "22.net.xml",
+        "23.net.xml",
+        "24.net.xml",
+        "25.net.xml",
+        "26.net.xml",
+        "27.net.xml",
+        "28.net.xml",
+        "29.net.xml",
     ]
-    folder = "./mapas/"
+    folder = "./mapas_validation/"
 
     for m in mapas:
         dados = start_pre_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m))

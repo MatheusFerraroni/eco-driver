@@ -77,6 +77,8 @@ class ModelConsuption:
         deviation = n * standardDev[mode-1]
         consuption = media[mode-1] + deviation # galões
         consuption = consuption * 3.78541 # litros
+        if consuption[0] < 0:
+            consuption[0] = 0
         
         return consuption
 
