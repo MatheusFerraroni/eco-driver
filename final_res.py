@@ -484,5 +484,5 @@ def main(arquivo):
 
 
 if __name__ == '__main__':
-    a = "./results/10_10_True_0.1.json"
+    a = "./results/20_20_True_0.1.json"
     main(a)
