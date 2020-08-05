@@ -21,7 +21,7 @@ import ConsuptionModel as cM
 caminho_veiculo = [
 'AA0AB0','AB0AC0','AC0AD0','AD0AE0','AE0AF0','AF0AG0','AG0AH0','AH0AI0','AI0AJ0','AJ0AK0','AK0AL0','AL0AM0','AM0AN0','AN0AO0',
 'AO0AP0','AP0AQ0','AQ0AR0','AR0AS0','AS0AT0','AT0AU0','AU0AV0','AV0AW0','AW0AX0','AX0AY0','AY0AZ0','AZ0BA0','BA0BB0','BB0BC0','BC0BD0','BD0BE0',
-'BE0BF0','BF0BG0','BG0BH0','BH0BI0','BI0BJ0','BJ0BK0','BK0BL0','BL0BM0','BM0BN0','BN0BO0'
+'BE0BF0','BF0BG0','BG0BH0','BH0BI0','BI0BJ0','BJ0BK0','BK0BL0','BL0BM0','BM0BN0','BN0BO0','BO0BP0', 'BP0BQ0', 'BQ0BR0', 'BR0BS0', 'BS0BT0','BT0BU0','BU0BV0','BV0BW0', 'BW0BX0', 'BX0BY0'
     ]
 
 max_speed_caminhao = 30 # ~ 108km/h
@@ -38,17 +38,18 @@ import traci
 
 def get_model():
     model = Sequential()
-    model.add(Dense(16, input_shape=(8,)))
-    model.add(Dense(24))
+    model.add(Dense(16, input_shape=(8,), activation='sigmoid'))
+    model.add(Dense(24, activation='sigmoid'))
     model.add(Dense(1, activation='sigmoid'))
     model.compile(optimizer='adam', loss='mean_squared_error')
 
     return model
 
-def calculate_real_fuel(speed,accel,slope):
+def calculate_real_fuel(speed,accel,slope,instant_fuel):
     modelo = cM.ModelConsuption(speed, accel, slope)
     consuption = modelo.run()
-    instant_fuel = consuption    
+    instant_fuel = consuption
+    
     return instant_fuel
 
 def calculate_new_fuel(instant_fuel, instant_slope, max_slope, instant_acell, max_accel):
@@ -242,7 +243,7 @@ def run(model, mapa):
 
                 fuel_last_step = traci.vehicle.getFuelConsumption("caminhao")
                 #instant_fuel_consuption2 = calculate_new_fuel(fuel_last_step, angle, max_angulo, inst_acel, max_acel)
-                instant_fuel_consuption2 = calculate_real_fuel(speed, inst_acel, angle)
+                instant_fuel_consuption2 = calculate_real_fuel(speed, inst_acel, angle, fuel_last_step)
 
                 total_fuel += instant_fuel_consuption2
 
@@ -483,5 +484,5 @@ def main(arquivo):
 
 
 if __name__ == '__main__':
-    a = "./results/10_11_True_0.1.json"
+    a = "./results/10_10_True_0.1.json"
     main(a)
