@@ -45,8 +45,8 @@ caminho_veiculo = ['AA0AB0','AB0AC0','AC0AD0','AD0AE0','AE0AF0','AF0AG0','AG0AH0
 'BU0BV0','BV0BW0','BW0BX0','BX0BY0','BY0BZ0','BZ0CA0','CA0CB0','CB0CC0','CC0CD0','CD0CE0','CE0CF0','CF0CG0','CG0CH0','CH0CI0','CI0CJ0','CJ0CK0',
 'CK0CL0','CL0CM0','CM0CN0','CN0CO0','CO0CP0','CP0CQ0','CQ0CR0','CR0CS0','CS0CT0','CT0CU0','CU0CV0','CV0CW0','CW0CX0','CX0CY0','CY0CZ0','CZ0DA0',
 'DA0DB0','DB0DC0','DC0DD0','DD0DE0','DE0DF0','DF0DG0','DG0DH0','DH0DI0','DI0DJ0','DJ0DK0','DK0DL0','DL0DM0','DM0DN0','DN0DO0','DO0DP0','DP0DQ0',
-'DQ0DR0','DR0DS0','DS0DT0','DT0DU0','DU0DV0','DV0DW0','DW0DX0','DX0DY0','DY0DZ0','DZ0EA0','EA0EB0','EB0EC0','EC0ED0',
-'ED0EE0','EE0EF0','EF0EG0','EG0EH0','EH0EI0','EI0EJ0','EJ0EK0','EK0EL0','EL0EM0','EM0EN0','EN0EO0','EO0EP0','EP0EQ0',
+# 'DQ0DR0','DR0DS0','DS0DT0','DT0DU0','DU0DV0','DV0DW0','DW0DX0','DX0DY0','DY0DZ0','DZ0EA0','EA0EB0','EB0EC0','EC0ED0',
+# 'ED0EE0','EE0EF0','EF0EG0','EG0EH0','EH0EI0','EI0EJ0','EJ0EK0','EK0EL0','EL0EM0','EM0EN0','EN0EO0','EO0EP0','EP0EQ0',
 # 'EQ0ER0','ER0ES0','ES0ET0','ET0EU0','EU0EV0','EV0EW0','EW0EX0','EX0EY0','EY0EZ0','EZ0FA0','FA0FB0','FB0FC0','FC0FD0',
 # 'FD0FE0','FE0FF0','FF0FG0','FG0FH0','FH0FI0','FI0FJ0','FJ0FK0','FK0FL0','FL0FM0','FM0FN0','FN0FO0','FO0FP0','FP0FQ0',
 # 'FQ0FR0','FR0FS0','FS0FT0','FT0FU0','FU0FV0','FV0FW0','FW0FX0','FX0FY0','FY0FZ0','FZ0GA0','GA0GB0','GB0GC0','GC0GD0','GD0GE0',
@@ -113,11 +113,18 @@ def get_model():
 
     return model
 
-
-# def returnScaledOutput(youtput):
-#   yscaled = youtput + 0.25
-#   return min(yscaled, 1.0)
-
+def calculate_real_fuel4(speed,accel,slope,instant_fuel):
+    modelo = cM.ModelConsuption(speed, accel, slope)
+    consuption = modelo.run()
+    p = 0.2 # Percentage increase in consumption [0,1]
+    maxSlope = 25
+    maxSpeed = 30
+    factor_Slope = math.exp(slope)/math.exp(maxSlope)
+    factor_Speed = math.exp(speed)/math.exp(maxSpeed)
+    factor_RPM = factor_Speed*factor_Speed*p
+    instant_fuel = consuption + consuption*factor_RPM
+   
+    return instant_fuel
 
 def getClosest(arr, n, target):
 
@@ -312,7 +319,8 @@ def run(model, mapa):
                 instant_fuel_consuption = traci.vehicle.getFuelConsumption("caminhao")
 
                 # instant_fuel_consuption2 = calculate_new_fuel(instant_fuel_consuption, angle, max_angulo, inst_acel, max_acel)
-                instant_fuel_consuption2 = calculate_real_fuel(speed, inst_acel, angle, instant_fuel_consuption)
+                # instant_fuel_consuption2 = calculate_real_fuel(speed, inst_acel, angle, instant_fuel_consuption)
+                instant_fuel_consuption2 = calculate_real_fuel4(speed, inst_acel, angle, instant_fuel_consuption)
 
                 total_fuel += instant_fuel_consuption2
             except Exception as e:
@@ -538,8 +546,8 @@ def main():
 
     # pre_simulation()
     # return
-    population_size   = 20
-    iteration_limit   = 20
+    population_size   = 10
+    iteration_limit   = 10
     cut_half_pop      = True
     replicate_best    = 0.1
 

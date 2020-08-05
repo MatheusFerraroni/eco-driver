@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 08/05/20 14:56:10 by Eclipse SUMO Version 1.5.0
+<!-- generated on 08/05/20 14:58:55 by Eclipse SUMO Version 1.5.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -9,7 +9,7 @@
     </input>
 
     <output>
-        <tripinfo-output value="./output/super.net.xml_0_0.out.xml"/>
+        <tripinfo-output value="./output/super.net.xml_1_11.out.xml"/>
     </output>
 
     <report>
@@ -23,13 +23,13 @@
     </emissions>
 
     <traci_server>
-        <remote-port value="61410"/>
+        <remote-port value="61523"/>
     </traci_server>
 
 </configuration>
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="caminhao" depart="0.00" departLane="AA0AB0_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="583.00" arrivalLane="DP0DQ0_0" arrivalPos="85.82" arrivalSpeed="16.68" duration="583.00" routeLength="9429.58" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="268.41" rerouteNo="0" devices="tripinfo_caminhao emissions_caminhao" vType="DEFAULT_VEHTYPE@caminhao" speedFactor="1.06" vaporized="">
-        <emissions CO_abs="10573.667107" CO2_abs="1556588.018810" HC_abs="96.419532" PMx_abs="32.221234" NOx_abs="537.329228" fuel_abs="5158.445787" electricity_abs="0"/>
+    <tripinfo id="caminhao" depart="0.00" departLane="AA0AB0_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="436.00" arrivalLane="DP0DQ0_0" arrivalPos="85.82" arrivalSpeed="22.22" duration="436.00" routeLength="9429.58" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="121.19" rerouteNo="0" devices="tripinfo_caminhao emissions_caminhao" vType="DEFAULT_VEHTYPE@caminhao" speedFactor="1.06" vaporized="">
+        <emissions CO_abs="16834.686085" CO2_abs="1577973.500070" HC_abs="130.405686" PMx_abs="41.705385" NOx_abs="622.879175" fuel_abs="5013.306686" electricity_abs="0"/>
     </tripinfo></tripinfos>

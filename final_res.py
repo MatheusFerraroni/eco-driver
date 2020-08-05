@@ -16,7 +16,7 @@ import shutil
 import fuzzy_in_two
 import fuzzy_in_three
 import ConsuptionModel as cM
-
+import math
 
 caminho_veiculo = [
 'AA0AB0','AB0AC0','AC0AD0','AD0AE0','AE0AF0','AF0AG0','AG0AH0','AH0AI0','AI0AJ0','AJ0AK0','AK0AL0','AL0AM0','AM0AN0','AN0AO0',
@@ -51,6 +51,39 @@ def calculate_real_fuel(speed,accel,slope,instant_fuel):
     instant_fuel = consuption
     
     return instant_fuel
+
+
+def calculate_real_fuel2(speed,accel,slope,instant_fuel):
+    modelo = cM.ModelConsuption(speed, accel, slope)
+    consuption = modelo.run()
+    p = 0.1 # Percentage increase in consumption [0,1]
+    factor_RPM = ((speed**2)*(p))/(30**2)
+    instant_fuel = consuption + consuption*factor_RPM
+   
+    return instant_fuel
+
+def calculate_real_fuel3(speed,accel,slope,instant_fuel):
+    modelo = cM.ModelConsuption(speed, accel, slope)
+    consuption = modelo.run()
+    p = 0.1 # Percentage increase in consumption [0,1]
+    factor_RPM = (math.exp(speed)*p)/(math.exp(30))
+    instant_fuel = consuption + consuption*factor_RPM
+   
+    return instant_fuel
+
+def calculate_real_fuel4(speed,accel,slope,instant_fuel):
+    modelo = cM.ModelConsuption(speed, accel, slope)
+    consuption = modelo.run()
+    p = 0.2 # Percentage increase in consumption [0,1]
+    maxSlope = 25
+    maxSpeed = 30
+    factor_Slope = math.exp(slope)/math.exp(maxSlope)
+    factor_Speed = math.exp(speed)/math.exp(maxSpeed)
+    factor_RPM = factor_Speed*factor_Speed*p
+    instant_fuel = consuption + consuption*factor_RPM
+   
+    return instant_fuel
+
 
 def calculate_new_fuel(instant_fuel, instant_slope, max_slope, instant_acell, max_accel):
 
@@ -180,6 +213,9 @@ def run(model, mapa):
     total_fuel = 0
     last_speed = 0
 
+    mean_speed = 0
+    mean_fuel_second = 0
+
     dados_retorno = []
     try:
         while step == 0 or traci.simulation.getMinExpectedNumber() > 0:
@@ -188,6 +224,7 @@ def run(model, mapa):
 
             try:
                 speed = traci.vehicle.getSpeed("caminhao")
+                mean_speed += speed
                 angle = traci.vehicle.getSlope("caminhao")
                 x, y, z = traci.vehicle.getPosition3D("caminhao")
 
@@ -243,7 +280,7 @@ def run(model, mapa):
 
                 fuel_last_step = traci.vehicle.getFuelConsumption("caminhao")
                 #instant_fuel_consuption2 = calculate_new_fuel(fuel_last_step, angle, max_angulo, inst_acel, max_acel)
-                instant_fuel_consuption2 = calculate_real_fuel(speed, inst_acel, angle, fuel_last_step)
+                instant_fuel_consuption2 = calculate_real_fuel4(speed, inst_acel, angle, fuel_last_step)
 
                 total_fuel += instant_fuel_consuption2
 
@@ -252,10 +289,12 @@ def run(model, mapa):
                     "y": y,
                     "z": z,
                     "total_fuel": total_fuel,
+                    "mean_fuel_second": total_fuel/step,
                     "fuel_last_step": instant_fuel_consuption2,
                     "speed_recommended": r*max_speed_caminhao,
                     "step": step,
-                    "speed": speed
+                    "speed": speed,
+                    "mean_speed": mean_speed/step
                     })
             except Exception as e:
                 print("######################")
@@ -482,6 +521,9 @@ def main(arquivo):
         plow(resultados_obtidos[m], extras, m)
         # break
 
+    f = open("final_res_complete.json","w")
+    f.write(json.dumps(resultados_obtidos[m]))
+    f.close()
 
 if __name__ == '__main__':
     a = "./results/20_20_True_0.1.json"
