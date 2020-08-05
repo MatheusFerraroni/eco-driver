@@ -1,23 +1,23 @@
-***Starting server on port 54039 ***
-Loading net-file from './mapas/super.net.xml' ... done (661ms).
+***Starting server on port 54275 ***
+Loading net-file from './mapas/super.net.xml' ... done (648ms).
 Loading done.
 Simulation version 1.6.0 started with time: 0.00
 Error: Answered with error to command 0xa4: Vehicle 'caminhao' is not known.
-Simulation ended at time: 1147.00
+Simulation ended at time: 6031.00
 Reason: TraCI requested termination.
 Performance: 
- Duration: 3077ms
- Real time factor: 372.766
- UPS: 372.440689
+ Duration: 12008ms
+ Real time factor: 502.249
+ UPS: 502.165223
 Vehicles: 
  Inserted: 1
  Running: 0
  Waiting: 0
 Statistics (avg):
  RouteLength: 30146.24
- Speed: 26.31
- Duration: 1146.00
+ Speed: 5.00
+ Duration: 6030.00
  WaitingTime: 0.00
- TimeLoss: 140.86
+ TimeLoss: 5025.08
  DepartDelay: 0.00
 

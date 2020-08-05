@@ -17,6 +17,7 @@ import shutil
 import fuzzy_in_two
 import fuzzy_in_three
 import ConsuptionModel as cM
+import math
 
 
 if 'SUMO_HOME' in os.environ:
@@ -85,6 +86,28 @@ def calculate_real_fuel2(speed,accel,slope,instant_fuel):
     consuption = modelo.run()
     p = 0.1 # Percentage increase in consumption [0,1]
     factor_RPM = ((speed**2)*(p))/(30**2)
+    instant_fuel = consuption + consuption*factor_RPM
+   
+    return instant_fuel
+
+def calculate_real_fuel3(speed,accel,slope,instant_fuel):
+    modelo = cM.ModelConsuption(speed, accel, slope)
+    consuption = modelo.run()
+    p = 0.1 # Percentage increase in consumption [0,1]
+    factor_RPM = (math.exp(speed)*p)/(math.exp(30))
+    instant_fuel = consuption + consuption*factor_RPM
+   
+    return instant_fuel
+
+def calculate_real_fuel4(speed,accel,slope,instant_fuel):
+    modelo = cM.ModelConsuption(speed, accel, slope)
+    consuption = modelo.run()
+    p = 0.2 # Percentage increase in consumption [0,1]
+    maxSlope = 25
+    maxSpeed = 30
+    factor_Slope = math.exp(slope)/math.exp(maxSlope)
+    factor_Speed = math.exp(speed)/math.exp(maxSpeed)
+    factor_RPM = factor_Speed*factor_Speed*p
     instant_fuel = consuption + consuption*factor_RPM
    
     return instant_fuel
@@ -299,7 +322,7 @@ def run(mapa):
                 inst_acel = traci.vehicle.getAcceleration("caminhao")
 
                 #instant_fuel_consuption2 = calculate_new_fuel(speed, max_speed_caminhao, instant_fuel_consuption, angle, max_angulo, inst_acel, max_acel, step)
-                instant_fuel_consuption2 = calculate_real_fuel2(speed, inst_acel, angle, instant_fuel_consuption)
+                instant_fuel_consuption2 = calculate_real_fuel4(speed, inst_acel, angle, instant_fuel_consuption)
                 
                 total_fuel += instant_fuel_consuption2
 
