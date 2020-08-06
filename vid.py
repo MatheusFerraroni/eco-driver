@@ -6,7 +6,14 @@ import matplotlib.gridspec as gridspec
 from PIL import Image
 import glob
 import sys
+import matplotlib.colors as mcolors
 
+color1 = "tab:blue"
+color2 = "tab:orange"
+color3 = "tab:green"
+color4 = "tab:red"
+
+labels = [' ', 'Neural Network', ' ', 'Fuzzy1', ' ', 'Fuzzy2',  ' ', 'SUMO', ' ']
 
 z_add = 30
 
@@ -74,7 +81,7 @@ def main():
             ax = fig.add_subplot(gs[0, :])
             ax.patch.set_facecolor('#87d3e0')
             ax.set_xlim(-20,xs_mapa[-1]+20)
-            ax.set_ylim(0,100)
+            ax.set_ylim(0,60)
             ax.stackplot(xs_mapa, ys_mapa_green_above, colors=['#269126'])
             ax.stackplot(xs_mapa, ys_mapa, colors=["#000000"])
             ax.stackplot(xs_mapa, ys_mapa_green_below, colors=["#269126"])
@@ -118,58 +125,74 @@ def main():
                     if t=="Model":
                         model_x = x
                         model_z = z+z_add
-                        model_speed = speed
+                        model_speed = speed*3.6
                         model_instant_fuel = fuel_last_step
                         model_total_fuel = total_fuel
                     elif t=="Fuzzy":
                         fuzzy_x = x
                         fuzzy_z = z+z_add
-                        fuzzy_speed = speed
+                        fuzzy_speed = speed*3.6
                         fuzzy_instant_fuel = fuel_last_step
                         fuzzy_total_fuel = total_fuel
                     elif t=="Fuzzy2":
                         fuzzy2_x = x
                         fuzzy2_z = z+z_add
-                        fuzzy2_speed = speed
+                        fuzzy2_speed = speed*3.6
                         fuzzy2_instant_fuel = fuel_last_step
                         fuzzy2_total_fuel = total_fuel
                     elif t=="KraussPS":
                         sumo_x = x
                         sumo_z = z+z_add
-                        sumo_speed = speed
+                        sumo_speed = speed*3.6
                         sumo_instant_fuel = fuel_last_step
                         sumo_total_fuel = total_fuel
  
 
-            ax.scatter([model_x,fuzzy_x,fuzzy2_x, sumo_x],[model_z,fuzzy_z,fuzzy2_z, sumo_z], s=80, c=["#FF0000","#00FF00","#0000FF","#FFF0F0"])
+            # ax.scatter([model_x,fuzzy_x,fuzzy2_x, sumo_x],[model_z,fuzzy_z,fuzzy2_z, sumo_z], s=80, c=["#FF0000","#00FF00","#0000FF","#FFF0F0"])
+            ax.scatter(model_x, model_z, s=80, color=color1, label='Neural Network')
+            ax.scatter(fuzzy_x, fuzzy_z, s=80, color=color2, label='Fuzzy1')
+            ax.scatter(fuzzy2_x, fuzzy2_z, s=80, color=color3, label='Fuzzy2')
+            ax.scatter(sumo_x, sumo_z, s=80, color=color4, label='SUMO')
+
+            ax.legend(loc='lower center', bbox_to_anchor=(0.8, 1.0),  ncol=4, fancybox=True, shadow=True)
+
 
             ax.text(40, 102, "Time: "+str(step)+" s", ha='left')
 
             ax = fig.add_subplot(gs[1, 0])
-            ax.set_xlabel("Approach")
-            ax.set_ylabel("Speed (mps)")
-            ax.set_ylim(0,30)
-            ax.set_xlim(0,5)
+            # ax.set_xlabel("Approach")
+            ax.set_ylabel("Speed [km/h]")
+            ax.set_ylim(0,110)
+            ax.set_xticklabels(labels)
+            ax.set_xlim(0,4)
             ax.grid()
-            ax.bar([0.5,1.5,2.5,3.5], [model_speed, fuzzy_speed, fuzzy2_speed, sumo_speed], color=["#FF0000","#00FF00","#0000FF","#FFF0F0"])
+            ax.bar([0.5,1.5,2.5,3.5], [model_speed, fuzzy_speed, fuzzy2_speed, sumo_speed], color=[color1,color2,color3,color4])
 
 
             ax = fig.add_subplot(gs[1, 1])
-            ax.set_xlabel("Approach")
-            ax.set_ylabel("Instant Fuel")
+            # ax.set_xlabel("Approach")
+            ax.set_ylabel("Instant Fuel [ml/s]")
             ax.set_ylim(0,40)
-            ax.set_xlim(0,5)
+            ax.set_xticklabels(labels)
+            ax.set_xlim(0,4)
             ax.grid()
-            ax.bar([0.5,1.5,2.5,3.5], [model_instant_fuel, fuzzy_instant_fuel, fuzzy2_instant_fuel, sumo_instant_fuel], color=["#FF0000","#00FF00","#0000FF","#FFF0F0"])
+            ax.bar([0.5,1.5,2.5,3.5], [model_instant_fuel, fuzzy_instant_fuel, fuzzy2_instant_fuel, sumo_instant_fuel], color=[color1,color2,color3,color4])
 
             ax = fig.add_subplot(gs[1, 2])
-            ax.set_xlabel("Approach")
-            ax.set_ylabel("Total Fuel")
+            # ax.set_xlabel("Approach")
+            ax.set_ylabel("Total Fuel [ml]")
             ax.set_ylim(0,3000)
-            ax.set_xlim(0,5)
+            ax.set_xticklabels(labels)
+            ax.set_xlim(0,4)
             ax.grid()
-            ax.bar([0.5,1.5,2.5,3.5], [model_total_fuel, fuzzy_total_fuel, fuzzy2_total_fuel, sumo_total_fuel], color=["#FF0000","#00FF00","#0000FF","#FFF0F0"])
+            ax.bar([0.5,1.5,2.5,3.5], [model_total_fuel, fuzzy_total_fuel, fuzzy2_total_fuel, sumo_total_fuel], color=[color1,color2,color3,color4])
+            # ax.bar([0.5,1.5,2.5,3.5], model_total_fuel, color="#FF0000", label='Neural Network')
+            # ax.bar([0.5,1.5,2.5,3.5], fuzzy_total_fuel, color="#00FF00", label='Fuzzy1')
+            # ax.bar([0.5,1.5,2.5,3.5], fuzzy2_total_fuel, color="#0000FF", label='Fuzzy2')
+            # ax.bar([0.5,1.5,2.5,3.5], sumo_total_fuel, color="#FFF0F0", label='SUMO')
+     
 
+            
 
 
             plt.savefig("./video/"+str(step)+".png", bbox_inches="tight")

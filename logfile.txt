@@ -1,23 +1,7 @@
-***Starting server on port 63114 ***
-Loading net-file from './mapas_validation/29.net.xml' ... done (234ms).
+***Starting server on port 64680 ***
+Loading net-file from './mapas_validation/9.net.xml' ... done (116ms).
 Loading done.
 Simulation version 1.6.0 started with time: 0.00
-Error: Answered with error to command 0xc4: Vehicle 'path_mapper' is not known
-Simulation ended at time: 16704.00
-Reason: TraCI requested termination.
-Performance: 
- Duration: 16997ms
- Real time factor: 982.762
- UPS: 982.702830
-Vehicles: 
- Inserted: 1
- Running: 0
- Waiting: 0
-Statistics (avg):
- RouteLength: 5010.70
- Speed: 0.30
- Duration: 16703.00
- WaitingTime: 0.00
- TimeLoss: 0.00
- DepartDelay: 0.00
-
+Error: Answered with error to command 0xa4: Vehicle 'caminhao' is not known.
+Error: tcpip::Socket::recvAndCheck @ recv: peer shutdown
+Quitting (on error).
