@@ -402,7 +402,7 @@ def plow(dados, extras, nome):
     ax[0].set_xlim(-20,xs[-1]+20)
     ax[1].set_xlim(-20,xs[-1]+20)
     ax[2].set_xlim(-20,xs[-1]+20)
-    ax[2].set_ylim(24,30)
+    ax[2].set_ylim(22,30)
     # ax[3].set_xlim(-20,xs[-1]+20)
     ax[0].stackplot(xs, ys_green_above, color="#269126")
     ax[0].stackplot(xs, ys, color="#000000")
@@ -563,5 +563,6 @@ def main(arquivo):
     f.close()
 
 if __name__ == '__main__':
-    a = "./results/20_20_True_0.1.json"
+    # a = "./results/20_20_True_0.1.json"
+    a = "./results/20_200_True_0.1.json"
     main(a)

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 08/05/20 19:00:07 by Eclipse SUMO Version 1.5.0
+<!-- generated on 08/06/20 01:04:14 by Eclipse SUMO Version 1.6.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -23,14 +23,14 @@
     </emissions>
 
     <traci_server>
-        <remote-port value="53045"/>
+        <remote-port value="52905"/>
     </traci_server>
 
 </configuration>
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="caminhao" depart="0.00" departLane="AA0AB0_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="1512.00" arrivalLane="LN0LO0_0" arrivalPos="89.66" arrivalSpeed="19.89" duration="1512.00" routeLength="30146.24" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="506.60" rerouteNo="0" devices="tripinfo_caminhao emissions_caminhao" vType="DEFAULT_VEHTYPE@caminhao" speedFactor="1.06" vaporized="">
-        <emissions CO_abs="59284.211707" CO2_abs="4778660.087506" HC_abs="402.583322" PMx_abs="123.728824" NOx_abs="1704.345518" fuel_abs="15495.139437" electricity_abs="0"/>
+    <tripinfo id="caminhao" depart="0.00" departLane="AA0AB0_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="1011.00" arrivalLane="LN0LO0_0" arrivalPos="89.66" arrivalSpeed="30.00" duration="1011.00" routeLength="30146.24" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="5.36" rerouteNo="0" devices="tripinfo_caminhao emissions_caminhao" vType="DEFAULT_VEHTYPE@caminhao" speedFactor="1.06" vaporized="">
+        <emissions CO_abs="73743.117819" CO2_abs="4934156.714108" HC_abs="518.378407" PMx_abs="196.058418" NOx_abs="2205.310486" fuel_abs="17108.911511" electricity_abs="0"/>
     </tripinfo>
 </tripinfos>

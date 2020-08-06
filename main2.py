@@ -547,9 +547,9 @@ def main():
     # pre_simulation()
     # return
     population_size   = 20
-    iteration_limit   = 20
+    iteration_limit   = 200
     cut_half_pop      = True
-    replicate_best    = 0.1
+    replicate_best    = 0.10
 
     name =  str(population_size)+"_"+\
             str(iteration_limit)+"_"+\

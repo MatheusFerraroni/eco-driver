@@ -15,21 +15,25 @@ f = open("final_res_complete.json","r")
 dados = json.loads(f.read())
 f.close()
 
-x = np.arange(10)
+x = np.arange(20)
 
 mean_speed_fuzzy = []
+mean_speed_fuzzyv = []
 mean_speed_model = []
 mean_speed_sumo = []
 
 total_fuel_fuzzy = []
+total_fuel_fuzzyv = []
 total_fuel_model = []
 total_fuel_sumo = []
 
 total_fuel_fuzzy2 = []
+total_fuel_fuzzyv2 = []
 total_fuel_model2 = []
 total_fuel_sumo2 = []
 
 step_fuzzy = []
+step_fuzzyv = []
 step_model = []
 step_sumo = []
 
@@ -42,12 +46,13 @@ for m in mapas:
     # print(m,dados[m]["Fuzzy"][-1]['total_fuel'])
     # print(m,dados[m]["Fuzzy"][-1]['mean_speed'])
     # print(m,dados[m]["Fuzzy"][-1]['step'])step
-    if(i<10):
+    if(i<20):
         mean_speed_fuzzy.append(dados[m]["Fuzzy"][-1]['mean_speed'])
         mean_speed_model.append(dados[m]["Model"][-1]['mean_speed'])
         mean_speed_sumo.append(dados[m]["KraussPS"][-1]['mean_speed'])
 
         total_fuel_fuzzy.append(dados[m]["Fuzzy"][-1]['total_fuel'])
+        total_fuel_fuzzyv.append(dados[m]["Fuzzy2"][-1]['total_fuel'])
         total_fuel_model.append(dados[m]["Model"][-1]['total_fuel'])
         total_fuel_sumo.append(dados[m]["KraussPS"][-1]['total_fuel'])
 
@@ -68,19 +73,21 @@ print(len(x))
 print(len(total_fuel_fuzzy))
 
 
-width = 0.2
-space = 0.2
+width = 0.18
+space = 0.18
 
 
-labels = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
+#labels = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
+labels = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20']
 fig, ax = plt.subplots()
 
 ax.set_ylim(2000,3000)
 
 
-rects1 = ax.bar(x - space, total_fuel_fuzzy, width, label='Fuzzy')
-rects2 = ax.bar(x, total_fuel_model, width, label='Neural Network')
-rects3 = ax.bar(x + space, total_fuel_sumo, width, label='Sumo')
+rects1 = ax.bar(x - 1.5*space, total_fuel_fuzzy, width, label='Fuzzy1',  color='darkgreen')
+rects1 = ax.bar(x - 0.5*space, total_fuel_fuzzyv, width, label='Fuzzy2', color='darkorange')
+rects2 = ax.bar(x + 0.5*space, total_fuel_model, width, label='Neural Network',  color='steelblue')
+rects3 = ax.bar(x + 1.5*space, total_fuel_sumo, width, label='Sumo',  color='darkred')
 
 ax.grid(True, which="both", ls="-", linewidth=0.1, color='0.10', zorder=0) 
 ax.set_xticklabels(labels)
@@ -89,7 +96,7 @@ ax.set_xlabel('Validation Maps')
 ax.set_xticks(x)
 ax.set_xticklabels(labels)
 ax.legend(loc='lower center', bbox_to_anchor=(0.5, 1),
-              ncol=3, fancybox=True, shadow=True)
+              ncol=4, fancybox=True, shadow=True)
 
 
 
@@ -120,7 +127,7 @@ fig.savefig('plots/speed.png', bbox_inches='tight')
 plt.close(fig)
 
 fig, ax = plt.subplots()
-ax.set_ylim(170,195)
+ax.set_ylim(170,200)
 
 rects1 = ax.bar(x - space, step_fuzzy, width, label='Fuzzy')
 rects2 = ax.bar(x, step_model, width, label='Neural Network')
