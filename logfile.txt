@@ -1,7 +1,14 @@
+<<<<<<< HEAD
+***Starting server on port 61502 ***
+Loading net-file from './mapas_validation/9.net.xml' ... done (61ms).
+Loading done.
+Simulation version 1.5.0 started with time: 0.00
+=======
 ***Starting server on port 62618 ***
 Loading net-file from './mapas_validation/9.net.xml' ... done (119ms).
 Loading done.
 Simulation version 1.6.0 started with time: 0.00
+>>>>>>> 2206ee4e1161823e9527da6067a02cfb3098d563
 Error: Answered with error to command 0xa4: Vehicle 'caminhao' is not known.
 Error: tcpip::Socket::recvAndCheck @ recv: peer shutdown
 Quitting (on error).
