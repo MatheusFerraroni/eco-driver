@@ -25,6 +25,15 @@ total_fuel_fuzzy = []
 total_fuel_model = []
 total_fuel_sumo = []
 
+total_fuel_fuzzy2 = []
+total_fuel_model2 = []
+total_fuel_sumo2 = []
+
+step_fuzzy = []
+step_model = []
+step_sumo = []
+
+
 i=0
 
 for m in mapas:
@@ -32,7 +41,7 @@ for m in mapas:
     #print('m:', m)
     # print(m,dados[m]["Fuzzy"][-1]['total_fuel'])
     # print(m,dados[m]["Fuzzy"][-1]['mean_speed'])
-    # print(m,dados[m]["Fuzzy"][-1]['step'])
+    # print(m,dados[m]["Fuzzy"][-1]['step'])step
     if(i<10):
         mean_speed_fuzzy.append(dados[m]["Fuzzy"][-1]['mean_speed'])
         mean_speed_model.append(dados[m]["Model"][-1]['mean_speed'])
@@ -41,6 +50,15 @@ for m in mapas:
         total_fuel_fuzzy.append(dados[m]["Fuzzy"][-1]['total_fuel'])
         total_fuel_model.append(dados[m]["Model"][-1]['total_fuel'])
         total_fuel_sumo.append(dados[m]["Krauss"][-1]['total_fuel'])
+
+        total_fuel_fuzzy2.append(dados[m]["Fuzzy"][-1]['total_fuel']/5)
+        total_fuel_model2.append(dados[m]["Model"][-1]['total_fuel']/5)
+        total_fuel_sumo2.append(dados[m]["Krauss"][-1]['total_fuel']/5)
+
+
+        step_fuzzy.append(dados[m]["Fuzzy"][-1]['step'])
+        step_model.append(dados[m]["Model"][-1]['step'])
+        step_sumo.append(dados[m]["Krauss"][-1]['step'])
     i+=1
 
 
@@ -99,4 +117,47 @@ ax.legend(loc='lower center', bbox_to_anchor=(0.5, 1),
 
 
 fig.savefig('plots/speed.png', bbox_inches='tight')
+plt.close(fig)
+
+fig, ax = plt.subplots()
+ax.set_ylim(170,195)
+
+rects1 = ax.bar(x - space, step_fuzzy, width, label='Fuzzy')
+rects2 = ax.bar(x, step_model, width, label='Neural Network')
+rects3 = ax.bar(x + space, step_sumo, width, label='Sumo')
+
+ax.grid(True, which="both", ls="-", linewidth=0.1, color='0.10', zorder=0) 
+ax.set_xticklabels(labels)
+ax.set_ylabel('Time [sec]')
+ax.set_xlabel('Validation Maps')
+ax.set_xticks(x)
+ax.set_xticklabels(labels)
+ax.legend(loc='lower center', bbox_to_anchor=(0.5, 1),
+              ncol=3, fancybox=True, shadow=True)
+
+
+fig.savefig('plots/time.png', bbox_inches='tight')
+plt.close(fig)
+
+
+fig, ax = plt.subplots()
+ax.set_ylim(400,600)
+
+
+
+rects1 = ax.bar(x - space, total_fuel_fuzzy2, width, label='Fuzzy')
+rects2 = ax.bar(x, total_fuel_model2, width, label='Neural Network')
+rects3 = ax.bar(x + space, total_fuel_sumo2, width, label='Sumo')
+
+ax.grid(True, which="both", ls="-", linewidth=0.1, color='0.10', zorder=0) 
+ax.set_xticklabels(labels)
+ax.set_ylabel('Fuel comsuption [ml/km]')
+ax.set_xlabel('Validation Maps')
+ax.set_xticks(x)
+ax.set_xticklabels(labels)
+ax.legend(loc='lower center', bbox_to_anchor=(0.5, 1),
+              ncol=3, fancybox=True, shadow=True)
+
+
+fig.savefig('plots/fuel_km.png', bbox_inches='tight')
 plt.close(fig)
