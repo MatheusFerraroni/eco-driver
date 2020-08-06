@@ -39,6 +39,7 @@ class Algorithm:
         mimIS = 0
 
         # Create the problem variables        
+        IS = ctrl.Antecedent(np.arange(mimIS, maxIS + 1, 1), 'IS')
         RG = ctrl.Antecedent(np.arange(mimAngle, maxAngle + 1, 1), 'RG')
         A10 = ctrl.Antecedent(np.arange(mimAngle, maxAngle, 1), 'A10')
         A30 = ctrl.Antecedent(np.arange(mimAngle, maxAngle, 1), 'A30')

@@ -45,20 +45,20 @@ for m in mapas:
     if(i<10):
         mean_speed_fuzzy.append(dados[m]["Fuzzy"][-1]['mean_speed'])
         mean_speed_model.append(dados[m]["Model"][-1]['mean_speed'])
-        mean_speed_sumo.append(dados[m]["Krauss"][-1]['mean_speed'])
+        mean_speed_sumo.append(dados[m]["KraussPS"][-1]['mean_speed'])
 
         total_fuel_fuzzy.append(dados[m]["Fuzzy"][-1]['total_fuel'])
         total_fuel_model.append(dados[m]["Model"][-1]['total_fuel'])
-        total_fuel_sumo.append(dados[m]["Krauss"][-1]['total_fuel'])
+        total_fuel_sumo.append(dados[m]["KraussPS"][-1]['total_fuel'])
 
         total_fuel_fuzzy2.append(dados[m]["Fuzzy"][-1]['total_fuel']/5)
         total_fuel_model2.append(dados[m]["Model"][-1]['total_fuel']/5)
-        total_fuel_sumo2.append(dados[m]["Krauss"][-1]['total_fuel']/5)
+        total_fuel_sumo2.append(dados[m]["KraussPS"][-1]['total_fuel']/5)
 
 
         step_fuzzy.append(dados[m]["Fuzzy"][-1]['step'])
         step_model.append(dados[m]["Model"][-1]['step'])
-        step_sumo.append(dados[m]["Krauss"][-1]['step'])
+        step_sumo.append(dados[m]["KraussPS"][-1]['step'])
     i+=1
 
 

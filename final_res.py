@@ -14,7 +14,7 @@ from keras.models import Sequential
 from keras.layers import Dense
 import shutil
 import fuzzy_in_two
-import fuzzy_in_three
+import fuzzy_in_four
 import ConsuptionModel as cM
 import math
 
@@ -191,13 +191,13 @@ def run(model, mapa):
 
 
     f_2 = fuzzy_in_two.Algorithm()
-    f_3 = fuzzy_in_three.Algorithm()
+    f_4 = fuzzy_in_four.Algorithm()
 
     step = 0
 
     traci.route.add("trip", caminho_veiculo)
     traci.vehicle.add("caminhao", "trip")
-    if type(model)==str and model!="fuzzy":
+    if type(model)==str and model!="Fuzzy" and model!="Fuzzy2":
         traci.vehicle.setParameter("caminhao","carFollowModel",model)
         # print("entrou",model)
     else:
@@ -275,6 +275,18 @@ def run(model, mapa):
 
                     # FUZZY
                     r = f_2.findSpeed(speed,angle/normalization, inf10, inf30, inf50, inf70)
+
+                    traci.vehicle.setSpeed("caminhao",r)
+
+                elif model=="fuzzy2":
+                    normalization = 1 #90
+                    inf10 = inf10["angle"]/normalization
+                    inf30 = inf30["angle"]/normalization
+                    inf50 = inf50["angle"]/normalization
+                    inf70 = inf70["angle"]/normalization
+
+                    # FUZZY
+                    r = f_4.findSpeed(speed,angle/normalization, inf10, inf30, inf50, inf70)
 
                     traci.vehicle.setSpeed("caminhao",r)
 
@@ -405,6 +417,7 @@ def plow(dados, extras, nome):
     entradas = [
         "Model",
         "Fuzzy",
+        "Fuzzy2",
         "Krauss",
         "KraussOrig1",
         "KraussPS",
@@ -434,10 +447,17 @@ def plow(dados, extras, nome):
     for e in entradas:
         xs = []
         ys = []
+        total = 0
         for a in dados[e]:
             xs.append(a['x'])
             ys.append(a['speed'])
+            total = a['total_fuel']
         if len(xs)>0:
+            if e == 'Model':
+               e = 'Neural Network' 
+            if e == 'Krauss':
+               e = 'SUMO' 
+            # ax[2].plot(xs, ys, label="{} ({})".format(e,total))
             ax[2].plot(xs, ys, label=e)
 
 
@@ -449,7 +469,7 @@ def plow(dados, extras, nome):
             xs.append(a['x'])
             ys.append(a['speed_recommended'])
         if len(xs)>0:
-            ax[2].plot(xs, ys, dashes=[6, 2], label="Neural Network Recommended", color="#bd1111")
+            ax[2].plot(xs, ys, dashes=[6, 2], label="Recommended", color="#bd1111")
             # ax[3].plot([], [], dashes=[6, 2], label="Model Recommended", color="#bd1111")
 
 
@@ -473,14 +493,14 @@ def plow(dados, extras, nome):
     #         ax[3].plot(xs, ys, label="{} ({})".format(e,total))
 
 
-    #         #grid
+    
 
 
     # ax[3].set_xlabel('Distance (m)')
     # ax[3].set_ylabel('Total Fuel')
     ax[2].legend()
     ax[2].legend(loc='lower center', bbox_to_anchor=(0.83, 3.4),
-              ncol=4, fancybox=True, shadow=True)
+              ncol=3, fancybox=True, shadow=True)
 
     plt.savefig("./mapas_validation/FINAL_"+nome+".png", bbox_inches="tight")
     plt.close()
@@ -506,15 +526,15 @@ def main(arquivo):
     
     resultados_obtidos = {}
     for m in mapas:
-        resultados_obtidos[m] = {"Model":[],"Krauss":[],"KraussOrig1":[],"KraussPS":[],"PWagner2009":[],"IDM":[],"Wiedemann":[],"W99":[],"Fuzzy":[]}
+        resultados_obtidos[m] = {"Model":[],"Krauss":[],"KraussOrig1":[],"KraussPS":[],"PWagner2009":[],"IDM":[],"Wiedemann":[],"W99":[],"Fuzzy":[],"Fuzzy2":[]}
         print("_______Model______________")
         resultados_obtidos[m]["Model"] = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), model, m)
-        print("_______Krauss______________")
-        resultados_obtidos[m]["Krauss"]   = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "Krauss", m)
+        # print("_______Krauss______________")
+        # resultados_obtidos[m]["Krauss"]   = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "Krauss", m)
         # print("_______KraussOrig1______________")
         # resultados_obtidos[m]["KraussOrig1"]   = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "KraussOrig1", m)
-        # print("_______KraussPS______________")
-        # resultados_obtidos[m]["KraussPS"]   = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "KraussPS", m)
+        print("_______KraussPS______________")
+        resultados_obtidos[m]["KraussPS"]   = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "KraussPS", m)
         # print("_______PWagner2009______________")
         # resultados_obtidos[m]["PWagner2009"]   = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "PWagner2009", m)
         # print("_______IDM______________")
@@ -525,6 +545,9 @@ def main(arquivo):
         # resultados_obtidos[m]["W99"]   = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "W99", m)
         print("_______Fuzzy______________")
         resultados_obtidos[m]["Fuzzy"] = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "fuzzy", m)
+        print("_______Fuzzy2______________")
+        resultados_obtidos[m]["Fuzzy2"] = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "fuzzy2", m)
+
 
 
         file = open(folder+m.replace(".net.xml",".extras"),"r")
