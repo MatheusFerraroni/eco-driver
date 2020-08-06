@@ -157,7 +157,7 @@ def main():
             ax.legend(loc='lower center', bbox_to_anchor=(0.8, 1.0),  ncol=4, fancybox=True, shadow=True)
 
 
-            ax.text(40, 102, "Time: "+str(step)+" s", ha='left')
+            ax.text(40, 62, "Time: "+str(step)+" s", ha='left')
 
             ax = fig.add_subplot(gs[1, 0])
             # ax.set_xlabel("Approach")
