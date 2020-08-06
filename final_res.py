@@ -27,7 +27,7 @@ caminho_veiculo = [
 max_speed_caminhao = 30 # ~ 108km/h
 max_dif_altura = 50
 extras_mapas = None
-z_add = 100
+z_add = 30
 
 if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
@@ -358,15 +358,15 @@ def plow(dados, extras, nome):
     ys_green_below = []
 
 
-    fig, ax = plt.subplots(4,1,figsize=(20,5))
+    fig, ax = plt.subplots(3,1,figsize=(20,5))
     for i in range(len(extras)):
         # if i>10: break
 
         inf = extras[i]
         xs.append(inf["x"])
         ys.append(inf["z"]+z_add)
-        ys_green_above.append(inf["z"]+z_add+10)
-        ys_green_below.append(inf["z"]+z_add-10)
+        ys_green_above.append(inf["z"]+z_add+5)
+        ys_green_below.append(inf["z"]+z_add-5)
 
 
         # if i%50==0 and i%100!=0:
@@ -377,17 +377,29 @@ def plow(dados, extras, nome):
         #                 horizontalalignment='right', verticalalignment='bottom')
 
     # ax[0].set_ylim(0,300)
+
+    index = np.array([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30])
+    y_label  = ['0','1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30']
+    
+    ax[2].set_yticks(index)
+    ax[2].set_yticklabels(y_label)
+
+    ax[1].grid(True, which="both", ls="-", linewidth=0.1, color='0.10', zorder=0)   
+    ax[2].grid(True, which="both", ls="-", linewidth=0.1, color='0.10', zorder=0)   
     ax[0].patch.set_facecolor('#87d3e0')
     ax[0].set_xlim(-20,xs[-1]+20)
     ax[1].set_xlim(-20,xs[-1]+20)
     ax[2].set_xlim(-20,xs[-1]+20)
-    ax[3].set_xlim(-20,xs[-1]+20)
+    ax[2].set_ylim(24,30)
+    # ax[3].set_xlim(-20,xs[-1]+20)
     ax[0].stackplot(xs, ys_green_above, color="#269126")
     ax[0].stackplot(xs, ys, color="#000000")
     ax[0].stackplot(xs, ys_green_below, color="#269126")
     ax[0].set_title('Elevation for Map '+nome.replace(".net.xml",""))
-    ax[0].set_xlabel('Distance (m)')
-    ax[0].set_ylabel('Height (h)')
+    ax[0].set_xlabel('Distance [m]')
+    ax[0].set_ylabel('Height [h]')
+
+
 
 
     entradas = [
@@ -413,8 +425,8 @@ def plow(dados, extras, nome):
 
 
 
-    ax[1].set_xlabel('Distance (m)')
-    ax[1].set_ylabel('Instant Fuel')
+    ax[1].set_xlabel('Distance [m]')
+    ax[1].set_ylabel('Instant Fuel [l/s]')
 
     # ax[1].legend()
 
@@ -437,35 +449,37 @@ def plow(dados, extras, nome):
             xs.append(a['x'])
             ys.append(a['speed_recommended'])
         if len(xs)>0:
-            ax[2].plot(xs, ys, dashes=[6, 2], label="Model Recommended", color="#bd1111")
-            ax[3].plot([], [], dashes=[6, 2], label="Model Recommended", color="#bd1111")
+            ax[2].plot(xs, ys, dashes=[6, 2], label="Neural Network Recommended", color="#bd1111")
+            # ax[3].plot([], [], dashes=[6, 2], label="Model Recommended", color="#bd1111")
 
 
-    ax[2].set_xlabel('Distance (m)')
-    ax[2].set_ylabel('Speed')
+    ax[2].set_xlabel('Distance [m]')
+    ax[2].set_ylabel('Speed [m/s]')
     # ax[2].legend()
 
-    for e in entradas:
-        xs = []
-        ys = []
-        total = 0
-        for a in dados[e]:
-            xs.append(a['x'])
-            ys.append(a['total_fuel'])
-            total = a['total_fuel']
+    # for e in entradas:
+    #     xs = []
+    #     ys = []
+    #     total = 0
+    #     for a in dados[e]:
+    #         xs.append(a['x'])
+    #         ys.append(a['total_fuel'])
+    #         total = a['total_fuel']
 
-        total = round(total,1)
-        if len(xs)>0:
-            if e=="Krauss":
-                e = "SUMO"
-            ax[3].plot(xs, ys, label="{} ({})".format(e,total))
+    #     total = round(total,1)
+    #     if len(xs)>0:
+    #         if e=="Krauss":
+    #             e = "SUMO"
+    #         ax[3].plot(xs, ys, label="{} ({})".format(e,total))
 
 
+    #         #grid
 
-    ax[3].set_xlabel('Distance (m)')
-    ax[3].set_ylabel('Total Fuel')
-    ax[3].legend()
-    ax[3].legend(loc='lower center', bbox_to_anchor=(0.5, -1.5),
+
+    # ax[3].set_xlabel('Distance (m)')
+    # ax[3].set_ylabel('Total Fuel')
+    ax[2].legend()
+    ax[2].legend(loc='lower center', bbox_to_anchor=(0.83, 3.4),
               ncol=4, fancybox=True, shadow=True)
 
     plt.savefig("./mapas_validation/FINAL_"+nome+".png", bbox_inches="tight")
@@ -522,7 +536,7 @@ def main(arquivo):
         # break
 
     f = open("final_res_complete.json","w")
-    f.write(json.dumps(resultados_obtidos[m]))
+    f.write(json.dumps(resultados_obtidos))
     f.close()
 
 if __name__ == '__main__':
