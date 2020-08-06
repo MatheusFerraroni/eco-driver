@@ -349,8 +349,14 @@ def run_pre():
     caminho_veiculo_pre = [
 'AA0AB0','AB0AC0','AC0AD0','AD0AE0','AE0AF0','AF0AG0','AG0AH0','AH0AI0','AI0AJ0','AJ0AK0','AK0AL0','AL0AM0','AM0AN0','AN0AO0',
 'AO0AP0','AP0AQ0','AQ0AR0','AR0AS0','AS0AT0','AT0AU0','AU0AV0','AV0AW0','AW0AX0','AX0AY0','AY0AZ0','AZ0BA0','BA0BB0','BB0BC0','BC0BD0','BD0BE0',
-'BE0BF0','BF0BG0','BG0BH0','BH0BI0','BI0BJ0','BJ0BK0','BK0BL0','BL0BM0','BM0BN0','BN0BO0'
+'BE0BF0','BF0BG0','BG0BH0','BH0BI0','BI0BJ0','BJ0BK0','BK0BL0','BL0BM0','BM0BN0','BN0BO0','BO0BP0', 'BP0BQ0', 'BQ0BR0', 'BR0BS0', 'BS0BT0','BT0BU0','BU0BV0','BV0BW0', 'BW0BX0', 'BX0BY0'
     ]
+
+#     caminho_veiculo_pre = [
+# 'AA0AB0','AB0AC0','AC0AD0','AD0AE0','AE0AF0','AF0AG0','AG0AH0','AH0AI0','AI0AJ0','AJ0AK0','AK0AL0','AL0AM0','AM0AN0','AN0AO0',
+# 'AO0AP0','AP0AQ0','AQ0AR0','AR0AS0','AS0AT0','AT0AU0','AU0AV0','AV0AW0','AW0AX0','AX0AY0','AY0AZ0','AZ0BA0','BA0BB0','BB0BC0','BC0BD0','BD0BE0',
+# 'BE0BF0','BF0BG0','BG0BH0','BH0BI0','BI0BJ0','BJ0BK0','BK0BL0','BL0BM0','BM0BN0','BN0BO0'
+#     ]
     
     # caminho_veiculo_pre = caminho_veiculo
     traci.route.add("trip", caminho_veiculo_pre)
@@ -544,8 +550,8 @@ def main():
             print('Failed to delete %s. Reason: %s' % (file_path, e))
 
 
-    # pre_simulation()
-    # return
+    pre_simulation()
+    return
     population_size   = 20
     iteration_limit   = 200
     cut_half_pop      = True

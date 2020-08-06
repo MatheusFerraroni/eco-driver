@@ -409,7 +409,7 @@ def plow(dados, extras, nome):
     ax[0].stackplot(xs, ys_green_below, color="#269126")
     ax[0].set_title('Elevation for Map '+nome.replace(".net.xml",""))
     ax[0].set_xlabel('Distance [m]')
-    ax[0].set_ylabel('Height [h]')
+    ax[0].set_ylabel('Height [m]')
 
 
 

@@ -15,7 +15,7 @@ from keras.models import Sequential
 from keras.layers import Dense
 import shutil
 import fuzzy_in_two
-import fuzzy_in_three
+import fuzzy_in_four
 import ConsuptionModel as cM
 import math
 
@@ -259,10 +259,10 @@ def custom_mutate(wei):
 def run(mapa):
     npdf = 0
     mean_speed = 0
-    pdf = np.zeros((31,), dtype=float)
+    pdf = np.zeros((110,), dtype=float)
 
     f_2 = fuzzy_in_two.Algorithm()
-    f_3 = fuzzy_in_three.Algorithm()
+    f_4 = fuzzy_in_four.Algorithm()
  
     step = 1
     
@@ -307,7 +307,7 @@ def run(mapa):
                 #r = model.predict(np.array([np.array(entrada)]))[0][0] #chamar fuzzy
                 r = f_2.findSpeed(speed, angle, inf10, inf30, inf50, inf70)
 
-                i_pdf =  int(r+0.49)
+                i_pdf =  int(r*3.6+0.49)
                 pdf[i_pdf] += 1
                 npdf += 1
 
@@ -354,7 +354,7 @@ def run(mapa):
         # print('i: ', i, ' pdf: ', pdf[i], ' i*pdf: ', i*pdf[i])
         resultFile.write("{}{}{}{}".format(i,':',pdf[i],'\n'))
 
-    resultFile.write("{}{}{}{}".format('mean_speed',':',mean_speed/100,'\n'))
+    # resultFile.write("{}{}{}{}".format('mean_speed',':',mean_speed/100,'\n'))
     resultFile.close()
 
     print("Simulation finished")
