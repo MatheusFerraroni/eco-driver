@@ -400,9 +400,15 @@ def plow(dados, extras, nome):
 
     # ax[0].set_ylim(0,300)
 
-    index = np.array([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30])
-    y_label  = ['0','1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30']
+    # index = np.array([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30])
+    # y_label  = ['0','1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30']
     
+    index = np.array([0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100,105,110])
+    y_label  = ['0','5','10','15','20','25','30','35','40','45','50','55','60','65','70','75','80','85','90','95','100','105','110']
+    
+
+
+
     ax[2].set_yticks(index)
     ax[2].set_yticklabels(y_label)
 
@@ -412,7 +418,7 @@ def plow(dados, extras, nome):
     ax[0].set_xlim(-20,xs[-1]+20)
     ax[1].set_xlim(-20,xs[-1]+20)
     ax[2].set_xlim(-20,xs[-1]+20)
-    ax[2].set_ylim(22,30)
+    ax[2].set_ylim(80,110)
     ax[0].set_xlim(0,2000)
     ax[1].set_xlim(0,2000)
     ax[2].set_xlim(0,2000)
@@ -463,7 +469,7 @@ def plow(dados, extras, nome):
         total = 0
         for a in dados[e]:
             xs.append(a['x'])
-            ys.append(a['speed'])
+            ys.append(a['speed']*3.6)
             total = a['total_fuel']
         if len(xs)>0:
             if e == 'Model':
@@ -488,14 +494,14 @@ def plow(dados, extras, nome):
         ys = []
         for a in dados["Model"]:
             xs.append(a['x'])
-            ys.append(a['speed_recommended'])
+            ys.append(a['speed_recommended']*3.6)
         if len(xs)>0:
             ax[2].plot(xs, ys, dashes=[6, 2], label="Recommended", color=color5)
             # ax[3].plot([], [], dashes=[6, 2], label="Model Recommended", color="#bd1111")
 
 
     ax[2].set_xlabel('Distance [m]')
-    ax[2].set_ylabel('Speed [m/s]')
+    ax[2].set_ylabel('Speed [km/s]')
     # ax[2].legend()
 
     # for e in entradas:

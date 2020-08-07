@@ -244,6 +244,9 @@ def run(model, mapa):
     mean_fuel_second = 0
 
     dados_retorno = []
+
+
+
     try:
         while step == 0 or traci.simulation.getMinExpectedNumber() > 0:
             traci.simulationStep()
@@ -270,6 +273,10 @@ def run(model, mapa):
                 inf100 = get_info_pos(mapa, x+100)
 
 
+                i_pdf =  int(speed*3.6+0.49)
+                pdf[i_pdf] += 1
+                npdf += 1
+
 
                 if type(model)!=str and model!="fuzzy":
 
@@ -289,9 +296,7 @@ def run(model, mapa):
                     r = model.predict(np.array([np.array(entrada)]))[0][0]
                     last_speed = r
 
-                    i_pdf =  int(r*max_speed_caminhao*3.6+0.49)
-                    pdf[i_pdf] += 1
-                    npdf += 1
+
 
 
                     if r<0.1:
@@ -361,9 +366,9 @@ def run(model, mapa):
         pdf[i] = float(pdf[i]*100)/float(npdf)
       
  
-    if os.path.exists('pdf/results/modelo.csv'):
-        os.remove('pdf/results/modelo.csv')
-    resultFile = open('pdf/results/modelo.csv', 'a')
+    if os.path.exists('pdf/results/sumo.csv'):
+        os.remove('pdf/results/sumo.csv')
+    resultFile = open('pdf/results/sumo.csv', 'a')
    
     for i in range(len(pdf)):
         mean_speed +=  i*pdf[i]
