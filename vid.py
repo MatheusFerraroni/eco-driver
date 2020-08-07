@@ -159,38 +159,6 @@ def main():
 
             ax.text(40, 62, "Time: "+str(step)+" s", ha='left')
 
-            ax = fig.add_subplot(gs[1, 0])
-            # ax.set_xlabel("Approach")
-            ax.set_ylabel("Speed [km/h]")
-            ax.set_ylim(0,110)
-            ax.set_xticklabels(labels)
-            ax.set_xlim(0,4)
-            ax.grid()
-            ax.bar([0.5,1.5,2.5,3.5], [model_speed, fuzzy_speed, fuzzy2_speed, sumo_speed], color=[color1,color2,color3,color4])
-
-
-            ax = fig.add_subplot(gs[1, 1])
-            # ax.set_xlabel("Approach")
-            ax.set_ylabel("Instant Fuel [ml/s]")
-            ax.set_ylim(0,40)
-            ax.set_xticklabels(labels)
-            ax.set_xlim(0,4)
-            ax.grid()
-            ax.bar([0.5,1.5,2.5,3.5], [model_instant_fuel, fuzzy_instant_fuel, fuzzy2_instant_fuel, sumo_instant_fuel], color=[color1,color2,color3,color4])
-
-            ax = fig.add_subplot(gs[1, 2])
-            # ax.set_xlabel("Approach")
-            ax.set_ylabel("Total Fuel [ml]")
-            ax.set_ylim(0,3000)
-            ax.set_xticklabels(labels)
-            ax.set_xlim(0,4)
-            ax.grid()
-            # ax.bar([0.5,1.5,2.5,3.5], [model_total_fuel, fuzzy_total_fuel, fuzzy2_total_fuel, sumo_total_fuel], color=[color1,color2,color3,color4])
-            rects1 = ax.bar([0.5,1.5,2.5,3.5], model_total_fuel, color=color1, label='Neural Network')
-            rects2 = ax.bar([0.5,1.5,2.5,3.5], fuzzy_total_fuel, color=color2, label='Fuzzy1')
-            rects3 = ax.bar([0.5,1.5,2.5,3.5], fuzzy2_total_fuel, color=color3, label='Fuzzy2')
-            rects4 = ax.bar([0.5,1.5,2.5,3.5], sumo_total_fuel, color=color4, label='SUMO')
-     
             def autolabel(rects):
                 for rect in rects:
 
@@ -203,10 +171,45 @@ def main():
                                 ha='center', va='bottom', rotation=0,
                                 horizontalalignment='center', verticalalignment='center')
 
+            ax = fig.add_subplot(gs[1, 0])
+            # ax.set_xlabel("Approach")
+            ax.set_ylabel("Speed [km/h]")
+            ax.set_ylim(0,120)
+            ax.set_xticklabels(labels)
+            ax.set_xlim(0,4)
+            ax.grid()
+            rects1 = ax.bar([0.5,1.5,2.5,3.5], [model_speed, fuzzy_speed, fuzzy2_speed, sumo_speed], color=[color1,color2,color3,color4])
             autolabel(rects1)
+          
+
+            ax = fig.add_subplot(gs[1, 1])
+            # ax.set_xlabel("Approach")
+            ax.set_ylabel("Instant Fuel [ml/s]")
+            ax.set_ylim(0,40)
+            ax.set_xticklabels(labels)
+            ax.set_xlim(0,4)
+            ax.grid()
+            rects2 = ax.bar([0.5,1.5,2.5,3.5], [model_instant_fuel, fuzzy_instant_fuel, fuzzy2_instant_fuel, sumo_instant_fuel], color=[color1,color2,color3,color4])
             autolabel(rects2)
+
+            ax = fig.add_subplot(gs[1, 2])
+            # ax.set_xlabel("Approach")
+            ax.set_ylabel("Total Fuel [ml]")
+            ax.set_ylim(0,3000)
+            ax.set_xticklabels(labels)
+            ax.set_xlim(0,4)
+            ax.grid()
+            rects3 = ax.bar([0.5,1.5,2.5,3.5], [model_total_fuel, fuzzy_total_fuel, fuzzy2_total_fuel, sumo_total_fuel], color=[color1,color2,color3,color4])
+            # ax.bar([0.5,1.5,2.5,3.5], model_total_fuel, color=color1, label='Neural Network')
+            # ax.bar([0.5,1.5,2.5,3.5], fuzzy_total_fuel, color=color2, label='Fuzzy1')
+            # ax.bar([0.5,1.5,2.5,3.5], fuzzy2_total_fuel, color=color3, label='Fuzzy2')
+            # ax.bar([0.5,1.5,2.5,3.5], sumo_total_fuel, color=color4, label='SUMO')
+     
+
+
+           
             autolabel(rects3)
-            autolabel(rects4)
+            # autolabel(rects4)
 
             
 
