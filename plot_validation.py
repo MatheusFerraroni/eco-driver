@@ -83,8 +83,8 @@ print(len(x))
 print(len(total_fuel_fuzzy))
 
 
-width = 0.18
-space = 0.18
+width = 0.2
+space = 0.2
 
 
 labels = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
