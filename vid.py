@@ -185,12 +185,28 @@ def main():
             ax.set_xticklabels(labels)
             ax.set_xlim(0,4)
             ax.grid()
-            ax.bar([0.5,1.5,2.5,3.5], [model_total_fuel, fuzzy_total_fuel, fuzzy2_total_fuel, sumo_total_fuel], color=[color1,color2,color3,color4])
-            # ax.bar([0.5,1.5,2.5,3.5], model_total_fuel, color="#FF0000", label='Neural Network')
-            # ax.bar([0.5,1.5,2.5,3.5], fuzzy_total_fuel, color="#00FF00", label='Fuzzy1')
-            # ax.bar([0.5,1.5,2.5,3.5], fuzzy2_total_fuel, color="#0000FF", label='Fuzzy2')
-            # ax.bar([0.5,1.5,2.5,3.5], sumo_total_fuel, color="#FFF0F0", label='SUMO')
+            # ax.bar([0.5,1.5,2.5,3.5], [model_total_fuel, fuzzy_total_fuel, fuzzy2_total_fuel, sumo_total_fuel], color=[color1,color2,color3,color4])
+            rects1 = ax.bar([0.5,1.5,2.5,3.5], model_total_fuel, color=color1, label='Neural Network')
+            rects2 = ax.bar([0.5,1.5,2.5,3.5], fuzzy_total_fuel, color=color2, label='Fuzzy1')
+            rects3 = ax.bar([0.5,1.5,2.5,3.5], fuzzy2_total_fuel, color=color3, label='Fuzzy2')
+            rects4 = ax.bar([0.5,1.5,2.5,3.5], sumo_total_fuel, color=color4, label='SUMO')
      
+            def autolabel(rects):
+                for rect in rects:
+
+                    height = int(rect.get_height())
+                    
+                    ax.annotate('{}'.format(height),
+                                xy=(rect.get_x() + rect.get_width() / 2, height),
+                                xytext=(1, 3),  # 3 points vertical offset
+                                textcoords="offset points",
+                                ha='center', va='bottom', rotation=0,
+                                horizontalalignment='center', verticalalignment='center')
+
+            autolabel(rects1)
+            autolabel(rects2)
+            autolabel(rects3)
+            autolabel(rects4)
 
             
 

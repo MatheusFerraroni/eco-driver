@@ -1,5 +1,5 @@
-***Starting server on port 53663 ***
-Loading net-file from './mapas/super.net.xml' ... done (754ms).
+***Starting server on port 55163 ***
+Loading net-file from './mapas_validation/9.net.xml' ... done (114ms).
 Loading done.
 Simulation version 1.6.0 started with time: 0.00
 Error: Answered with error to command 0xa4: Vehicle 'caminhao' is not known.

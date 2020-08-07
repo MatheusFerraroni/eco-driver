@@ -412,8 +412,9 @@ def plow(dados, extras, nome):
     ax[2].set_yticks(index)
     ax[2].set_yticklabels(y_label)
 
-    ax[1].grid(True, which="both", ls="-", linewidth=0.1, color='0.10', zorder=0)   
-    ax[2].grid(True, which="both", ls="-", linewidth=0.1, color='0.10', zorder=0)   
+    #ax[1].grid(True, which="both", ls="-", linewidth=0.1, color='0.10', zorder=0)   
+    ax[1].grid(True, which="both", ls="-", linewidth=1, color='gainsboro', zorder=0)   
+    ax[2].grid(True, which="both", ls="-", linewidth=1, color='gainsboro', zorder=0)   
     ax[0].patch.set_facecolor('#87d3e0')
     ax[0].set_xlim(-20,xs[-1]+20)
     ax[1].set_xlim(-20,xs[-1]+20)
@@ -501,7 +502,7 @@ def plow(dados, extras, nome):
 
 
     ax[2].set_xlabel('Distance [m]')
-    ax[2].set_ylabel('Speed [km/s]')
+    ax[2].set_ylabel('Speed [km/h]')
     # ax[2].legend()
 
     # for e in entradas:
@@ -526,10 +527,9 @@ def plow(dados, extras, nome):
     # ax[3].set_xlabel('Distance (m)')
     # ax[3].set_ylabel('Total Fuel')
     ax[2].legend()
-    ax[2].legend(loc='lower center', bbox_to_anchor=(0.78, 3.4),
-              ncol=5, fancybox=True, shadow=True)
+    ax[2].legend(loc='lower center', bbox_to_anchor=(0.78, 3.4),  ncol=5, fancybox=True, shadow=True)
 
-    plt.savefig("./mapas_validation/FINAL_"+nome+".png", bbox_inches="tight")
+    plt.savefig("./mapas_validation/FINAL_"+nome+".pdf", bbox_inches="tight")
     plt.close()
     # break
 
