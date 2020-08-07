@@ -17,6 +17,16 @@ import fuzzy_in_two
 import fuzzy_in_four
 import ConsuptionModel as cM
 import math
+import matplotlib.colors as mcolors
+
+
+color1 = "tab:blue"
+color2 = "tab:orange"
+color3 = "tab:green"
+color4 = "tab:red"
+color6 = "tab:purple"
+color5 = "tab:pink"
+
 
 caminho_veiculo = [
 'AA0AB0','AB0AC0','AC0AD0','AD0AE0','AE0AF0','AF0AG0','AG0AH0','AH0AI0','AI0AJ0','AJ0AK0','AK0AL0','AL0AM0','AM0AN0','AN0AO0',
@@ -403,6 +413,9 @@ def plow(dados, extras, nome):
     ax[1].set_xlim(-20,xs[-1]+20)
     ax[2].set_xlim(-20,xs[-1]+20)
     ax[2].set_ylim(22,30)
+    ax[0].set_xlim(0,2000)
+    ax[1].set_xlim(0,2000)
+    ax[2].set_xlim(0,2000)
     # ax[3].set_xlim(-20,xs[-1]+20)
     ax[0].stackplot(xs, ys_green_above, color="#269126")
     ax[0].stackplot(xs, ys, color="#000000")
@@ -454,11 +467,19 @@ def plow(dados, extras, nome):
             total = a['total_fuel']
         if len(xs)>0:
             if e == 'Model':
-               e = 'Neural Network' 
-            if e == 'Krauss':
+               e = 'Neural Network'
+               colorx = color1 
+            if e == 'KraussPS':
                e = 'SUMO' 
+               colorx = color4
+            if e == 'Fuzzy':
+               e = 'Fuzzy1' 
+               colorx = color2
+            if e == 'Fuzzy2':
+               e = 'Fuzzy2' 
+               colorx = color3 
             # ax[2].plot(xs, ys, label="{} ({})".format(e,total))
-            ax[2].plot(xs, ys, label=e)
+            ax[2].plot(xs, ys, label=e, color=colorx)
 
 
 
@@ -469,7 +490,7 @@ def plow(dados, extras, nome):
             xs.append(a['x'])
             ys.append(a['speed_recommended'])
         if len(xs)>0:
-            ax[2].plot(xs, ys, dashes=[6, 2], label="Recommended", color="#bd1111")
+            ax[2].plot(xs, ys, dashes=[6, 2], label="Recommended", color=color5)
             # ax[3].plot([], [], dashes=[6, 2], label="Model Recommended", color="#bd1111")
 
 
@@ -499,8 +520,8 @@ def plow(dados, extras, nome):
     # ax[3].set_xlabel('Distance (m)')
     # ax[3].set_ylabel('Total Fuel')
     ax[2].legend()
-    ax[2].legend(loc='lower center', bbox_to_anchor=(0.83, 3.4),
-              ncol=3, fancybox=True, shadow=True)
+    ax[2].legend(loc='lower center', bbox_to_anchor=(0.78, 3.4),
+              ncol=5, fancybox=True, shadow=True)
 
     plt.savefig("./mapas_validation/FINAL_"+nome+".png", bbox_inches="tight")
     plt.close()
