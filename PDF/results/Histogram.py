@@ -63,7 +63,7 @@ y3 = np.array(y3)
 def plott(x,x1,x2,x3,y,y1,y2,y3):    
 
     limInf = 85
-    limSup = 102
+    limSup = 109
     space = 0.6
 
     new = []
@@ -87,6 +87,6 @@ def plott(x,x1,x2,x3,y,y1,y2,y3):
     plt.grid(True, which="both", ls="-", linewidth=0.1, color='0.10', zorder=0)
     name = arquivo
     fig.savefig(name+'.png', bbox_inches='tight')
-    plt.close(fig)          
+    plt.close(fig)
 
 plott(x,x1,x2,x3,y,y1,y2,y3)
