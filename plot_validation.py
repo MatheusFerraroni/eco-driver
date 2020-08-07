@@ -127,7 +127,7 @@ ax.bar(x + 1.5*space, mean_speed_sumo, width, label='SUMO', color=color4)
 
 ax.grid(True, which="both", ls="-", linewidth=0.1, color='0.10', zorder=0) 
 ax.set_xticklabels(labels)
-ax.set_ylabel('Mean speed [km/s]')
+ax.set_ylabel('Mean speed [km/h]')
 ax.set_xlabel('Validation Maps')
 ax.set_xticks(x)
 ax.set_xticklabels(labels)
