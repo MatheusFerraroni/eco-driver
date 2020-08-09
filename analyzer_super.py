@@ -78,7 +78,7 @@ def proc(arquivos):
     #ax.set_title("Evolution during generations")
     ax.legend(numpoints=1, loc="upper right", ncol=2, fontsize='medium')
     ax.set_xlabel('Generations')
-    ax.set_ylabel('Total Fuel Consuption (ml/s)')    
+    ax.set_ylabel('Total Fuel Consuption (ml)')    
     ax.grid(True, which="both", ls="-", linewidth=0.2, color='0.10', zorder=0)
     #plt.yscale('log')
     fig.savefig('plots/'+namePlot+'.png', bbox_inches='tight')
