@@ -7,6 +7,7 @@ from PIL import Image
 import glob
 import sys
 import matplotlib.colors as mcolors
+import csv
 
 color1 = "tab:blue"
 color2 = "tab:orange"
@@ -224,7 +225,7 @@ def main():
 
 
 
-        frames[0].save('./video/'+m+'.gif', format='GIF',
+        frames[0].save('./video/'+m+'.gif', format='GIF', 
                        append_images=frames[1:],
                        save_all=True,
                        duration=300, loop=0)

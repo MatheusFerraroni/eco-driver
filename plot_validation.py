@@ -22,7 +22,7 @@ f = open("final_res_complete.json","r")
 dados = json.loads(f.read())
 f.close()
 
-x = np.arange(10)
+x = np.arange(15)
 
 mean_speed_fuzzy = []
 mean_speed_fuzzyv = []
@@ -53,7 +53,7 @@ for m in mapas:
     # print(m,dados[m]["Fuzzy"][-1]['total_fuel'])
     # print(m,dados[m]["Fuzzy"][-1]['mean_speed'])
     # print(m,dados[m]["Fuzzy"][-1]['step'])step
-    if(i<10):
+    if(i<15):
         mean_speed_fuzzy.append(dados[m]["Fuzzy"][-1]['mean_speed']*3.6)
         mean_speed_fuzzyv.append(dados[m]["Fuzzy2"][-1]['mean_speed']*3.6)
         mean_speed_model.append(dados[m]["Model"][-1]['mean_speed']*3.6)
@@ -87,8 +87,14 @@ width = 0.2
 space = 0.2
 
 
-labels = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
-#labels = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20']
+#labels = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
+
+labels = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15']
+
+# labels = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
+#  '11', '12', '13', '14', '15', '16', '17', '18', '19', '20'
+#  '21', '22', '23', '24', '25', '26', '27', '28', '29', '30']
+
 fig, ax = plt.subplots()
 
 ax.set_ylim(2000,3000)
@@ -100,8 +106,8 @@ ax.bar(x + 1.5*space, total_fuel_sumo, width, label='SUMO', color=color4)
 
 ax.grid(True, which="both", ls="-", linewidth=0.1, color='0.10', zorder=0) 
 ax.set_xticklabels(labels)
-ax.set_ylabel('Fuel comsuption [ml]')
-ax.set_xlabel('Validation Maps')
+ax.set_ylabel('Fuel consumption [ml]')
+ax.set_xlabel('Test Maps')
 ax.set_xticks(x)
 ax.set_xticklabels(labels)
 ax.legend(loc='lower center', bbox_to_anchor=(0.5, 1),
@@ -116,7 +122,7 @@ plt.close(fig)
 
 
 fig, ax = plt.subplots()
-ax.set_ylim(85,105)
+ax.set_ylim(85,102)
 
 ax.bar(x - 1.5*space, mean_speed_model, width, label='Neural Network',  color=color1)
 ax.bar(x - 0.5*space, mean_speed_fuzzy, width, label='Fuzzy1',  color=color2)
@@ -128,7 +134,7 @@ ax.bar(x + 1.5*space, mean_speed_sumo, width, label='SUMO', color=color4)
 ax.grid(True, which="both", ls="-", linewidth=0.1, color='0.10', zorder=0) 
 ax.set_xticklabels(labels)
 ax.set_ylabel('Mean speed [km/h]')
-ax.set_xlabel('Validation Maps')
+ax.set_xlabel('Test Maps')
 ax.set_xticks(x)
 ax.set_xticklabels(labels)
 ax.legend(loc='lower center', bbox_to_anchor=(0.5, 1),
@@ -150,8 +156,8 @@ ax.bar(x + 1.5*space, step_sumo, width, label='SUMO', color=color4)
 
 ax.grid(True, which="both", ls="-", linewidth=0.1, color='0.10', zorder=0) 
 ax.set_xticklabels(labels)
-ax.set_ylabel('Time [sec]')
-ax.set_xlabel('Validation Maps')
+ax.set_ylabel('Travel Time [sec]')
+ax.set_xlabel('Test Maps')
 ax.set_xticks(x)
 ax.set_xticklabels(labels)
 ax.legend(loc='lower center', bbox_to_anchor=(0.5, 1),
@@ -163,7 +169,7 @@ plt.close(fig)
 
 
 fig, ax = plt.subplots()
-ax.set_ylim(400,600)
+ax.set_ylim(450,600)
 
 
 ax.bar(x - 1.5*space, total_fuel_model2, width, label='Neural Network',  color=color1)
@@ -175,7 +181,7 @@ ax.bar(x + 1.5*space, total_fuel_sumo2, width, label='SUMO', color=color4)
 ax.grid(True, which="both", ls="-", linewidth=0.1, color='0.10', zorder=0) 
 ax.set_xticklabels(labels)
 ax.set_ylabel('Fuel comsuption [ml/km]')
-ax.set_xlabel('Validation Maps')
+ax.set_xlabel('Test Maps')
 ax.set_xticks(x)
 ax.set_xticklabels(labels)
 ax.legend(loc='lower center', bbox_to_anchor=(0.5, 1),

@@ -400,17 +400,36 @@ def plow(dados, extras, nome):
 
     # ax[0].set_ylim(0,300)
 
-    # index = np.array([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30])
-    # y_label  = ['0','1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30']
+    xindex = np.array([0,100,200,300,400,500,600,700,800,900,1000,1100,1200,1300,1400,1500,1600,1700,1800,1900,2000])
+    x_label  = ['0','100','200','300','400','500','600','700','800','900','1000','1100','1200','1300','1400','1500','1600','1700','1800','1900','2000']
     
     index = np.array([0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100,105,110])
     y_label  = ['0','5','10','15','20','25','30','35','40','45','50','55','60','65','70','75','80','85','90','95','100','105','110']
     
 
+    index0 = np.array([0,10,20,30,40])
+    y_label0  = ['0','10','20','30','40']
+    
 
+    # plt.rc('xtick',labelsize=12)
+    # plt.rc('ytick',labelsize=12)
 
     ax[2].set_yticks(index)
-    ax[2].set_yticklabels(y_label)
+    ax[2].set_yticklabels(y_label, fontsize=13)
+    ax[2].set_xticks(xindex)
+    ax[2].set_xticklabels(x_label, fontsize=13)
+
+    ax[0].set_yticks(index0)
+    ax[0].set_yticklabels(y_label0, fontsize=13)
+    ax[0].set_xticks(xindex)
+    ax[0].set_xticklabels(x_label, fontsize=13)
+
+    ax[1].set_yticks(index0)
+    ax[1].set_yticklabels(y_label0, fontsize=13)
+    ax[1].set_xticks(xindex)
+    ax[1].set_xticklabels(x_label, fontsize=13)
+
+
 
     #ax[1].grid(True, which="both", ls="-", linewidth=0.1, color='0.10', zorder=0)   
     ax[1].grid(True, which="both", ls="-", linewidth=1, color='gainsboro', zorder=0)   
@@ -427,9 +446,9 @@ def plow(dados, extras, nome):
     ax[0].stackplot(xs, ys_green_above, color="#269126")
     ax[0].stackplot(xs, ys, color="#000000")
     ax[0].stackplot(xs, ys_green_below, color="#269126")
-    ax[0].set_title('Elevation for Map '+nome.replace(".net.xml",""))
-    ax[0].set_xlabel('Distance [m]')
-    ax[0].set_ylabel('Height [m]')
+    ax[0].set_title('Elevation for Map '+nome.replace(".net.xml",""), loc='left', fontsize=13)
+    ax[0].set_xlabel('Distance [m]', fontsize=13)
+    ax[0].set_ylabel('Height [m]', fontsize=13)
 
 
 
@@ -446,7 +465,9 @@ def plow(dados, extras, nome):
         "Wiedemann",
         "W99",
     ]
-
+    # fig.tight_layout()
+   
+    plt.subplots_adjust(hspace = 0.3)
     for e in entradas:
         xs = []
         ys = []
@@ -454,12 +475,15 @@ def plow(dados, extras, nome):
             xs.append(a['x'])
             ys.append(a['fuel_last_step'])
         if len(xs)>0:
-            ax[1].plot(xs, ys, label=e)
+            ax[1].plot(xs, ys, label=e,  alpha=0.7,  linewidth=2)
 
 
 
-    ax[1].set_xlabel('Distance [m]')
-    ax[1].set_ylabel('Instant Fuel [l/s]')
+    ax[1].set_xlabel('Distance [m]', fontsize=13)
+    ax[1].set_ylabel('Fuel [ml/s]', fontsize=13)
+    ax[1].yaxis.label.set_size(13)
+    # ax[1].set_xticklabels(x_ticks, rotation=0, fontsize=12)
+    # ax[1].set_yticklabels(y_ticks, rotation=0, fontsize=12)
 
     # ax[1].legend()
 
@@ -486,8 +510,9 @@ def plow(dados, extras, nome):
                e = 'Fuzzy2' 
                colorx = color3 
             # ax[2].plot(xs, ys, label="{} ({})".format(e,total))
-            ax[2].plot(xs, ys, label=e, color=colorx)
+            ax[2].plot(xs, ys, label=e, color=colorx,  alpha=0.7,  linewidth=2)
 
+    # 
 
 
     if len(dados["Model"])>0:
@@ -497,12 +522,12 @@ def plow(dados, extras, nome):
             xs.append(a['x'])
             ys.append(a['speed_recommended']*3.6)
         if len(xs)>0:
-            ax[2].plot(xs, ys, dashes=[6, 2], label="Recommended", color=color5)
+            ax[2].plot(xs, ys, dashes=[6, 2], label="Recommended", color=color5,  linewidth=2)
             # ax[3].plot([], [], dashes=[6, 2], label="Model Recommended", color="#bd1111")
 
 
-    ax[2].set_xlabel('Distance [m]')
-    ax[2].set_ylabel('Speed [km/h]')
+    ax[2].set_xlabel('Distance [m]', fontsize=13)
+    ax[2].set_ylabel('Speed [km/h]', fontsize=13)
     # ax[2].legend()
 
     # for e in entradas:
@@ -527,7 +552,7 @@ def plow(dados, extras, nome):
     # ax[3].set_xlabel('Distance (m)')
     # ax[3].set_ylabel('Total Fuel')
     ax[2].legend()
-    ax[2].legend(loc='lower center', bbox_to_anchor=(0.78, 3.4),  ncol=5, fancybox=True, shadow=True)
+    ax[2].legend(loc='lower center', bbox_to_anchor=(0.5, 3.6),  ncol=5, fancybox=True, shadow=True, prop={"size":13})
 
     plt.savefig("./mapas_validation/FINAL_"+nome+".pdf", bbox_inches="tight")
     plt.close()
