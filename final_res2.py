@@ -52,6 +52,9 @@ max_dif_altura = 50
 extras_mapas = None
 z_add = 30
 
+
+sim_atual = 0
+
 if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
     sys.path.append(tools)
@@ -212,7 +215,7 @@ class UnusedPortLock:
 
 
 def run(model, mapa):
-
+    global sim_atual
     npdf = 0
     mean_speed = 0
     pdf = np.zeros((110,), dtype=float)
@@ -226,14 +229,15 @@ def run(model, mapa):
     traci.vehicle.add("caminhao", "trip")
     if type(model)==str and model!="Fuzzy" and model!="Fuzzy2":
         traci.vehicle.setParameter("caminhao","carFollowModel",model)
-        # print("entrou",model)
+        print("entrou",model)
     else:
         traci.vehicle.setParameter("caminhao","carFollowModel","KraussPS")
-        # print("padrao")
+        print("padrao")
     traci.vehicle.setVehicleClass("caminhao","truck")
     traci.vehicle.setShapeClass("caminhao","truck")
     traci.vehicle.setEmissionClass("caminhao","PHEMlight/PC_G_EU4")
     traci.vehicle.setMaxSpeed("caminhao",max_speed_caminhao) 
+
     r = 1
     max_angulo = 60
 
@@ -249,6 +253,9 @@ def run(model, mapa):
 
     try:
         while step == 0 or traci.simulation.getMinExpectedNumber() > 0:
+            if(step%100==0):
+                print(step)
+
             traci.simulationStep()
             step += 1
 
@@ -349,32 +356,44 @@ def run(model, mapa):
                 print(e)
                 print("######################")
                 continue
-                # pass
+                # raise e
+                pass
 
 
 
 
 
     except Exception as e:
-        print("######################")
-        print(e)
-        print("######################")
-        raise
+        # print("######################")
+        # print(e)
+        # print("######################")
+        raise e
 
 
     for i in range(len(pdf)):
         pdf[i] = float(pdf[i]*100)/float(npdf)
-      
+    
+    pdffile = ""
+
+    if type(model)!=str and model!="fuzzy":
+        pdffile = 'PDF/results/sumo(MODEL){}.csv'.format(sim_atual)
+    elif model=="fuzzy":
+        pdffile = 'PDF/results/sumo(FUZZY){}.csv'.format(sim_atual)
+    elif model=="fuzzy2":
+        pdffile = 'PDF/results/sumo(FUZZY2){}.csv'.format(sim_atual)
+    else:
+        pdffile = 'PDF/results/sumo(default_sumo){}.csv'.format(sim_atual)
  
-    if os.path.exists('pdf/results/sumo.csv'):
-        os.remove('pdf/results/sumo.csv')
-    resultFile = open('pdf/results/sumo.csv', 'a')
-   
+    if os.path.exists(pdffile):
+        os.remove(pdffile)
+    resultFile = open(pdffile, 'a')
+    sim_atual += 1
     for i in range(len(pdf)):
         mean_speed +=  i*pdf[i]
         # print('i: ', i, ' pdf: ', pdf[i], ' i*pdf: ', i*pdf[i])
         resultFile.write("{}{}{}{}".format(i,':',pdf[i],'\n'))
 
+    resultFile.close()
 
     return dados_retorno
 
@@ -574,14 +593,15 @@ def main(arquivo):
     mapas = os.listdir(folder)
 
     mapas = [mapa for mapa in mapas if mapa.split(".")[-1]=="xml" and mapa.split(".")[-2]=="net"]
-    mapas = ["super.net.xml"]
+    # mapas = ['15.net.xml']
+    # return
     resultados_obtidos = {}
     for m in mapas:
         resultados_obtidos[m] = {"Model":[],"Krauss":[],"KraussOrig1":[],"KraussPS":[],"PWagner2009":[],"IDM":[],"Wiedemann":[],"W99":[],"Fuzzy":[],"Fuzzy2":[]}
         print("_______Model______________")
         resultados_obtidos[m]["Model"] = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), model, m)
-        # print("_______Krauss______________")
-        # resultados_obtidos[m]["Krauss"]   = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "Krauss", m)
+        print("_______Krauss______________")
+        resultados_obtidos[m]["Krauss"]   = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "Krauss", m)
         # # print("_______KraussOrig1______________")
         # # resultados_obtidos[m]["KraussOrig1"]   = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "KraussOrig1", m)
         # print("_______KraussPS______________")
@@ -594,13 +614,13 @@ def main(arquivo):
         # # resultados_obtidos[m]["Wiedemann"]   = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "Wiedemann", m)
         # # print("_______W99______________")
         # # resultados_obtidos[m]["W99"]   = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "W99", m)
-        # print("_______Fuzzy______________")
-        # resultados_obtidos[m]["Fuzzy"] = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "fuzzy", m)
-        # print("_______Fuzzy2______________")
-        # resultados_obtidos[m]["Fuzzy2"] = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "fuzzy2", m)
+        print("_______Fuzzy______________")
+        resultados_obtidos[m]["Fuzzy"] = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "fuzzy", m)
+        print("_______Fuzzy2______________")
+        resultados_obtidos[m]["Fuzzy2"] = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "fuzzy2", m)
 
 
-        print(resultados_obtidos[m]["Model"])
+        # print(resultados_obtidos[m]["Model"])
 
     #     file = open(folder+m.replace(".net.xml",".extras"),"r")
     #     extras = json.loads(file.read())
@@ -615,6 +635,7 @@ def main(arquivo):
     # f.close()
 
 if __name__ == '__main__':
+    
     # a = "./results/20_20_True_0.1.json"
     a = "./results/20_200_True_0.1.json"
     main(a)

@@ -28,9 +28,9 @@ import traci
 
 
 
-mapas_todos = [
-"super.net.xml",
-]
+# mapas_todos = [
+# "super.net.xml",
+# ]
 
 max_speed_caminhao = 30 # ~ 108km/h
 extras_mapas = None
@@ -168,17 +168,17 @@ def getClosest(arr, n, target):
     return arr[mid]
 
 
-def get_info_pos(mapa, x):
-    global extras_mapas
-    if extras_mapas==None:
-        extras_mapas = {}
-        for m in mapas_todos:
-            f = open("./mapas/"+m.replace(".net.xml",".extras"),"r")
-            extras_mapas[m] = json.loads(f.read())
-            f.close()
+# def get_info_pos(mapa, x):
+#     global extras_mapas
+#     if extras_mapas==None:
+#         extras_mapas = {}
+#         for m in mapas_todos:
+#             f = open("./mapas/"+m.replace(".net.xml",".extras"),"r")
+#             extras_mapas[m] = json.loads(f.read())
+#             f.close()
 
-    d = extras_mapas[mapa]
-    return getClosest(d,len(d),x)
+#     d = extras_mapas[mapa]
+#     return getClosest(d,len(d),x)
 
 
 
@@ -346,11 +346,11 @@ def run(model, mapa):
 
 def run_pre():
 
-    caminho_veiculo_pre = [
-'AA0AB0','AB0AC0','AC0AD0','AD0AE0','AE0AF0','AF0AG0','AG0AH0','AH0AI0','AI0AJ0','AJ0AK0','AK0AL0','AL0AM0','AM0AN0','AN0AO0',
-'AO0AP0','AP0AQ0','AQ0AR0','AR0AS0','AS0AT0','AT0AU0','AU0AV0','AV0AW0','AW0AX0','AX0AY0','AY0AZ0','AZ0BA0','BA0BB0','BB0BC0','BC0BD0','BD0BE0',
-'BE0BF0','BF0BG0','BG0BH0','BH0BI0','BI0BJ0','BJ0BK0','BK0BL0','BL0BM0','BM0BN0','BN0BO0','BO0BP0', 'BP0BQ0', 'BQ0BR0', 'BR0BS0', 'BS0BT0','BT0BU0','BU0BV0','BV0BW0', 'BW0BX0', 'BX0BY0'
-    ]
+    caminho_veiculo_pre = caminho_veiculo#[
+# 'AA0AB0','AB0AC0','AC0AD0','AD0AE0','AE0AF0','AF0AG0','AG0AH0','AH0AI0','AI0AJ0','AJ0AK0','AK0AL0','AL0AM0','AM0AN0','AN0AO0',
+# 'AO0AP0','AP0AQ0','AQ0AR0','AR0AS0','AS0AT0','AT0AU0','AU0AV0','AV0AW0','AW0AX0','AX0AY0','AY0AZ0','AZ0BA0','BA0BB0','BB0BC0','BC0BD0','BD0BE0',
+# 'BE0BF0','BF0BG0','BG0BH0','BH0BI0','BI0BJ0','BJ0BK0','BK0BL0','BL0BM0','BM0BN0','BN0BO0','BO0BP0', 'BP0BQ0', 'BQ0BR0', 'BR0BS0', 'BS0BT0','BT0BU0','BU0BV0','BV0BW0', 'BW0BX0', 'BX0BY0'
+#     ]
 
 #     caminho_veiculo_pre = [
 # 'AA0AB0','AB0AC0','AC0AD0','AD0AE0','AE0AF0','AF0AG0','AG0AH0','AH0AI0','AI0AJ0','AJ0AK0','AK0AL0','AL0AM0','AM0AN0','AN0AO0',
@@ -364,7 +364,6 @@ def run_pre():
     traci.vehicle.setParameter("path_mapper","carFollowModel","KraussPS")
     traci.vehicle.setVehicleClass("path_mapper","passenger")
     traci.vehicle.setMaxSpeed("path_mapper",0.3) # 3.6
-
 
 
     dados = []
@@ -391,6 +390,7 @@ def run_pre():
         print("######################")
         print(e, step)
         print("######################")
+        raise e
 
 
 
@@ -411,7 +411,6 @@ def start_pre_simulation(sumo, scenario, network):
     sumo = subprocess.Popen([sumo, "-c", scenario, "--device.emissions.probability", "1.0", "--remote-port", str(remote_port), "--duration-log.statistics","--log", "logfile.txt"], stdout=sys.stdout, stderr=sys.stderr)
     unused_port_lock.release()
 
-
     try:
         traci.init(remote_port)
         return run_pre()
@@ -423,59 +422,59 @@ def start_pre_simulation(sumo, scenario, network):
         terminate_sumo(sumo)
         unused_port_lock.__exit__()
 
-def start_simulation(sumo, scenario, network, output, model, mapa):
-    unused_port_lock = UnusedPortLock()
-    unused_port_lock.__enter__()
-    remote_port = find_unused_port()
+# def start_simulation(sumo, scenario, network, output, model, mapa):
+#     unused_port_lock = UnusedPortLock()
+#     unused_port_lock.__enter__()
+#     remote_port = find_unused_port()
 
-    sumo = subprocess.Popen([sumo, "-c", scenario, "--tripinfo-output", output, "--device.emissions.probability", "1.0", "--remote-port", str(remote_port), "--duration-log.statistics","--log", "logfile.txt"], stdout=sys.stdout, stderr=sys.stderr)
-    unused_port_lock.release()
-
-
-    try:
-        traci.init(remote_port)
-        return run(model, mapa)
-    except Exception as e:
-        print(e)
-        raise
-    finally:
-        print("Terminating SUMO")
-        terminate_sumo(sumo)
-        unused_port_lock.__exit__()
+#     sumo = subprocess.Popen([sumo, "-c", scenario, "--tripinfo-output", output, "--device.emissions.probability", "1.0", "--remote-port", str(remote_port), "--duration-log.statistics","--log", "logfile.txt"], stdout=sys.stdout, stderr=sys.stderr)
+#     unused_port_lock.release()
 
 
-def custom_fitness(genome, outputfile):
-    model = get_model()
-
-    model.set_weights(genome)
-
-    mapas = mapas_todos
-    folder = "./mapas/"
-
-    consumo_total = 0
-    for m in mapas:
-
-        consumo = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "./output/"+m+outputfile, model, m)
-
-        consumo_total += consumo
-
-        # if consumo_total==float("Infinity"): # isso faz pular mapas no teste caso a gente ja tenha identificado algum muito lento
-        #     break
+#     try:
+#         traci.init(remote_port)
+#         return run(model, mapa)
+#     except Exception as e:
+#         print(e)
+#         raise
+#     finally:
+#         print("Terminating SUMO")
+#         terminate_sumo(sumo)
+#         unused_port_lock.__exit__()
 
 
-    f = open("./output/"+m+outputfile,"r")
-    conteudo = f.read()
-    f.close()
-    conteudo = conteudo.split("\n")
-    conteudo[33] = conteudo[33].split("fuel_abs")
-    conteudo[33] = conteudo[33][0]+"fuel_abs=\"{:.6f}\" electricity_abs=\"0\"/>".format(consumo_total)
-    conteudo = "\n".join(conteudo)
-    f = open("./output/"+m+outputfile,"w")
-    f.write(conteudo)
-    f.close()
+# def custom_fitness(genome, outputfile):
+#     model = get_model()
+
+#     model.set_weights(genome)
+
+#     mapas = mapas_todos
+#     folder = "./mapas/"
+
+#     consumo_total = 0
+#     for m in mapas:
+
+#         consumo = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "./output/"+m+outputfile, model, m)
+
+#         consumo_total += consumo
+
+#         # if consumo_total==float("Infinity"): # isso faz pular mapas no teste caso a gente ja tenha identificado algum muito lento
+#         #     break
 
 
-    return 1/consumo_total
+#     f = open("./output/"+m+outputfile,"r")
+#     conteudo = f.read()
+#     f.close()
+#     conteudo = conteudo.split("\n")
+#     conteudo[33] = conteudo[33].split("fuel_abs")
+#     conteudo[33] = conteudo[33][0]+"fuel_abs=\"{:.6f}\" electricity_abs=\"0\"/>".format(consumo_total)
+#     conteudo = "\n".join(conteudo)
+#     f = open("./output/"+m+outputfile,"w")
+#     f.write(conteudo)
+#     f.close()
+
+
+#     return 1/consumo_total
 
 def custom_random_genome():
     model = get_model()
@@ -491,7 +490,6 @@ def custom_random_genome():
 def pre_simulation():
 
     mapas = [
-        # "super.net.xml",
         "0.net.xml",
         "1.net.xml",
         "2.net.xml",
@@ -522,8 +520,12 @@ def pre_simulation():
         "27.net.xml",
         "28.net.xml",
         "29.net.xml",
+        "30.net.xml",
+        "31.net.xml",
+        "32.net.xml",
+        "33.net.xml",
     ]
-    folder = "./mapas_validation/"
+    folder = "./mapas/"
 
     for m in mapas:
         dados = start_pre_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m))
@@ -538,58 +540,58 @@ def main():
 
 
 
-    folder = './output/'
-    for filename in os.listdir(folder):
-        file_path = os.path.join(folder, filename)
-        try:
-            if os.path.isfile(file_path) or os.path.islink(file_path):
-                os.unlink(file_path)
-            elif os.path.isdir(file_path):
-                shutil.rmtree(file_path)
-        except Exception as e:
-            print('Failed to delete %s. Reason: %s' % (file_path, e))
+    # folder = './output/'
+    # for filename in os.listdir(folder):
+    #     file_path = os.path.join(folder, filename)
+    #     try:
+    #         if os.path.isfile(file_path) or os.path.islink(file_path):
+    #             os.unlink(file_path)
+    #         elif os.path.isdir(file_path):
+    #             shutil.rmtree(file_path)
+    #     except Exception as e:
+    #         print('Failed to delete %s. Reason: %s' % (file_path, e))
 
 
     pre_simulation()
     return
-    population_size   = 20
-    iteration_limit   = 200
-    cut_half_pop      = True
-    replicate_best    = 0.10
+    # population_size   = 20
+    # iteration_limit   = 200
+    # cut_half_pop      = True
+    # replicate_best    = 0.10
 
-    name =  str(population_size)+"_"+\
-            str(iteration_limit)+"_"+\
-            str(cut_half_pop)+"_"+\
-            str(replicate_best)
-
-
-    g = GA2.GeneticAlgorithm(custom_random_genome)
-    g.set_evaluate(custom_fitness)
-
-    g.set_population_size(population_size)
-    g.set_iteration_limit(iteration_limit)
-    g.set_stop_criteria_type(1)
-    g.set_mutate(custom_mutate)
-    g.set_cut_half_population(cut_half_pop)
-    g.set_replicate_best(replicate_best)
+    # name =  str(population_size)+"_"+\
+    #         str(iteration_limit)+"_"+\
+    #         str(cut_half_pop)+"_"+\
+    #         str(replicate_best)
 
 
+    # g = GA2.GeneticAlgorithm(custom_random_genome)
+    # g.set_evaluate(custom_fitness)
+
+    # g.set_population_size(population_size)
+    # g.set_iteration_limit(iteration_limit)
+    # g.set_stop_criteria_type(1)
+    # g.set_mutate(custom_mutate)
+    # g.set_cut_half_population(cut_half_pop)
+    # g.set_replicate_best(replicate_best)
 
 
 
-    g.run()
+
+
+    # g.run()
 
 
 
-    infos = {}
-    infos["ga_config"] = g.get_config()
-    infos["historic"] = g.historic
+    # infos = {}
+    # infos["ga_config"] = g.get_config()
+    # infos["historic"] = g.historic
 
 
 
-    f = open("./results/"+name+".json","w")
-    f.write(json.dumps(infos, indent=2))
-    f.close()
+    # f = open("./results/"+name+".json","w")
+    # f.write(json.dumps(infos, indent=2))
+    # f.close()
 
 
 
