@@ -1,9 +1,18 @@
+import json
+import os
+import math
+
 import matplotlib.pyplot as plt
 import matplotlib.markers as plm
 import numpy as np
-import json
-import os
 import matplotlib.colors as mcolors
+
+def mean_confidence_interval(data, confidence=0.95):
+    a = 1.0 * np.array(data)
+    n = len(a)
+    m, se = np.mean(a), np.std(a)
+    h = 1.96 * (se/math.sqrt(n))
+    return (m, h)
 
 color1 = "tab:blue"
 color2 = "tab:orange"
@@ -92,15 +101,20 @@ xticklabels = ['Fuzzy 1', 'Fuzzy 2', 'Model', 'Sumo']
 
 for i in range(0, 3):
 
+    m1, s1 = mean_confidence_interval(data_list[i][0])
+    m2, s2 = mean_confidence_interval(data_list[i][1])
+    m3, s3 = mean_confidence_interval(data_list[i][2])
+    m4, s4 = mean_confidence_interval(data_list[i][3])
+
     ax.bar(np.arange(0, 4) + space[i],
-            [np.mean(data_list[i][0]), 
-             np.mean(data_list[i][1]), 
-             np.mean(data_list[i][2]), 
-             np.mean(data_list[i][3])],
-            yerr=[np.std(data_list[i][0]), 
-                    np.std(data_list[i][1]), 
-                    np.std(data_list[i][2]),
-                    np.std(data_list[i][3])],
+            [m1, 
+             m2, 
+             m3, 
+             m4],
+            yerr=[s1, 
+                  s2, 
+                  s3,
+                  s4],
             label=labels[i],
             width=0.2,
             alpha=0.9,
