@@ -1,6 +1,6 @@
 import json
 import os
-import math, sys
+import math
 
 import matplotlib.pyplot as plt
 import matplotlib.markers as plm
@@ -75,51 +75,23 @@ data_list = [[mean_speed_fuzzy, mean_speed_fuzzyv, mean_speed_model, mean_speed_
             [total_fuel_fuzzy, total_fuel_fuzzyv, total_fuel_model, total_fuel_sumo],
             [step_fuzzy, step_fuzzyv, step_model, step_sumo]]
 
+for i in range(len(data_list)):
+    mini = np.amin(data_list[i])
+    maxi = np.amax(data_list[i])
+    
+    for j in range(len(data_list[i])):
 
-for j in range(len(data_list[0])):
-    mini = np.amin(data_list[0])
-    maxi = np.amax(data_list[0])
+        for k in range(len(data_list[i][j])):
 
-    for k in range(len(data_list[0][j])):
-
-        data_list[0][j][k] = (data_list[0][j][k] - mini) / (maxi - mini)
-        # data_list[0][j][k] = data_list[0][j][k]/110#(data_list[i][j][k] - mini) / (maxi - mini)
-
-
-
-for j in range(len(data_list[1])):
-    mini = np.amin(data_list[1])
-    maxi = np.amax(data_list[1])
-
-    for k in range(len(data_list[1][j])):
-
-        data_list[1][j][k] = (data_list[1][j][k] - mini) / (maxi - mini)
-        # data_list[1][j][k] = data_list[1][j][k]/3000#(data_list[i][j][k] - mini) / (maxi - mini)
-
-for j in range(len(data_list[2])):
-    mini = np.amin(data_list[2])
-    maxi = np.amax(data_list[2])
-
-    for k in range(len(data_list[2][j])):
-
-        data_list[2][j][k] = (data_list[2][j][k] - mini) / (maxi - mini)
-        # data_list[2][j][k] = data_list[2][j][k]/200#(data_list[i][j][k] - mini) / (maxi - mini)
-
-# for i in range(1,len(data_list)-1, 1 ):
-#     mini = np.amin(data_list[i])
-#     maxi = np.amax(data_list[i])
-#     for j in range(len(data_list[i])):
-
-#         for k in range(len(data_list[i][j])):
-
-#             data_list[i][j][k] = (data_list[i][j][k] - mini) / (maxi - mini)
+            data_list[i][j][k] = data_list[i][j][k]/maxi
+            # data_list[i][j][k] = (data_list[i][j][k] - mini) / (maxi - mini)
 
 
-# for i in range(len(data_list)):
+for i in range(len(data_list)):
 
-#     print(f'{np.mean(data_list[i][0])}, {np.mean(data_list[i][1])}, {np.mean(data_list[i][2])}, {np.mean(data_list[i][3])}')
-#     print(f'{np.std(data_list[i][0])}, {np.std(data_list[i][1])}, {np.std(data_list[i][2])}, {np.std(data_list[i][3])}')
-#     print('')
+    print(f'{np.mean(data_list[i][0])}, {np.mean(data_list[i][1])}, {np.mean(data_list[i][2])}, {np.mean(data_list[i][3])}')
+    print(f'{np.std(data_list[i][0])}, {np.std(data_list[i][1])}, {np.std(data_list[i][2])}, {np.std(data_list[i][3])}')
+    print('')
 
 
 fig, ax = plt.subplots()
@@ -167,6 +139,6 @@ ax.legend(loc='lower center', bbox_to_anchor=(0.5, 1),
 
 ax.grid(linestyle='--', axis='y', alpha=0.4, color='black')
 
-# ax.set_ylim(0.5,1)
+ax.set_ylim(0.5, 1.01)
 
 fig.savefig('test.png', bbox_inches='tight')
