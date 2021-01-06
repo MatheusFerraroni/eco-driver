@@ -20,12 +20,12 @@ import math
 import matplotlib.colors as mcolors
 
 
-color1 = "tab:blue"
-color2 = "tab:orange"
-color3 = "tab:green"
-color4 = "tab:red"
-color6 = "tab:purple"
-color5 = "tab:pink"
+color1 = "#606c38" # model
+color2 = "#00bbf9" #fuzzy1
+color3 = "#774936" #fuzzy2
+color4 = "#e63946" #sumo
+# color6 = "tab:purple"
+color5 = "#404040" #recommended
 
 
 caminho_veiculo = [
@@ -451,6 +451,16 @@ def plow(dados, extras, nome):
     ax[0].set_ylabel('Height [m]', fontsize=13)
 
 
+    if len(dados["Model"])>0:
+        xs = []
+        ys = []
+        for a in dados["Model"]:
+            xs.append(a['x'])
+            ys.append(a['speed_recommended']*3.6)
+        if len(xs)>0:
+            ax[2].plot(xs, ys, dashes=[6, 2], label="Recommended", color=color5,  linewidth=2)
+            # ax[3].plot([], [], dashes=[6, 2], label="Model Recommended", color="#bd1111")
+
 
 
     entradas = [
@@ -471,11 +481,25 @@ def plow(dados, extras, nome):
     for e in entradas:
         xs = []
         ys = []
+
+        m = ''
+        if e == 'Model':
+           m = 'o'
+           colorx = color1 
+        if e == 'KraussPS':
+           m = 'd'
+           colorx = color4
+        if e == 'Fuzzy':
+           m = 'v'
+           colorx = color2
+        if e == 'Fuzzy2':
+           m = 's'
+           colorx = color3 
         for a in dados[e]:
             xs.append(a['x'])
             ys.append(a['fuel_last_step'])
         if len(xs)>0:
-            ax[1].plot(xs, ys, label=e,  alpha=0.7,  linewidth=2)
+            ax[1].plot(xs, ys, label=e,  alpha=1,  linewidth=1, color=colorx, marker=m, markevery=2)
 
 
 
@@ -515,16 +539,6 @@ def plow(dados, extras, nome):
     # 
 
 
-    if len(dados["Model"])>0:
-        xs = []
-        ys = []
-        for a in dados["Model"]:
-            xs.append(a['x'])
-            ys.append(a['speed_recommended']*3.6)
-        if len(xs)>0:
-            ax[2].plot(xs, ys, dashes=[6, 2], label="Recommended", color=color5,  linewidth=2)
-            # ax[3].plot([], [], dashes=[6, 2], label="Model Recommended", color="#bd1111")
-
 
     ax[2].set_xlabel('Distance [m]', fontsize=13)
     ax[2].set_ylabel('Speed [km/h]', fontsize=13)
@@ -554,6 +568,7 @@ def plow(dados, extras, nome):
     ax[2].legend()
     ax[2].legend(loc='lower center', bbox_to_anchor=(0.5, 3.6),  ncol=5, fancybox=True, shadow=True, prop={"size":13})
 
+    print("writed", "./mapas_validation/FINAL_"+nome+".pdf")
     plt.savefig("./mapas_validation/FINAL_"+nome+".pdf", bbox_inches="tight")
     plt.close()
     # break
@@ -576,31 +591,40 @@ def main(arquivo):
 
     mapas = [mapa for mapa in mapas if mapa.split(".")[-1]=="xml" and mapa.split(".")[-2]=="net"]
     
+    mapas = ['9.net.xml']
+    # sys.exit()
     resultados_obtidos = {}
     for m in mapas:
         resultados_obtidos[m] = {"Model":[],"Krauss":[],"KraussOrig1":[],"KraussPS":[],"PWagner2009":[],"IDM":[],"Wiedemann":[],"W99":[],"Fuzzy":[],"Fuzzy2":[]}
-        print("_______Model______________")
-        resultados_obtidos[m]["Model"] = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), model, m)
-        # print("_______Krauss______________")
-        # resultados_obtidos[m]["Krauss"]   = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "Krauss", m)
-        # print("_______KraussOrig1______________")
-        # resultados_obtidos[m]["KraussOrig1"]   = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "KraussOrig1", m)
-        print("_______KraussPS______________")
-        resultados_obtidos[m]["KraussPS"]   = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "KraussPS", m)
-        # print("_______PWagner2009______________")
-        # resultados_obtidos[m]["PWagner2009"]   = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "PWagner2009", m)
-        # print("_______IDM______________")
-        # resultados_obtidos[m]["IDM"]   = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "IDM", m)
-        # print("_______Wiedemann______________")
-        # resultados_obtidos[m]["Wiedemann"]   = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "Wiedemann", m)
-        # print("_______W99______________")
-        # resultados_obtidos[m]["W99"]   = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "W99", m)
-        print("_______Fuzzy______________")
-        resultados_obtidos[m]["Fuzzy"] = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "fuzzy", m)
-        print("_______Fuzzy2______________")
-        resultados_obtidos[m]["Fuzzy2"] = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "fuzzy2", m)
+        # print("_______Model______________")
+        # resultados_obtidos[m]["Model"] = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), model, m)
+        # # print("_______Krauss______________")
+        # # resultados_obtidos[m]["Krauss"]   = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "Krauss", m)
+        # # print("_______KraussOrig1______________")
+        # # resultados_obtidos[m]["KraussOrig1"]   = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "KraussOrig1", m)
+        # print("_______KraussPS______________")
+        # resultados_obtidos[m]["KraussPS"]   = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "KraussPS", m)
+        # # print("_______PWagner2009______________")
+        # # resultados_obtidos[m]["PWagner2009"]   = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "PWagner2009", m)
+        # # print("_______IDM______________")
+        # # resultados_obtidos[m]["IDM"]   = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "IDM", m)
+        # # print("_______Wiedemann______________")
+        # # resultados_obtidos[m]["Wiedemann"]   = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "Wiedemann", m)
+        # # print("_______W99______________")
+        # # resultados_obtidos[m]["W99"]   = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "W99", m)
+        # print("_______Fuzzy______________")
+        # resultados_obtidos[m]["Fuzzy"] = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "fuzzy", m)
+        # print("_______Fuzzy2______________")
+        # resultados_obtidos[m]["Fuzzy2"] = start_simulation("sumo", (folder+m).replace(".net.xml",".sumo.cfg"), (folder+m), "fuzzy2", m)
 
 
+        # f = open("nds.txt", "w")
+        # f.write(json.dumps(resultados_obtidos))
+        # f.close()
+
+        f = open("nds.txt","r")
+        resultados_obtidos[m] = json.loads(f.read())["9.net.xml"]
+        f.close()
 
         file = open(folder+m.replace(".net.xml",".extras"),"r")
         extras = json.loads(file.read())
@@ -610,9 +634,9 @@ def main(arquivo):
         plow(resultados_obtidos[m], extras, m)
         # break
 
-    f = open("final_res_complete.json","w")
-    f.write(json.dumps(resultados_obtidos))
-    f.close()
+    # f = open("final_res_complete.json","w")
+    # f.write(json.dumps(resultados_obtidos))
+    # f.close()
 
 if __name__ == '__main__':
     # a = "./results/20_20_True_0.1.json"

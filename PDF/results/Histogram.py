@@ -17,10 +17,10 @@ y2 = []
 x3 = []
 y3 = []
 
-a1 = 'fuzzy_2'
-a2 = 'fuzzy_4'
-a3 = 'modelo'
-a4 = 'sumo'
+a1 = 'sumo(FUZZY)2'
+a2 = 'sumo(FUZZY2)3'
+a3 = 'sumo(MODEL)0'
+a4 = 'sumo(default_sumo)1'
 
 arquivo = 'Empirical_Probability_Density'
 

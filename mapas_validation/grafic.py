@@ -1,4 +1,4 @@
-import os
+import os, sys
 import json
 import matplotlib.pyplot as plt
 
@@ -6,9 +6,13 @@ files = os.listdir("./")
 
 z_add = 100
 
+files = ['9.extras']
+
+# sys.exit()
 for f in files:
     ext = f.split(".")[-1]
 
+    print(f+".pdf")
     if ext!="extras":
         continue
 
@@ -47,6 +51,6 @@ for f in files:
     ax.set_title('Elevation for Map '+f.replace(".extras",""))
     ax.set_xlabel('Distance (m)')
     ax.set_ylabel('Height (h)')
-    # plt.show()
-    plt.savefig(f+".pdf", bbox_inches="tight")
+    plt.show()
+    # plt.savefig(f+".pdf", bbox_inches="tight")
     # break

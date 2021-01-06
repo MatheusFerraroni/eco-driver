@@ -115,6 +115,19 @@ for i in range(0, 3):
     # print(m3, s3)
     # print(m4, s4)
 
+    color = "red"
+    hatch = '|'
+
+    if i==0:
+        color='#1d3557'
+        hatch = '++'
+    elif i==1:
+        color='#457b9d'
+        hatch = ''
+    elif i==2:
+        color='#a8dadc'
+        hatch = '..'
+
     ax.bar(np.arange(0, 4) + space[i],
             [m1, 
              m2, 
@@ -128,9 +141,11 @@ for i in range(0, 3):
             width=0.2,
             alpha=0.9,
             edgecolor='black',
+            hatch=hatch,
+            color=color,
             capsize=2)
 
-ax.set_ylabel('Normalized Result', fontweight='bold')
+ax.set_ylabel('Scaled Result', fontweight='bold')
 ax.set_xlabel('Strategies', fontweight='bold')
 ax.set_xticks(np.arange(len(xticklabels)) + 0.4)
 ax.set_xticklabels(xticklabels)
