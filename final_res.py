@@ -10,20 +10,20 @@ import threading
 import socket
 import subprocess
 import time
-from keras.models import Sequential
-from keras.layers import Dense
+# from keras.models import Sequential
+# from keras.layers import Dense
 import shutil
-import fuzzy_in_two
-import fuzzy_in_four
-import ConsuptionModel as cM
+# import fuzzy_in_two
+# import fuzzy_in_four
+# import ConsuptionModel as cM
 import math
 import matplotlib.colors as mcolors
 
 
-color1 = "#606c38" # model
-color2 = "#00bbf9" #fuzzy1
-color3 = "#774936" #fuzzy2
-color4 = "#e63946" #sumo
+color1 = "#4ed460" # model
+color2 = "#4996ba" #fuzzy1
+color3 = "#ba9c49" #fuzzy2
+color4 = "#ba495a" #sumo
 # color6 = "tab:purple"
 color5 = "#404040" #recommended
 
@@ -434,7 +434,7 @@ def plow(dados, extras, nome):
     #ax[1].grid(True, which="both", ls="-", linewidth=0.1, color='0.10', zorder=0)   
     ax[1].grid(True, which="both", ls="-", linewidth=1, color='gainsboro', zorder=0)   
     ax[2].grid(True, which="both", ls="-", linewidth=1, color='gainsboro', zorder=0)   
-    ax[0].patch.set_facecolor('#87d3e0')
+    ax[0].patch.set_facecolor('#87ceeb')
     ax[0].set_xlim(-20,xs[-1]+20)
     ax[1].set_xlim(-20,xs[-1]+20)
     ax[2].set_xlim(-20,xs[-1]+20)
@@ -443,9 +443,9 @@ def plow(dados, extras, nome):
     ax[1].set_xlim(0,2000)
     ax[2].set_xlim(0,2000)
     # ax[3].set_xlim(-20,xs[-1]+20)
-    ax[0].stackplot(xs, ys_green_above, color="#269126")
+    ax[0].stackplot(xs, ys_green_above, color="#136d15")
     ax[0].stackplot(xs, ys, color="#000000")
-    ax[0].stackplot(xs, ys_green_below, color="#269126")
+    ax[0].stackplot(xs, ys_green_below, color="#136d15")
     ax[0].set_title('Elevation for Map '+nome.replace(".net.xml",""), loc='left', fontsize=13)
     ax[0].set_xlabel('Distance [m]', fontsize=13)
     ax[0].set_ylabel('Height [m]', fontsize=13)
@@ -483,23 +483,28 @@ def plow(dados, extras, nome):
         ys = []
 
         m = ''
+        lst= ""
         if e == 'Model':
            m = 'o'
            colorx = color1 
+           lst = "-"
         if e == 'KraussPS':
            m = 'd'
            colorx = color4
+           lst = "-"
         if e == 'Fuzzy':
            m = 'v'
            colorx = color2
+           lst = "-."
         if e == 'Fuzzy2':
            m = 's'
            colorx = color3 
+           lst = ":"
         for a in dados[e]:
             xs.append(a['x'])
             ys.append(a['fuel_last_step'])
         if len(xs)>0:
-            ax[1].plot(xs, ys, label=e,  alpha=1,  linewidth=1, color=colorx, marker=m, markevery=2)
+            ax[1].plot(xs, ys, label=e,  alpha=1,  linewidth=1.5, color=colorx, marker=m, markevery=2, linestyle=lst)
 
 
 
@@ -521,20 +526,26 @@ def plow(dados, extras, nome):
             ys.append(a['speed']*3.6)
             total = a['total_fuel']
         if len(xs)>0:
+            m = ''
+            lst= ""
             if e == 'Model':
-               e = 'Neural Network'
+               m = 'o'
                colorx = color1 
+               lst = "-"
             if e == 'KraussPS':
-               e = 'SUMO' 
+               m = 'd'
                colorx = color4
+               lst = "-"
             if e == 'Fuzzy':
-               e = 'Fuzzy1' 
+               m = 'v'
                colorx = color2
+               lst = "-."
             if e == 'Fuzzy2':
-               e = 'Fuzzy2' 
+               m = 's'
                colorx = color3 
+               lst = ":"
             # ax[2].plot(xs, ys, label="{} ({})".format(e,total))
-            ax[2].plot(xs, ys, label=e, color=colorx,  alpha=0.7,  linewidth=2)
+            ax[2].plot(xs, ys, label=e, color=colorx,  alpha=1,  linewidth=1.5, marker=m, markevery=2, linestyle=lst)
 
     # 
 
@@ -580,9 +591,9 @@ def main(arquivo):
     dado = json.loads(f.read())
     f.close()
     gen = dado["historic"][0]["best_genome"]
-    gen = converter(gen)
-    model = get_model()
-    model.set_weights(gen)
+    # gen = converter(gen)
+    # model = get_model()
+    # model.set_weights(gen)
 
 
 
