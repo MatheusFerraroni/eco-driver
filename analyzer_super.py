@@ -26,6 +26,7 @@ def proc(arquivos):
     ys_max_geral = []
     ys_min_geracao = []
     ys_mean = []
+    p = 0
     for g in geracoes_txt:
         valores_fuel = []
         for arqs in geracoes[str(g)]:
@@ -54,10 +55,14 @@ def proc(arquivos):
                 # raise
                 continue
 
-            valores_fuel.append(float(dado[0][0].attrib["fuel_abs"]))
+            v_fuel = float(dado[0][0].attrib["fuel_abs"])
+
+            valores_fuel.append(v_fuel)
+
 
         min_geral = min(min_geral, min(valores_fuel))
-        #print(g,min_geral)
+
+
         ys_min_geral.append(min_geral)
         ys_max_geral.append(max(valores_fuel))
         ys_min_geracao.append(min(valores_fuel))
@@ -68,15 +73,18 @@ def proc(arquivos):
 
     namePlot = 'total_fuel_consuption_Evolution_during_generations'
     fig, ax = plt.subplots()
+
     # ax.set_ylim(0,300)
     # ax.patch.set_facecolor('#87d3e0')
     # ax.set_xlim(-20,1920)
-    ax.plot(geracoes_txt, ys_min_geral,label="Best Solution")
-    ax.plot(geracoes_txt, ys_max_geral,label="Worst Generation")
-    ax.plot(geracoes_txt, ys_min_geracao,label="Best Generation")
-    ax.plot(geracoes_txt, ys_mean,label="Mean Generation")
+    ax.plot(geracoes_txt, ys_min_geral,label="Best Total",  alpha=1, markevery=10, marker="o", linewidth=1.5, color="#1d3557")
+    # ax.plot(geracoes_txt, ys_max_geral,label="Worst Generation")
+    ax.plot(geracoes_txt, ys_min_geracao,label="Best Generation",  alpha=1, markevery=10, marker="d", linewidth=1.5, color="#457b9d")
+    ax.plot(geracoes_txt, ys_mean,label="Mean Generation",  alpha=1, markevery=10, marker="v", linewidth=1.5, color="#459d6e")
     #ax.set_title("Evolution during generations")
-    ax.legend(numpoints=1, loc="upper right", ncol=2, fontsize='medium')
+    # ax.legend(numpoints=1, loc="upper right", ncol=2, fontsize='medium')
+    ax.legend(loc='lower center', bbox_to_anchor=(0.5, 1),
+              ncol=4, fancybox=True, shadow=True)
     ax.set_xlabel('Generations')
     ax.set_ylabel('Total Fuel Consuption (ml)')    
     ax.grid(True, which="both", ls="-", linewidth=0.2, color='0.10', zorder=0)
